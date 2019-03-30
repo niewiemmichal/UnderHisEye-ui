@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor, Patient } from './doctor';
 import { MatSelectChange } from '@angular/material';
+import { ColumnInfoItem } from '../../table/table.component';
 
 @Component({
   selector: 'app-visits-by-doctor',
@@ -177,15 +178,267 @@ export class VisitsByDoctorComponent implements OnInit {
           name: 'Aida',
           surname: 'Gray',
           visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
+        },{
+          id: '5c9e822a39b7d1131b53e834',
+          name: 'Jenny',
+          surname: 'Nguyen',
+          visit: 'Sun Apr 21 1974 20:47:55 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a647947364cdfda79',
+          name: 'Iva',
+          surname: 'Torres',
+          visit: 'Thu Sep 02 2010 10:03:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822aafd4e7fd1c24646d',
+          name: 'Silvia',
+          surname: 'Matthews',
+          visit: 'Fri Feb 11 2000 14:48:58 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822af8dc7d1b239c2da9',
+          name: 'Eleanor',
+          surname: 'Hubbard',
+          visit: 'Sun Sep 05 2010 18:08:19 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a4913ce4886dee337',
+          name: 'Hamilton',
+          surname: 'Spence',
+          visit: 'Mon Jan 11 1993 20:20:29 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822ab856e7fcdff90578',
+          name: 'Lindsey',
+          surname: 'Kent',
+          visit: 'Fri Jul 29 1988 03:09:12 GMT+0000 (UTC)'
+        },
+        {
+          id: '5c9e822a1e8dfd57b7e294fe',
+          name: 'Aida',
+          surname: 'Gray',
+          visit: 'Sun Dec 06 2009 08:29:33 GMT+0000 (UTC)'
         }
       ]
     }
   ];
 
-  patientsToDisplay: Patient[];
+  patientsToDisplay: Patient[] = [];
+
+  columns: ColumnInfoItem[] = [
+    { columnDef: 'Id',        header: 'Id',      cell: (element: any) => `${element.id}` },
+    { columnDef: 'Name',      header: 'Name',     cell: (element: any) => `${element.name}`     },
+    { columnDef: 'Surname',   header: 'Surname',  cell: (element: any) => `${element.surname}`   },
+    { columnDef: 'Visit',     header: 'Visit',    cell: (element: any) => `${element.visit}`   },
+  ];
 
   selectionChanged(event: MatSelectChange): void {
-    console.log(event.value.patients);
     this.patientsToDisplay = event.value.patients;
   }
 

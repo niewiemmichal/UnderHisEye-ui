@@ -1,23 +1,24 @@
 <div class="mat-elevation-z8">
 
-  <!-- <mat-paginator
+  <mat-paginator
     #paginator
-    [length]="dataSource.data.length"
+    [length]="data?.length"
     [pageIndex]="0"
-    [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 25, 50]"
+    (page)="changePage($event)"
   >
-  </mat-paginator> -->
+  </mat-paginator>
 
   <table
     mat-table
     class="full-width-table"
-    [dataSource]="data"
+    [dataSource]="displayData"
     matSort
     aria-label="Elements"
   >
     <ng-container
-      *ngFor="let column of columns"
+      *ngFor="let column of columnsDisplayed"
       [matColumnDef]="column.columnDef"
     >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>

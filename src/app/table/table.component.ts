@@ -1,24 +1,43 @@
-import { Component, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { Component, ViewChild, Input, OnInit } from '@angular/core';
+import { MatPaginator, MatSort, PageEvent } from '@angular/material';
+
+export interface ColumnInfoItem {
+  columnDef: string;
+  header: string;
+  cell: (element: any) => string;
+}
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() data: Object[] = [ new Object()];
-  // @Input() columnsDisplayed: string[];
+  @Input() data: Object[];
+  @Input() columnsDisplayed: ColumnInfoItem[];
 
-  columns = [
-    { columnDef: 'Lol',       header: 'Lol',      cell: (element: any) => `${element.id}` },
-    { columnDef: 'Name',      header: 'Name',     cell: (element: any) => `${element.name}`     },
-    { columnDef: 'Surname',   header: 'Surname',  cell: (element: any) => `${element.surname}`   },
-    { columnDef: 'Visit',     header: 'Visit',    cell: (element: any) => `${element.visit}`   },
-  ];
+  pageSize: number = 10;
+  pageIndex: number = 0;
 
-  columnNames = this.columns.map(c => c.header);
+  get displayData(): Object[] {
+    return this.data.slice(
+      this.pageIndex * this.pageSize,
+      (this.pageIndex + 1) * this.pageSize
+    );
+  }
+
+  get columnNames(): string[] {
+    return this.columnsDisplayed.map(c => c.header);
+  }
+
+  ngOnInit(): void {
+  }
+
+  changePage(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+  }
 }
