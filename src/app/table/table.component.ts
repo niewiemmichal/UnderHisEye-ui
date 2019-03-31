@@ -30,7 +30,7 @@ export class TableComponent implements OnInit {
   }
 
   get columnNames(): string[] {
-    return this.columnsDisplayed.map(c => c.header);
+    return this.columnsDisplayed.map(c => c.header).concat(["options"]);
   }
 
   ngOnInit(): void {

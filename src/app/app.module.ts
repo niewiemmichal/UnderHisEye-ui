@@ -32,7 +32,8 @@ import { TableComponent } from './table/table.component';
     Mat.MatPaginatorModule,
     Mat.MatSortModule,
     Mat.MatSelectModule,
-    Mat.MatDividerModule
+    Mat.MatDividerModule,
+    Mat.MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
