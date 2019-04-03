@@ -2,7 +2,15 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="!(isHandset$ | async)">
-        <mat-toolbar>Menu</mat-toolbar>
+        
+        <mat-card class="mat-elevation-z0">
+            <mat-card-header>
+                <i mat-card-avatar class="material-icons">perm_identity</i>
+                <mat-card-title>Rejestrator</mat-card-title>
+                <mat-card-subtitle>rejestrator@bd.com</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        
         <mat-divider></mat-divider>
         <mat-nav-list>
             <a mat-list-item href="#">Link 1</a>

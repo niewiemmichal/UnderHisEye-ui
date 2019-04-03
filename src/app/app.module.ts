@@ -33,7 +33,9 @@ import { TableComponent } from './table/table.component';
     Mat.MatSortModule,
     Mat.MatSelectModule,
     Mat.MatDividerModule,
-    Mat.MatMenuModule
+    Mat.MatMenuModule,
+    Mat.MatCardModule,
+    Mat.MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
