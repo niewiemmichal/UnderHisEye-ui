@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/visits-by-doctor.component';
 import { TableComponent } from './table/table.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VisitsByDoctorComponent,
-    TableComponent
+    TableComponent,
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -35,7 +37,9 @@ import { TableComponent } from './table/table.component';
     Mat.MatDividerModule,
     Mat.MatMenuModule,
     Mat.MatCardModule,
-    Mat.MatIconModule
+    Mat.MatIconModule,
+    Mat.MatFormFieldModule,
+    Mat.MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

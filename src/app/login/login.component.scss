@@ -1,0 +1,19 @@
+.mat-card {
+    position: absolute;
+    width: 350px;
+    height: 200px;
+    left: calc(50% - 175px);
+    top: calc(50% - 225px);
+
+    .mat-form-field {
+        display: block;
+        width: 80%;
+        left: 10%;
+    }
+
+    .mat-flat-button {
+        position: absolute;
+        right: 10%;
+        bottom: 10%;
+    }
+}
