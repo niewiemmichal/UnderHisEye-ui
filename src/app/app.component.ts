@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LoginEvent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Przychodnia-Frontend';
+  title: string = "Title";
 
   isLogged: boolean = false;
 
@@ -19,4 +20,9 @@ export class AppComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
+
+  loggedIn(event: LoginEvent): void {
+    this.title = event.AccountType;
+    this.isLogged = true;
+  }
 }

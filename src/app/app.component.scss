@@ -5,8 +5,8 @@
     width: 250px;
 
     .mat-card {
-      background: inherit;
       padding: 32px 16px 0 16px;
+      border-radius: 0;
 
       &.mat-primary {
         position: sticky;
@@ -17,6 +17,21 @@
       .material-icons {
         font-size: 40px;
       }
+    }
+  }
+
+  .mat-sidenav-content {
+    display: flex;
+    flex-direction: column;
+
+    .mat-toolbar {
+      flex: 0 0 64px;
+    }
+
+    app-visits-by-doctor {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column
     }
   }
 }

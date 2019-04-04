@@ -1,6 +1,6 @@
-<app-login *ngIf="!isLogged"></app-login>
+<app-login *ngIf="!isLogged" (loggedIn)="loggedIn($event)"></app-login>
 
-<mat-sidenav-container *ngIf="isLogged" class="sidenav-container">
+<mat-sidenav-container *ngIf="isLogged" class="sidenav-container" fullscreen>
     <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
         [opened]="!(isHandset$ | async)">
@@ -26,7 +26,7 @@
                 *ngIf="isHandset$ | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <span>Przychodnia-Frontend</span>
+            <span>{{title}}</span>
         </mat-toolbar>
 
         <app-visits-by-doctor></app-visits-by-doctor>
