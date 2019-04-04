@@ -1,11 +1,17 @@
-.options {
-    flex: 0 0 95px;
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-    .select-doctor{
-        margin: 20px 30px 10px 30px;
+    .options {
+        flex: 0 0 95px;
+    
+        .select-doctor{
+            margin: 20px 30px 10px 30px;
+        }
     }
-}
-
-app-table {
-    flex: 1 1 auto;
+    
+    app-table {
+        flex: 1 1 auto;
+    }
 }

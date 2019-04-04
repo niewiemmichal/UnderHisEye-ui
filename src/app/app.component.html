@@ -15,9 +15,10 @@
         
         <mat-divider></mat-divider>
         <mat-nav-list>
-            <a mat-list-item href="#">Link 1</a>
-            <a mat-list-item href="#">Link 2</a>
-            <a mat-list-item href="#">Link 3</a>
+            <a mat-list-item routerLink="/visits-by-doctor" routerLinkActive="active">Home</a>
+            <a mat-list-item href="#">New visit</a>
+            <a mat-list-item href="#">Manage visits</a>
+            <a mat-list-item href="#">New Patient</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -29,7 +30,9 @@
             <span>{{title}}</span>
         </mat-toolbar>
 
-        <app-visits-by-doctor></app-visits-by-doctor>
+        <div class="router-wrapper">
+            <router-outlet></router-outlet>
+        </div>
 
     </mat-sidenav-content>
 </mat-sidenav-container>
