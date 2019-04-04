@@ -1,0 +1,23 @@
+<div class="options">
+  <mat-form-field class="select-doctor">
+    <mat-label>Lekarze</mat-label>
+
+    <mat-select 
+      [(ngModel)]="selectedValue" 
+      name="food"
+      (selectionChange)="selectionChanged($event)"
+      >
+      <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+        {{ doctor.name }} {{ doctor.surname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="select-date">
+    <input matInput [matDatepicker]="picker" placeholder="Data wizyty" [formControl]="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<app-table [data]="termsToDisplay" [columnsDisplayed]="columns"></app-table>
