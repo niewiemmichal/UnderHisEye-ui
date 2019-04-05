@@ -1,27 +1,12 @@
 <div class="mat-elevation-z8">
-  
-  <mat-paginator
-    #paginator
-    [length]="data?.length"
-    [pageIndex]="0"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[10, 25, 50]"
-    (page)="changePage($event)"
-  >
+
+  <mat-paginator #paginator [length]="data?.length" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]"
+    (page)="changePage($event)">
   </mat-paginator>
 
-  <table
-    mat-table
-    class="full-width-table"
-    [dataSource]="displayData"
-    matSort
-    (matSortChange)="sortData($event)"
-    aria-label="Elements"
-  >
-    <ng-container
-      *ngFor="let column of columnsInfo"
-      [matColumnDef]="column.columnDef"
-    >
+  <table mat-table class="full-width-table" [dataSource]="displayData" matSort (matSortChange)="sortData($event)"
+    aria-label="Elements">
+    <ng-container *ngFor="let column of columnsInfo" [matColumnDef]="column.columnDef">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ column.header }}
       </th>
@@ -45,7 +30,14 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnDefs"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnDefs"></tr>
+    <tr 
+      mat-row
+      #row
+      *matRowDef="let row; columns: columnDefs; let i = index" 
+      (click)="rowClick($event, row, i)" 
+      [ngClass]="{'clickable': clickableRows, 'active': currentActiveRow === row}"
+      >
+    </tr>
   </table>
-  
+
 </div>

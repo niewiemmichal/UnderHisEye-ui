@@ -25,11 +25,13 @@ export class TableComponent {
     return this._data;
   }
   @Input() columnsInfo: ColumnInfoItem[];
+  @Input() clickableRows: boolean = true;
 
   private _sortedData: Object[] = [];
   private _data: Object[] = [];
   pageSize: number = 10;
   pageIndex: number = 0;
+  currentActiveRow: Object = new Object();
 
   get displayData(): Object[] {
     return this._sortedData.slice(
@@ -59,6 +61,15 @@ export class TableComponent {
         const column = this.columnsInfo.find(c => c.columnDef === sort.active);
         return (column.cell(a) < column.cell(b) ? -1 : 1) * (isAsc ? 1 : -1);
       });
+    }
+  }
+
+  rowClick(event: MouseEvent, row: Object, i: any): void {
+    if(row === this.currentActiveRow){
+      this.currentActiveRow = new Object();
+    }
+    else{
+      this.currentActiveRow = row;
     }
   }
 }

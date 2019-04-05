@@ -12,6 +12,7 @@ import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/v
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
 import { TermSelectionComponent } from './routing-components/term-selection/term-selection.component';
+import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TermSelectionComponent } from './routing-components/term-selection/term
     VisitsByDoctorComponent,
     TableComponent,
     LoginComponent,
-    TermSelectionComponent
+    TermSelectionComponent,
+    NewVisitComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -44,7 +46,8 @@ import { TermSelectionComponent } from './routing-components/term-selection/term
     Mat.MatFormFieldModule,
     Mat.MatInputModule,
     Mat.MatDatepickerModule,
-    Mat.MatNativeDateModule
+    Mat.MatNativeDateModule,
+    Mat.MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

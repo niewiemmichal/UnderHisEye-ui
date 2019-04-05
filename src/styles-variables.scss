@@ -2,3 +2,9 @@
 
 $primary: mat-palette($mat-indigo);
 $accent:  mat-palette($mat-pink, A200, A100, A400);
+
+$theme: mat-light-theme($primary, $accent);
+
+$warn: map-get($map: $theme, $key: warn);
+$foreground: map-get($map: $theme, $key: foreground);
+$background: map-get($map: $theme, $key: background);

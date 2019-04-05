@@ -1,0 +1,11 @@
+<div class="options">
+  <mat-form-field>
+    <input #name matInput placeholder="Patient name"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input #surname matInput placeholder="Patient surname"/>
+  </mat-form-field>
+</div>
+
+<app-table [data]="patients" [columnsInfo]="columns"></app-table>

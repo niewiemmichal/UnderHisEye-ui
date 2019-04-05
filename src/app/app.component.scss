@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+
 @import "./../styles-variables.scss";
 
 .sidenav-container {
@@ -29,8 +29,8 @@
         border-radius: 0 100px 100px 0;
 
         &.active {
-          background-color: mat-color($primary, 50);
-          color: mat-color($primary);
+          background-color: map-get($primary, 50);
+          color: map-get($primary, 500);
         }
       }
     }
