@@ -355,9 +355,50 @@ export class NewVisitComponent {
   ];
 
   selectionChanged(event: MatSelectChange): void {
-    this.termsToDisplay = event.value.terms;
-    event.value.terms.filter(term => console.log(new Date(term.date).getFullYear(), this.date.value.getFullYear()));
-    console.log(this.date.value);
+    this.termsToDisplay = event.value.terms.filter(term => 
+      this.compareDates(new Date(term.date), this.date.value) >= 0
+    );
   }
 
+  compareDates(date1: Date, date2: Date): number {
+    const year1: number = date1.getFullYear();
+    const month1: number = date1.getMonth();
+    const day1: number = date1.getDate();
+    const year2: number = date2.getFullYear();
+    const month2: number = date2.getMonth();
+    const day2: number = date2.getDate();
+    let result: number = 0;
+
+    if (year1 > year2) {
+      result = 1;
+    }
+    else if (year1 === year2) {
+
+      if (month1 > month2) {
+        result = 1
+      }
+      else if (month1 === month2) {
+
+        if (day1 > day2) {
+          result = 1
+        }
+        else if (day1 === day2) {
+          result = 0
+        }
+        else {
+          result = -1;
+        }
+
+      }
+      else {
+        result = -1;
+      }
+
+    }
+    else {
+      result = -1;
+    }
+
+    return result;
+  }
 }

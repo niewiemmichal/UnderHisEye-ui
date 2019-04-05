@@ -10,7 +10,7 @@ import { LoginEvent } from './login/login.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title: string = "Title";
+  title: string = 'Title';
 
   isLogged: boolean = false;
 
