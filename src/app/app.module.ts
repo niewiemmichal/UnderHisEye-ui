@@ -11,7 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/visits-by-doctor.component';
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
-import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
+import { TermSelectionComponent } from './routing-components/term-selection/term-selection.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { NewVisitComponent } from './routing-components/new-visit/new-visit.comp
     VisitsByDoctorComponent,
     TableComponent,
     LoginComponent,
-    NewVisitComponent
+    TermSelectionComponent
   ],
   imports: [
     BrowserAnimationsModule,

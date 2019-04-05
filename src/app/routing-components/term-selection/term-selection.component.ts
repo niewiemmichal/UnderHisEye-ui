@@ -16,11 +16,11 @@ class Doctor {
 }
 
 @Component({
-  selector: 'app-new-visit',
-  templateUrl: './new-visit.component.html',
-  styleUrls: ['./new-visit.component.scss']
+  selector: 'app-term-selection',
+  templateUrl: './term-selection.component.html',
+  styleUrls: ['./term-selection.component.scss']
 })
-export class NewVisitComponent {
+export class TermSelectionComponent {
 
   doctors: Doctor[] = [
     {

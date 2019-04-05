@@ -12,7 +12,7 @@ import { LoginEvent } from './login/login.component';
 export class AppComponent {
   title: string = 'Title';
 
-  isLogged: boolean = false;
+  isLogged: boolean = true;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
