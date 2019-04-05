@@ -432,10 +432,10 @@ export class VisitsByDoctorComponent implements OnInit {
   patientsToDisplay: Patient[] = [];
 
   columns: ColumnInfoItem[] = [
-    { columnDef: 'Id',        header: 'Id',      cell: (element: any) => `${element.id}` },
-    { columnDef: 'Name',      header: 'Name',     cell: (element: any) => `${element.name}`     },
-    { columnDef: 'Surname',   header: 'Surname',  cell: (element: any) => `${element.surname}`   },
-    { columnDef: 'Visit',     header: 'Visit',    cell: (element: any) => `${element.visit}`   },
+    { columnDef: 'id',        header: 'Id',       cell: (element: any) => `${element.id}` },
+    { columnDef: 'name',      header: 'Name',     cell: (element: any) => `${element.name}`     },
+    { columnDef: 'surname',   header: 'Surname',  cell: (element: any) => `${element.surname}`   },
+    { columnDef: 'visit',     header: 'Visit',    cell: (element: any) => `${element.visit}`   },
   ];
 
   selectionChanged(event: MatSelectChange): void {

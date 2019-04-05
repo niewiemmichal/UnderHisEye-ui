@@ -15,10 +15,11 @@
     class="full-width-table"
     [dataSource]="displayData"
     matSort
+    (matSortChange)="sortData($event)"
     aria-label="Elements"
   >
     <ng-container
-      *ngFor="let column of columnsDisplayed"
+      *ngFor="let column of columnsInfo"
       [matColumnDef]="column.columnDef"
     >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -43,8 +44,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnDefs"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnDefs"></tr>
   </table>
   
 </div>

@@ -350,8 +350,8 @@ export class NewVisitComponent {
   date: FormControl = new FormControl(new Date());
 
   columns: ColumnInfoItem[] = [
-    { columnDef: 'Date',      header: 'Date',     cell: (element: any) => `${element.date}` },
-    { columnDef: 'Time',      header: 'Time',     cell: (element: any) => `${element.time}`},
+    { columnDef: 'date',      header: 'Date',     cell: (element: any) => `${element.date}` },
+    { columnDef: 'time',      header: 'Time',     cell: (element: any) => `${element.time}`},
   ];
 
   selectionChanged(event: MatSelectChange): void {
