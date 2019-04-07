@@ -1,26 +1,41 @@
-<div class="new-visits" *ngIf="!showTermSelection">
-  <div class="options">
-    <mat-form-field class="options-left-item">
-      <input #name matInput placeholder="Patient name"/>
-    </mat-form-field>
+<div class="options" *ngIf="!showTermSelection">
+  <mat-form-field class="options-left-item">
+    <input #name matInput placeholder="Patient name" />
+  </mat-form-field>
 
-    <mat-form-field class="options-left-item">
-      <input #surname matInput placeholder="Patient surname"/>
-    </mat-form-field>
+  <mat-form-field class="options-left-item">
+    <input #surname matInput placeholder="Patient surname" />
+  </mat-form-field>
 
-    <span class="divider"></span>
+  <span class="divider"></span>
 
-    <button 
-      class="options-right-item" 
-      mat-flat-button color="primary" 
-      [disabled]="selectedPatient === null"
-      (click)="nextClick()"
-      >
-      Next
-    </button>
-  </div>
+  <button
+    mat-button
+    color="primary"
+    (click)="openDialog()"
+  >
+  Add patient
+  </button>
 
-  <app-table [data]="patients" [columnsInfo]="columns" (rowSelected)="rowSelected($event)"></app-table>
+  <button
+    class="options-right-item"
+    mat-flat-button
+    color="primary"
+    [disabled]="selectedPatient === null"
+    (click)="nextClick()"
+  >
+    Next
+  </button>
 </div>
 
-<app-term-selection *ngIf="showTermSelection" [patient]="selectedPatient"></app-term-selection>
+<app-table
+  *ngIf="!showTermSelection"
+  [data]="patients"
+  [columnsInfo]="columns"
+  (rowSelected)="rowSelected($event)"
+></app-table>
+
+<app-term-selection
+  *ngIf="showTermSelection"
+  [patient]="selectedPatient"
+></app-term-selection>

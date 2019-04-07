@@ -12,7 +12,9 @@ import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/v
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
 import { TermSelectionComponent } from './routing-components/term-selection/term-selection.component';
-import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
+import { NewVisitComponent, DialogDataExampleDialog } from './routing-components/new-visit/new-visit.component';
+import { NewPatientComponent } from './new-patient/new-patient.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NewVisitComponent } from './routing-components/new-visit/new-visit.comp
     TableComponent,
     LoginComponent,
     TermSelectionComponent,
-    NewVisitComponent
+    NewVisitComponent,
+    NewPatientComponent,
+    DialogDataExampleDialog
   ],
   imports: [
     BrowserAnimationsModule,
@@ -47,9 +51,15 @@ import { NewVisitComponent } from './routing-components/new-visit/new-visit.comp
     Mat.MatInputModule,
     Mat.MatDatepickerModule,
     Mat.MatNativeDateModule,
-    Mat.MatRippleModule
+    Mat.MatRippleModule,
+    Mat.MatDialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    DialogDataExampleDialog
+  ]
 })
 export class AppModule { }

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ColumnInfoItem } from 'src/app/table/table.component';
-import { isEmpty } from 'rxjs/operators';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 
 class Patient {
   name: string;
   surname: string;
   pesel: number;
+}
+
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
 }
 
 @Component({
@@ -105,4 +109,22 @@ export class NewVisitComponent {
   nextClick(): void {
     this.showTermSelection = true;
   }
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(DialogDataExampleDialog, {
+      data: {
+        animal: 'panda'
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-data-example-dialog',
+  templateUrl: 'new-patient-dialog.html',
+})
+export class DialogDataExampleDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }
