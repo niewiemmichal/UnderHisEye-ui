@@ -32,9 +32,8 @@
     <tr mat-header-row *matHeaderRowDef="columnDefs"></tr>
     <tr 
       mat-row
-      #row
       *matRowDef="let row; columns: columnDefs; let i = index" 
-      (click)="rowClick($event, row, i)" 
+      (click)="rowClick($event, row, i)"
       [ngClass]="{'clickable': clickableRows, 'active': currentActiveRow === row}"
       >
     </tr>

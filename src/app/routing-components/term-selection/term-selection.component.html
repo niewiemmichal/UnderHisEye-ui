@@ -1,5 +1,5 @@
 <div class="options">
-  <mat-form-field class="select-doctor">
+  <mat-form-field class="options-left-item">
     <mat-label>Lekarze</mat-label>
 
     <mat-select 
@@ -13,7 +13,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="select-date">
+  <mat-form-field class="options-left-item">
     <input matInput [matDatepicker]="picker" placeholder="Data wizyty" [formControl]="date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>

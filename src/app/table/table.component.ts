@@ -1,5 +1,5 @@
-import { Component, ViewChild, Input } from '@angular/core';
-import { MatPaginator, MatSort, PageEvent, Sort } from '@angular/material';
+import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { MatPaginator, MatSort, PageEvent, Sort, MatRow } from '@angular/material';
 
 export interface ColumnInfoItem {
   columnDef: string;
@@ -27,11 +27,13 @@ export class TableComponent {
   @Input() columnsInfo: ColumnInfoItem[];
   @Input() clickableRows: boolean = true;
 
+  @Output() rowSelected: EventEmitter<Object> = new EventEmitter();
+
   private _sortedData: Object[] = [];
   private _data: Object[] = [];
   pageSize: number = 10;
   pageIndex: number = 0;
-  currentActiveRow: Object = new Object();
+  currentActiveRow: Object = null;
 
   get displayData(): Object[] {
     return this._sortedData.slice(
@@ -66,10 +68,11 @@ export class TableComponent {
 
   rowClick(event: MouseEvent, row: Object, i: any): void {
     if(row === this.currentActiveRow){
-      this.currentActiveRow = new Object();
+      this.currentActiveRow = null;
     }
     else{
       this.currentActiveRow = row;
     }
+    this.rowSelected.emit(this.currentActiveRow);
   }
 }

@@ -4,11 +4,20 @@
     flex-direction: column;
 
     .options {
-        flex: 0 0 95px;
-        margin-left: 30px;
+        padding: 20px 30px 10px 30px;
+        display: flex;
+        align-items: center; 
     
-        .mat-form-field {
-            margin: 20px 30px 10px 0px;
+        .options-left-item {
+            margin-right: 30px;
+        }
+
+        .options-right-item {
+            margin-left: 30px;
+        }
+
+        .divider {
+            flex: 1 1 auto;
         }
     }
     
