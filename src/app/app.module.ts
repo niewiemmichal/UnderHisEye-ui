@@ -12,9 +12,10 @@ import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/v
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
 import { TermSelectionComponent } from './routing-components/term-selection/term-selection.component';
-import { NewVisitComponent, DialogDataExampleDialog } from './routing-components/new-visit/new-visit.component';
+import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { NewPatientDialog } from './routing-components/new-visit/new-patient-dialog/new-patient-dialog';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
     TermSelectionComponent,
     NewVisitComponent,
     NewPatientComponent,
-    DialogDataExampleDialog
+    NewPatientDialog
   ],
   imports: [
     BrowserAnimationsModule,
@@ -59,7 +60,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogDataExampleDialog
+    NewPatientDialog
   ]
 })
 export class AppModule { }

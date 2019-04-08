@@ -1,15 +1,13 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ColumnInfoItem } from 'src/app/table/table.component';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
+import { NewPatient } from 'src/app/new-patient/new-patient.component';
 
 class Patient {
   name: string;
   surname: string;
   pesel: number;
-}
-
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
 }
 
 @Component({
@@ -113,18 +111,15 @@ export class NewVisitComponent {
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
-    this.dialog.open(DialogDataExampleDialog, {
-      data: {
-        animal: 'panda'
-      }
-    });
+    this.dialog
+      .open(NewPatientDialog)
+      .afterClosed()
+      .subscribe((response: NewPatient) => {
+        if (response !== undefined) this.addPatient(response);
+      });
   }
-}
 
-@Component({
-  selector: 'dialog-data-example-dialog',
-  templateUrl: 'new-patient-dialog.html',
-})
-export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  addPatient(response: NewPatient): void {
+    this.patients.unshift(response);
+  }
 }
