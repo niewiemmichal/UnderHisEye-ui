@@ -7,6 +7,11 @@ export interface ColumnInfoItem {
     cell: (element: any) => string;
 }
 
+export interface SelectedOption {
+    optionName: string;
+    row: Object;
+}
+
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
@@ -16,6 +21,9 @@ export class TableComponent {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
+    private _sortedData: Object[] = [];
+    private _data: Object[] = [];
+
     @Input()
     set data(data: Object[]) {
         this._sortedData = data;
@@ -24,13 +32,13 @@ export class TableComponent {
     get data(): Object[] {
         return this._data;
     }
-    @Input() columnsInfo: ColumnInfoItem[];
+    @Input() columnsInfo: ColumnInfoItem[] = [];
+    @Input() rowOptions: string[] = [];
     @Input() clickableRows: boolean = true;
 
     @Output() rowSelected: EventEmitter<Object> = new EventEmitter();
+    @Output() optionSelected: EventEmitter<SelectedOption> = new EventEmitter();
 
-    private _sortedData: Object[] = [];
-    private _data: Object[] = [];
     pageSize: number = 10;
     pageIndex: number = 0;
     currentActiveRow: Object = null;
@@ -43,7 +51,9 @@ export class TableComponent {
     }
 
     get columnDefs(): string[] {
-        return this.columnsInfo.map(c => c.columnDef).concat(['options']);
+        return this.rowOptions.length > 0
+            ? this.columnsInfo.map(c => c.columnDef).concat('options')
+            : this.columnsInfo.map(c => c.columnDef);
     }
 
     changePage(event: PageEvent): void {
@@ -72,5 +82,9 @@ export class TableComponent {
             this.currentActiveRow = row;
         }
         this.rowSelected.emit(this.currentActiveRow);
+    }
+
+    optionClick(option: string, row: Object): void {
+        this.optionSelected.emit({ optionName: option.toLowerCase(), row: row });
     }
 }

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Doctor, Patient } from './doctor';
 import { MatSelectChange } from '@angular/material';
-import { ColumnInfoItem } from '../../table/table.component';
+import { ColumnInfoItem, SelectedOption } from '../../table/table.component';
 
 @Component({
     selector: 'app-visits-by-doctor',
     templateUrl: './visits-by-doctor.component.html',
     styleUrls: ['./visits-by-doctor.component.scss'],
 })
-export class VisitsByDoctorComponent implements OnInit {
+export class VisitsByDoctorComponent {
     doctors: Doctor[] = [
         {
             id: 1,
@@ -444,9 +444,13 @@ export class VisitsByDoctorComponent implements OnInit {
         { columnDef: 'visit', header: 'Visit', cell: (element: any) => `${element.visit}` },
     ];
 
+    options: string[] = ['Accept', 'Cancel'];
+
     selectionChanged(event: MatSelectChange): void {
         this.patientsToDisplay = event.value.patients;
     }
 
-    ngOnInit(): void {}
+    optionSelected(selectedOption: SelectedOption): void {
+        console.log(selectedOption);
+    }
 }

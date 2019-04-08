@@ -33,9 +33,13 @@
                     <i class="material-icons">more_vert</i>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>Cancel</button>
-                    <button mat-menu-item>Edit</button>
-                    <button mat-menu-item>More</button>
+                    <button
+                        mat-menu-item
+                        *ngFor="let option of rowOptions"
+                        (click)="optionClick(option, row)"
+                    >
+                        {{ option }}
+                    </button>
                 </mat-menu>
             </td>
         </ng-container>
