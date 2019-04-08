@@ -1,18 +1,17 @@
 <div class="options">
-  <mat-form-field class="options-left-item">
-    <mat-label>Lekarze</mat-label>
+    <mat-form-field class="options-left-item">
+        <mat-label>Lekarze</mat-label>
 
-    <mat-select 
-      [(ngModel)]="selectedValue" 
-      name="food"
-      (selectionChange)="selectionChanged($event)"
-      >
-      <mat-option *ngFor="let doctor of doctors" [value]="doctor">
-        {{ doctor.name }} {{ doctor.surname }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <mat-select
+            [(ngModel)]="selectedValue"
+            name="food"
+            (selectionChange)="selectionChanged($event)"
+        >
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+                {{ doctor.name }} {{ doctor.surname }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <app-table [data]="patientsToDisplay" [columnsInfo]="columns"></app-table>
-

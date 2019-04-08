@@ -1,51 +1,50 @@
-
-@import "./../styles-variables.scss";
+@import './../styles-variables.scss';
 
 .sidenav-container {
-  height: 100%;
+    height: 100%;
 
-  .sidenav {
-    width: 250px;
+    .sidenav {
+        width: 250px;
 
-    .mat-card {
-      padding: 32px 16px 0 16px;
-      border-radius: 0;
+        .mat-card {
+            padding: 32px 16px 0 16px;
+            border-radius: 0;
 
-      &.mat-primary {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-      }
+            &.mat-primary {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
 
-      .material-icons {
-        font-size: 40px;
-      }
-    }
-
-    .mat-nav-list {
-      margin-right: 10px;
-
-      .mat-list-item {
-        border-radius: 0 100px 100px 0;
-
-        &.active {
-          background-color: map-get($primary, 50);
-          color: map-get($primary, 500);
+            .material-icons {
+                font-size: 40px;
+            }
         }
-      }
-    }
-  }
 
-  .mat-sidenav-content {
-    display: flex;
-    flex-direction: column;
+        .mat-nav-list {
+            margin-right: 10px;
 
-    .mat-toolbar {
-      flex: 0 0 64px;
+            .mat-list-item {
+                border-radius: 0 100px 100px 0;
+
+                &.active {
+                    background-color: map-get($primary, 50);
+                    color: map-get($primary, 500);
+                }
+            }
+        }
     }
 
-    .router-wrapper {
-      flex: 1 1 auto;
+    .mat-sidenav-content {
+        display: flex;
+        flex-direction: column;
+
+        .mat-toolbar {
+            flex: 0 0 64px;
+        }
+
+        .router-wrapper {
+            flex: 1 1 auto;
+        }
     }
-  }
 }

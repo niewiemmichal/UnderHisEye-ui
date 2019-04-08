@@ -5,24 +5,23 @@ import { map } from 'rxjs/operators';
 import { LoginEvent } from './login/login.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title: string = 'Title';
+    title: string = 'Title';
 
-  isLogged: boolean = true;
+    isLogged: boolean = true;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+    isHandset$: Observable<boolean> = this.breakpointObserver
+        .observe(Breakpoints.Handset)
+        .pipe(map(result => result.matches));
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+    constructor(private breakpointObserver: BreakpointObserver) {}
 
-  loggedIn(event: LoginEvent): void {
-    this.title = event.AccountType;
-    this.isLogged = true;
-  }
+    loggedIn(event: LoginEvent): void {
+        this.title = event.AccountType;
+        this.isLogged = true;
+    }
 }

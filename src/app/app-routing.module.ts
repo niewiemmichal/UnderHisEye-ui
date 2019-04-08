@@ -4,12 +4,12 @@ import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/v
 import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
 
 const routes: Routes = [
-  { path: 'visits-by-doctor',   component: VisitsByDoctorComponent },
-  { path: 'new-visit',          component: NewVisitComponent }
+    { path: 'visits-by-doctor', component: VisitsByDoctorComponent },
+    { path: 'new-visit', component: NewVisitComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

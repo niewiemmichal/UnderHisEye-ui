@@ -1,22 +1,22 @@
 <mat-form-field floatLabel="never">
-  <input #name matInput placeholder="Name" />
+    <input #name matInput placeholder="Name" />
 </mat-form-field>
 
 <mat-form-field floatLabel="never">
-  <input #surname matInput placeholder="Surname" />
+    <input #surname matInput placeholder="Surname" />
 </mat-form-field>
 
 <mat-form-field floatLabel="never">
-  <input #pesel matInput placeholder="PESEL" type="number" />
+    <input #pesel matInput placeholder="PESEL" type="number" />
 </mat-form-field>
 
 <button
-  mat-flat-button
-  color="primary"
-  (click)="loginButtonClick(name.value, surname.value, pesel.value)"
-  [disabled]="name === '' || surname === '' || pesel.value === ''"
+    mat-flat-button
+    color="primary"
+    (click)="loginButtonClick(name.value, surname.value, pesel.value)"
+    [disabled]="name === '' || surname === '' || pesel.value === ''"
 >
-  Add
+    Add
 </button>
 
 <button mat-button (click)="cancel()">Cancel</button>

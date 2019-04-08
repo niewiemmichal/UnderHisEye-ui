@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import * as Mat from '@angular/material'
+import * as Mat from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,49 +18,45 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { NewPatientDialog } from './routing-components/new-visit/new-patient-dialog/new-patient-dialog';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    VisitsByDoctorComponent,
-    TableComponent,
-    LoginComponent,
-    TermSelectionComponent,
-    NewVisitComponent,
-    NewPatientComponent,
-    NewPatientDialog
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Mat.MatToolbarModule,
-    Mat.MatButtonModule,
-    Mat.MatSidenavModule,
-    Mat.MatIconModule,
-    Mat.MatListModule,
-    Mat.MatTableModule,
-    Mat.MatPaginatorModule,
-    Mat.MatSortModule,
-    Mat.MatSelectModule,
-    Mat.MatDividerModule,
-    Mat.MatMenuModule,
-    Mat.MatCardModule,
-    Mat.MatIconModule,
-    Mat.MatFormFieldModule,
-    Mat.MatInputModule,
-    Mat.MatDatepickerModule,
-    Mat.MatNativeDateModule,
-    Mat.MatRippleModule,
-    Mat.MatDialogModule
-  ],
-  providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    NewPatientDialog
-  ]
+    declarations: [
+        AppComponent,
+        VisitsByDoctorComponent,
+        TableComponent,
+        LoginComponent,
+        TermSelectionComponent,
+        NewVisitComponent,
+        NewPatientComponent,
+        NewPatientDialog,
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        AppRoutingModule,
+        LayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        Mat.MatToolbarModule,
+        Mat.MatButtonModule,
+        Mat.MatSidenavModule,
+        Mat.MatIconModule,
+        Mat.MatListModule,
+        Mat.MatTableModule,
+        Mat.MatPaginatorModule,
+        Mat.MatSortModule,
+        Mat.MatSelectModule,
+        Mat.MatDividerModule,
+        Mat.MatMenuModule,
+        Mat.MatCardModule,
+        Mat.MatIconModule,
+        Mat.MatFormFieldModule,
+        Mat.MatInputModule,
+        Mat.MatDatepickerModule,
+        Mat.MatNativeDateModule,
+        Mat.MatRippleModule,
+        Mat.MatDialogModule,
+    ],
+    providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
+    bootstrap: [AppComponent],
+    entryComponents: [NewPatientDialog],
 })
-export class AppModule { }
+export class AppModule {}

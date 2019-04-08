@@ -2,12 +2,14 @@
     <mat-card-title>Login</mat-card-title>
 
     <mat-form-field floatLabel="never">
-        <input #name matInput placeholder="Email/Name"/>
-    </mat-form-field>
-    
-    <mat-form-field floatLabel="never">
-        <input #pass matInput placeholder="Password" type="password"/>
+        <input #name matInput placeholder="Email/Name" />
     </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="loginButtonClick(name.value, pass.value)">Login</button>
+    <mat-form-field floatLabel="never">
+        <input #pass matInput placeholder="Password" type="password" />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="loginButtonClick(name.value, pass.value)">
+        Login
+    </button>
 </mat-card>

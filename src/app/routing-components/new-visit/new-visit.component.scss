@@ -6,8 +6,8 @@
     .options {
         padding: 20px 30px 10px 30px;
         display: flex;
-        align-items: center; 
-    
+        align-items: center;
+
         .options-left-item {
             margin-right: 30px;
         }
@@ -20,7 +20,7 @@
             flex: 1 1 auto;
         }
     }
-    
+
     app-table {
         flex: 1 1 auto;
     }

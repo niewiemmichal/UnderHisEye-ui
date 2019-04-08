@@ -1,24 +1,24 @@
-@import "./../../styles-variables.scss";
+@import './../../styles-variables.scss';
 
 .mat-elevation-z8 {
-  height: 100%;
-  
-  .full-width-table {
-    width: 100%;
-  }
-  
-  .mat-column-options {
-    text-align: center;
-  }
+    height: 100%;
 
-  .clickable {
-    &:hover {
-      background-color: map-get($background, hover);
-      cursor: pointer;
+    .full-width-table {
+        width: 100%;
     }
 
-    &.active {
-      background-color: map-get($primary, 50);
+    .mat-column-options {
+        text-align: center;
     }
-  }
+
+    .clickable {
+        &:hover {
+            background-color: map-get($background, hover);
+            cursor: pointer;
+        }
+
+        &.active {
+            background-color: map-get($primary, 50);
+        }
+    }
 }
