@@ -97,6 +97,8 @@ export class NewVisitComponent {
         },
     ];
 
+    constructor(public dialog: MatDialog) { }
+
     selectedPatient: Patient = null;
     showTermSelection: boolean = false;
 
@@ -108,9 +110,7 @@ export class NewVisitComponent {
         this.showTermSelection = true;
     }
 
-    constructor(public dialog: MatDialog) {}
-
-    openDialog() {
+    openDialog(): void {
         this.dialog
             .open(NewPatientDialog)
             .afterClosed()

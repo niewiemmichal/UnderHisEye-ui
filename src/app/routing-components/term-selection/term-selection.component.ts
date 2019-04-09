@@ -349,7 +349,8 @@ export class TermSelectionComponent {
     @Input() patient: Patient;
 
     termsToDisplay: Term[] = [];
-    date: FormControl = new FormControl(new Date());
+    dateForm: FormControl = new FormControl(new Date());
+    selectedDoctor: Doctor = null;
 
     columns: ColumnInfoItem[] = [
         {
@@ -364,10 +365,9 @@ export class TermSelectionComponent {
         },
     ];
 
-    selectionChanged(event: MatSelectChange): void {
-        this.termsToDisplay = event.value.terms.filter(
-            term => this.compareDates(new Date(term.date), this.date.value) >= 0
-        );
+    selectionChanged(doctor: Doctor): void {
+        this.selectedDoctor = doctor;
+        this.termsToDisplay = this.filterTerms(doctor.terms, this.dateForm.value);
     }
 
     compareDates(date1: Date, date2: Date): number {
@@ -400,5 +400,13 @@ export class TermSelectionComponent {
         }
 
         return result;
+    }
+
+    dateChanged(date: Date): void {
+        this.termsToDisplay = this.filterTerms(this.selectedDoctor.terms, date);
+    }
+
+    filterTerms(terms: Term[], date: Date): Term[] {
+        return terms.filter(term => this.compareDates(new Date(term.date), date) >= 0);
     }
 }
