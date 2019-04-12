@@ -29,6 +29,7 @@
     [data]="patients"
     [columnsInfo]="columns"
     (rowSelected)="rowSelected($event)"
+    clickableRows="true"
 ></app-table>
 
 <app-term-selection *ngIf="showTermSelection" [patient]="selectedPatient"></app-term-selection>

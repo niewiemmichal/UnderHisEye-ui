@@ -34,7 +34,7 @@ export class TableComponent {
     }
     @Input() columnsInfo: ColumnInfoItem[] = [];
     @Input() rowOptions: string[] = [];
-    @Input() clickableRows: boolean = true;
+    @Input() clickableRows: boolean = false;
 
     @Output() rowSelected: EventEmitter<Object> = new EventEmitter();
     @Output() optionSelected: EventEmitter<SelectedOption> = new EventEmitter();
