@@ -8,14 +8,14 @@ import * as Mat from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { VisitsByDoctorComponent } from './routing-components/visits-by-doctor/visits-by-doctor.component';
-import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
-import { TermSelectionComponent } from './routing-components/term-selection/term-selection.component';
-import { NewVisitComponent } from './routing-components/new-visit/new-visit.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
-import { NewPatientDialog } from './routing-components/new-visit/new-patient-dialog/new-patient-dialog';
+import { VisitsByDoctorComponent } from './visits-by-doctor/visits-by-doctor.component';
+import { TermSelectionComponent } from './login/term-selection/term-selection.component';
+import { NewVisitComponent } from './new-visit/new-visit.component';
+import { NewPatientDialog } from './new-visit/new-patient-dialog/new-patient-dialog';
+import { TableComponent } from './shared/components/table/table.component';
 
 @NgModule({
     declarations: [

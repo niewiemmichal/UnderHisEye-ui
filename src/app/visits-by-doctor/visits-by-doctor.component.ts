@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Doctor, Patient } from './doctor';
 import { MatSelectChange } from '@angular/material';
-import { ColumnInfoItem, SelectedOption } from '../../table/table.component';
+import { ColumnInfoItem, SelectedOption } from '../shared/components/table/table.component';
 
 @Component({
     selector: 'app-visits-by-doctor',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ColumnInfoItem } from 'src/app/table/table.component';
 import { MatDialog } from '@angular/material';
 import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
 import { NewPatient } from 'src/app/new-patient/new-patient.component';
+import { ColumnInfoItem } from '../shared/components/table/table.component';
 
 class Patient {
     name: string;
@@ -97,7 +97,7 @@ export class NewVisitComponent {
         },
     ];
 
-    constructor(public dialog: MatDialog) { }
+    constructor(public dialog: MatDialog) {}
 
     selectedPatient: Patient = null;
     showTermSelection: boolean = false;

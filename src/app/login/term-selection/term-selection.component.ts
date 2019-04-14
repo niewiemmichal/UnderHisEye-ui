@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ColumnInfoItem } from 'src/app/table/table.component';
-import { MatSelectChange } from '@angular/material';
 import { FormControl } from '@angular/forms';
-import { Patient } from '../visits-by-doctor/doctor';
+import { Patient } from '../../visits-by-doctor/doctor';
+import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
 
 class Term {
     time: string;
