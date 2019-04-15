@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Patient } from '../../visits-by-doctor/doctor';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
+import { Patient } from '../visits-by-doctor/doctor';
 
 class Term {
     time: string;

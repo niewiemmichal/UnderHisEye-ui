@@ -12,10 +12,11 @@ import { LoginComponent } from './login/login.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { VisitsByDoctorComponent } from './visits-by-doctor/visits-by-doctor.component';
-import { TermSelectionComponent } from './login/term-selection/term-selection.component';
 import { NewVisitComponent } from './new-visit/new-visit.component';
 import { NewPatientDialog } from './new-visit/new-patient-dialog/new-patient-dialog';
 import { TableComponent } from './shared/components/table/table.component';
+import { DoctorsVisitsComponent } from './doctors-visits/doctors-visits.component';
+import { TermSelectionComponent } from './term-selection/term-selection.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { TableComponent } from './shared/components/table/table.component';
         NewVisitComponent,
         NewPatientComponent,
         NewPatientDialog,
+        DoctorsVisitsComponent,
     ],
     imports: [
         BrowserAnimationsModule,
