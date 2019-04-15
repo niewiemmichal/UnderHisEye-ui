@@ -14,8 +14,7 @@ export class LoginComponent {
     loggedIn: EventEmitter<LoginEvent> = new EventEmitter();
 
     loginButtonClick(name: string, password: string): void {
-        if (name.trim().toLowerCase() === 'register') {
-            this.loggedIn.emit({ AccountType: 'Rejestrator' });
-        }
+        const accountType: string = name.trim().toLowerCase();
+        this.loggedIn.emit({ AccountType: accountType });
     }
 }

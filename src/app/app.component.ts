@@ -12,7 +12,12 @@ import { LoginEvent } from './login/login.component';
 export class AppComponent {
     title: string = 'Title';
 
-    isLogged: boolean = true;
+    isLogged: boolean = false;
+    isRegisterLogged: boolean = false;
+    isDoctorLogged: boolean = false;
+    isAdminLogged: boolean = false;
+    isLabTechnicianLogged: boolean = false;
+    isLabDirectorLogged: boolean = false;
 
     isHandset$: Observable<boolean> = this.breakpointObserver
         .observe(Breakpoints.Handset)
@@ -23,5 +28,22 @@ export class AppComponent {
     loggedIn(event: LoginEvent): void {
         this.title = event.AccountType;
         this.isLogged = true;
+        switch (event.AccountType) {
+            case 'register':
+                this.isRegisterLogged = true;
+                break;
+            case 'doctor':
+                this.isDoctorLogged = true;
+                break;
+            case 'admin':
+                this.isAdminLogged = true;
+                break;
+            case 'labtechnician':
+                this.isLabTechnicianLogged = true;
+                break;
+            case 'labdirector':
+                this.isLabDirectorLogged = true;
+                break;
+        }
     }
 }
