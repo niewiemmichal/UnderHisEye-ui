@@ -17,6 +17,7 @@ import { NewPatientDialog } from './new-visit/new-patient-dialog/new-patient-dia
 import { TableComponent } from './shared/components/table/table.component';
 import { DoctorsVisitsComponent } from './doctors-visits/doctors-visits.component';
 import { TermSelectionComponent } from './term-selection/term-selection.component';
+import { VisitPageComponent } from './visit-page/visit-page.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import { TermSelectionComponent } from './term-selection/term-selection.componen
         NewPatientComponent,
         NewPatientDialog,
         DoctorsVisitsComponent,
+        VisitPageComponent,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -56,6 +58,7 @@ import { TermSelectionComponent } from './term-selection/term-selection.componen
         Mat.MatNativeDateModule,
         Mat.MatRippleModule,
         Mat.MatDialogModule,
+        Mat.MatTabsModule,
     ],
     providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
     bootstrap: [AppComponent],
