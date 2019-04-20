@@ -1,0 +1,17 @@
+.examination {
+    display: block;
+    width: 400px;
+}
+
+.note {
+    display: block;
+    width: 90%;
+
+    &-textarea {
+        height: 200px;
+    }
+}
+
+.mat-flat-button {
+    margin-top: 20px;
+}

@@ -1,3 +1,41 @@
-<p>
-  visit-page works!
-</p>
+<mat-tab-group>
+    <mat-tab label="Current Visit">
+        <section class="patient-info">
+            <h1 class="mat-headline">Patient</h1>
+            <h3 class="mat-subheading-2">Name: Name</h3>
+            <h3 class="mat-subheading-2">Surname: Surname</h3>
+            <h3 class="mat-subheading-2">PESEL: 0192374938273</h3>
+        </section>
+        <section>
+            <h1 class="mat-headline">Visit procedure</h1>
+            <mat-form-field class="description" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea #description matInput class="description-textarea" type="text"></textarea>
+            </mat-form-field>
+            <h2 class="mat-title">Examination</h2>
+            <div class="accordion">
+                <app-examination-accordion
+                    placeholderText="Choose test"
+                    [options]="availableTests"
+                    [(accordionItems)]="prescribedTests"
+                ></app-examination-accordion>
+            </div>
+            <h2 class="mat-title">Lab tests</h2>
+            <div class="accordion">
+                <app-examination-accordion
+                    placeholderText="Choose examination"
+                    [options]="availableExaminations"
+                    [(accordionItems)]="examinations"
+                ></app-examination-accordion>
+            </div>
+        </section>
+        <section>
+            <h1 class="mat-headline">Diagnosis</h1>
+            <mat-form-field class="diagnosis" appearance="outline">
+                <mat-label>Diagnosis</mat-label>
+                <textarea #diagnosis matInput class="diagnosis-textarea" type="text"></textarea>
+            </mat-form-field>
+        </section>
+    </mat-tab>
+    <mat-tab label="Patients History"> Content 2 </mat-tab>
+</mat-tab-group>

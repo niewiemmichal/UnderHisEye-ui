@@ -59,6 +59,7 @@ import { VisitPageComponent } from './visit-page/visit-page.component';
         Mat.MatRippleModule,
         Mat.MatDialogModule,
         Mat.MatTabsModule,
+        Mat.MatExpansionModule,
     ],
     providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
     bootstrap: [AppComponent],

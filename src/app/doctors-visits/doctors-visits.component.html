@@ -1,4 +1,4 @@
-<div class="options">
+<div class="options" *ngIf="!isSelected">
     <mat-form-field class="options-left-item">
         <input
             matInput
@@ -13,8 +13,11 @@
 </div>
 
 <app-table
+    *ngIf="!isSelected"
     [data]="patientsToDisplay"
     [columnsInfo]="columns"
     [rowOptions]="options"
     (optionSelected)="optionSelected($event)"
 ></app-table>
+
+<app-visit-page *ngIf="isSelected" [patient]="selectedPatient"></app-visit-page>

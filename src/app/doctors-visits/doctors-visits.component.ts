@@ -311,15 +311,17 @@ export class DoctorsVisitsComponent implements OnInit {
         ],
     };
 
-    dateForm: FormControl = new FormControl(new Date());
-    patientsToDisplay: Patient[] = this.doctor.patients;
-
     columns: ColumnInfoItem[] = [
         { columnDef: 'id', header: 'Id', cell: (element: any) => `${element.id}` },
         { columnDef: 'name', header: 'Name', cell: (element: any) => `${element.name}` },
         { columnDef: 'surname', header: 'Surname', cell: (element: any) => `${element.surname}` },
         { columnDef: 'visit', header: 'Visit', cell: (element: any) => `${element.visit}` },
     ];
+
+    dateForm: FormControl = new FormControl(new Date());
+    patientsToDisplay: Patient[] = this.doctor.patients;
+    isSelected: boolean = false;
+    selectedPatient: Patient = new Patient();
 
     options: string[] = ['Accept', 'Cancel'];
 
@@ -328,7 +330,10 @@ export class DoctorsVisitsComponent implements OnInit {
     }
 
     optionSelected(selectedOption: SelectedOption): void {
-        console.log(selectedOption);
+        if (selectedOption.optionName === 'accept') {
+            this.selectedPatient = selectedOption.row as Patient;
+            this.isSelected = true;
+        }
     }
 
     dateChanged(date: Date): void {

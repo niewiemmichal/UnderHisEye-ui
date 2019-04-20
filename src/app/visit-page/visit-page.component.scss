@@ -1,0 +1,25 @@
+.mat-tab-group {
+    padding-bottom: 50px;
+
+    section {
+        padding-bottom: 20px;
+
+        .description,
+        .diagnosis {
+            width: 60%;
+
+            &-textarea {
+                height: 20vh;
+            }
+        }
+
+        .patient-info {
+            padding-bottom: 30px;
+        }
+
+        .accordion {
+            width: 60%;
+            padding-bottom: 30px;
+        }
+    }
+}
