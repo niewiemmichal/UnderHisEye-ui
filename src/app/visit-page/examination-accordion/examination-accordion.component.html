@@ -1,9 +1,5 @@
 <mat-accordion>
-    <mat-expansion-panel
-        *ngFor="let accordionItem of accordionItems"
-        (opened)="panelOpenState = true"
-        (closed)="panelOpenState = false"
-    >
+    <mat-expansion-panel *ngFor="let accordionItem of accordionItems">
         <mat-expansion-panel-header>
             {{ accordionItem.SelectedValue == '' ? placeholderText : accordionItem.SelectedValue }}
         </mat-expansion-panel-header>

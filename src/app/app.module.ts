@@ -18,6 +18,8 @@ import { TableComponent } from './shared/components/table/table.component';
 import { DoctorsVisitsComponent } from './doctors-visits/doctors-visits.component';
 import { TermSelectionComponent } from './term-selection/term-selection.component';
 import { VisitPageComponent } from './visit-page/visit-page.component';
+import { ExaminationAccordionComponent } from './visit-page/examination-accordion/examination-accordion.component';
+import { PatientHistoryComponent } from './visit-page/patient-history/patient-history.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,8 @@ import { VisitPageComponent } from './visit-page/visit-page.component';
         NewPatientDialog,
         DoctorsVisitsComponent,
         VisitPageComponent,
+        ExaminationAccordionComponent,
+        PatientHistoryComponent,
     ],
     imports: [
         BrowserAnimationsModule,
