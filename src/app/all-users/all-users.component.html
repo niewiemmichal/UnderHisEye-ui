@@ -1,3 +1,9 @@
+<div class="options" *ngIf="!showTermSelection">
+    <button mat-flat-button color="primary" (click)="openDialog()">
+        Add user
+    </button>
+</div>
+
 <app-table
     [data]="users"
     [columnsInfo]="columnsInfo"

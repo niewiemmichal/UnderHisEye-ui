@@ -115,7 +115,9 @@ export class NewVisitComponent {
             .open(NewPatientDialog)
             .afterClosed()
             .subscribe((response: NewPatient) => {
-                if (response !== undefined) this.addPatient(response);
+                if (response !== undefined) {
+                    this.addPatient(response);
+                }
             });
     }
 

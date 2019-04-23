@@ -1,0 +1,36 @@
+<mat-form-field floatLabel="never">
+    <input #name matInput placeholder="Name" />
+</mat-form-field>
+
+<mat-form-field floatLabel="never">
+    <input #surname matInput placeholder="Surname" />
+</mat-form-field>
+
+<mat-form-field floatLabel="never">
+    <input #pesel matInput placeholder="PESEL" type="number" />
+</mat-form-field>
+
+<mat-form-field floatLabel="never">
+    <input #role matInput placeholder="Role" />
+</mat-form-field>
+
+<mat-form-field floatLabel="never">
+    <input #password matInput placeholder="Password" type="password" />
+</mat-form-field>
+
+<button
+    mat-flat-button
+    color="primary"
+    (click)="addButtonClick(name.value, surname.value, pesel.value, role.value, password.value)"
+    [disabled]="
+        name === '' ||
+        surname === '' ||
+        pesel.value === '' ||
+        role.value === '' ||
+        password.value === ''
+    "
+>
+    Add
+</button>
+
+<button mat-button (click)="cancel()">Cancel</button>

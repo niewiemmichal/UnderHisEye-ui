@@ -1,0 +1,15 @@
+:host {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .options {
+        padding: 30px 30px 30px 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    app-table {
+        flex: 1 1 auto;
+    }
+}

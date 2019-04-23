@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ColumnInfoItem, SelectedOption } from '../shared/components/table/table.component';
+import { MatDialog } from '@angular/material';
+import { NewUserDialog } from './new-user/new-user-dialog';
 
 class User {
     name: string;
@@ -31,7 +33,20 @@ export class AllUsersComponent {
 
     rowOptions: string[] = ['change'];
 
+    constructor(public dialog: MatDialog) {}
+
     optionSelected(selectedOption: SelectedOption): void {
         console.log(selectedOption.optionName);
+    }
+
+    openDialog(): void {
+        this.dialog
+            .open(NewUserDialog)
+            .afterClosed()
+            .subscribe((response: any) => {
+                if (response !== undefined) {
+                    console.log('dialog works', response);
+                }
+            });
     }
 }

@@ -21,6 +21,8 @@ import { VisitPageComponent } from './visit-page/visit-page.component';
 import { ExaminationAccordionComponent } from './visit-page/examination-accordion/examination-accordion.component';
 import { PatientHistoryComponent } from './visit-page/patient-history/patient-history.component';
 import { AllUsersComponent } from './all-users/all-users.component';
+import { NewUserComponent } from './all-users/new-user/new-user.component';
+import { NewUserDialog } from './all-users/new-user/new-user-dialog';
 
 @NgModule({
     declarations: [
@@ -37,6 +39,8 @@ import { AllUsersComponent } from './all-users/all-users.component';
         ExaminationAccordionComponent,
         PatientHistoryComponent,
         AllUsersComponent,
+        NewUserComponent,
+        NewUserDialog,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -69,6 +73,6 @@ import { AllUsersComponent } from './all-users/all-users.component';
     ],
     providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
     bootstrap: [AppComponent],
-    entryComponents: [NewPatientDialog],
+    entryComponents: [NewPatientDialog, NewUserDialog],
 })
 export class AppModule {}
