@@ -20,6 +20,7 @@ import { TermSelectionComponent } from './term-selection/term-selection.componen
 import { VisitPageComponent } from './visit-page/visit-page.component';
 import { ExaminationAccordionComponent } from './visit-page/examination-accordion/examination-accordion.component';
 import { PatientHistoryComponent } from './visit-page/patient-history/patient-history.component';
+import { AllUsersComponent } from './all-users/all-users.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { PatientHistoryComponent } from './visit-page/patient-history/patient-hi
         VisitPageComponent,
         ExaminationAccordionComponent,
         PatientHistoryComponent,
+        AllUsersComponent,
     ],
     imports: [
         BrowserAnimationsModule,
