@@ -22,7 +22,7 @@ export class ExaminationAccordionComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    private AddAccordionItem() {
+    addAccordionItem(): void {
         this.accordionItems.push({ SelectedValue: '', Note: '' });
     }
 
