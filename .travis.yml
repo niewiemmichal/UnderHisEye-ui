@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - "10"
+dist: trusty
+sudo: required
+
+install:
+  - npm install -g @angular/cli
+  - npm install
+
+cache:
+  directories:
+  - "node_modules"
+
+script:
+  - ng build --source-map=false --prod --base-href="https://s3.eu-central-1.amazonaws.com/elasticbeanstalk-eu-central-1-444439420847/Przychodnia-Frontend/"
+
+deploy:
+  provider: s3
+  region: "eu-central-1"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: $BUCKET_NAME
+  skip_cleanup: true
+  acl: public_read
+  local_dir: dist
+  wait_until_deployed: true
