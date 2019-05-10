@@ -23,6 +23,7 @@ import { PatientHistoryComponent } from './visit-page/patient-history/patient-hi
 import { AllUsersComponent } from './all-users/all-users.component';
 import { NewUserComponent } from './all-users/new-user/new-user.component';
 import { NewUserDialog } from './all-users/new-user/new-user-dialog';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { NewUserDialog } from './all-users/new-user/new-user-dialog';
         LayoutModule,
         FormsModule,
         ReactiveFormsModule,
+        ApiModule.forRoot({ rootUrl: 'https://api.underhiseye.live' }),
         Mat.MatToolbarModule,
         Mat.MatButtonModule,
         Mat.MatSidenavModule,

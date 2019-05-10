@@ -18,7 +18,7 @@ import { NewUserDto } from '../models/new-user-dto';
 })
 class UsersService extends __BaseService {
   static readonly getAllUsersUsingGETPath = '/users';
-  static readonly addPatientRegistrationSpecialistUsingPOST1Path = '/users';
+  static readonly addAdministratorUsingPOSTPath = '/users';
   static readonly getUserDetailsUsingGETPath = '/users/{username}';
 
   constructor(
@@ -65,7 +65,7 @@ class UsersService extends __BaseService {
    * @param newAdministrator New administrator's details
    * @return OK
    */
-  addPatientRegistrationSpecialistUsingPOST1Response(newAdministrator: NewUserDto): __Observable<__StrictHttpResponse<User>> {
+  addAdministratorUsingPOSTResponse(newAdministrator: NewUserDto): __Observable<__StrictHttpResponse<User>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -91,8 +91,8 @@ class UsersService extends __BaseService {
    * @param newAdministrator New administrator's details
    * @return OK
    */
-  addPatientRegistrationSpecialistUsingPOST1(newAdministrator: NewUserDto): __Observable<User> {
-    return this.addPatientRegistrationSpecialistUsingPOST1Response(newAdministrator).pipe(
+  addAdministratorUsingPOST(newAdministrator: NewUserDto): __Observable<User> {
+    return this.addAdministratorUsingPOSTResponse(newAdministrator).pipe(
       __map(_r => _r.body as User)
     );
   }
