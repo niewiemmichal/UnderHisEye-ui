@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "swag": "node_modules\\.bin\\ng-swagger-gen -c ng-swagger-gen.json"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-swagger-gen": "^1.7.0-b",
     "prettier": "1.16.4",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
