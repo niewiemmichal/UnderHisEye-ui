@@ -25,6 +25,8 @@ import { NewUserComponent } from './all-users/new-user/new-user.component';
 import { NewUserDialog } from './all-users/new-user/new-user-dialog';
 import { ApiModule } from './api/api.module';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginGuard } from './guards/login.guard';
+import { GuardsModule } from './guards/guards.module';
 
 @NgModule({
     declarations: [
@@ -45,6 +47,7 @@ import { CookieService } from 'ngx-cookie-service';
         NewUserDialog,
     ],
     imports: [
+        GuardsModule,
         BrowserAnimationsModule,
         BrowserModule,
         AppRoutingModule,

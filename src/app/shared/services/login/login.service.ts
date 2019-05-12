@@ -9,13 +9,14 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class LoginService {
+    private readonly authCookie: string = 'Authorization';
     private loggedInUser: User = null;
 
     constructor(private usersService: UsersService, private cookieService: CookieService) {}
 
     authorize(username: string, password: string): Observable<User> {
         const token: string = `${username}:${password}`;
-        this.cookieService.set('Authorization', `Basic ${btoa(token)}`, 0.1);
+        this.cookieService.set(this.authCookie, `Basic ${btoa(token)}`, 0.1);
 
         return this.usersService.getUserDetailsUsingGET(username).pipe(
             tap((x: User) => x, err => this.cookieService.delete('Authorization')),
@@ -24,5 +25,9 @@ export class LoginService {
                 return user;
             })
         );
+    }
+
+    isLoggedIn(): boolean {
+        return this.cookieService.check(this.authCookie);
     }
 }
