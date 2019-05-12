@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor, Patient } from './doctor';
-import { ColumnInfoItem, SelectedOption } from '../shared/components/table/table.component';
+import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 
 @Component({
     selector: 'app-visits-by-doctor',

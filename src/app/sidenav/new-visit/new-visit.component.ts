@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
-import { NewPatient } from 'src/app/new-patient/new-patient.component';
-import { ColumnInfoItem } from '../shared/components/table/table.component';
+import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
+import { NewPatient } from '../new-patient/new-patient.component';
 
 class Patient {
     name: string;

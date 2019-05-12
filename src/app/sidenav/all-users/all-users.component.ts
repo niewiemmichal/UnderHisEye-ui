@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ColumnInfoItem, SelectedOption } from '../shared/components/table/table.component';
 import { MatDialog } from '@angular/material';
 import { NewUserDialog } from './new-user/new-user-dialog';
+import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 
 class User {
     name: string;

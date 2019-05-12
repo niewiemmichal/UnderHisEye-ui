@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { NewPatient } from 'src/app/new-patient/new-patient.component';
+import { NewPatient } from '../../new-patient/new-patient.component';
 
 @Component({
     selector: 'new-patient-dialog',

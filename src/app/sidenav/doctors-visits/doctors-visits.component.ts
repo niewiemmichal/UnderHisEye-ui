@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor, Patient } from '../visits-by-doctor/doctor';
-import { ColumnInfoItem, SelectedOption } from '../shared/components/table/table.component';
 import { FormControl } from '@angular/forms';
+import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 
 @Component({
     selector: 'app-doctors-visits',
