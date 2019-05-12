@@ -27,6 +27,7 @@ import { ApiModule } from './api/api.module';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginGuard } from './guards/login.guard';
 import { GuardsModule } from './guards/guards.module';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { GuardsModule } from './guards/guards.module';
         AllUsersComponent,
         NewUserComponent,
         NewUserDialog,
+        SidenavComponent,
     ],
     imports: [
         GuardsModule,

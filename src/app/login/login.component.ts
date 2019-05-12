@@ -1,10 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { UsersService } from '../api/services';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from '../shared/services/login/login.service';
-
-export interface LoginEvent {
-    AccountType: string;
-}
 
 @Component({
     selector: 'app-login',
@@ -12,16 +8,15 @@ export interface LoginEvent {
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    constructor(private usersService: UsersService, private loginService: LoginService) {}
-
-    @Output()
-    loggedIn: EventEmitter<LoginEvent> = new EventEmitter();
+    constructor(private loginService: LoginService, private router: Router) {}
 
     loginButtonClick(name: string, password: string): void {
-        // const accountType: string = name.trim().toLowerCase();
-        // this.loggedIn.emit({ AccountType: accountType });
         this.loginService
             .authorize(name, password)
-            .subscribe(_ => console.log('authorized'), _ => console.log('failed'));
+            .subscribe(_ => this.navigateToApp(), _ => console.log('failed'));
+    }
+
+    navigateToApp(): void {
+        this.router.navigateByUrl('');
     }
 }
