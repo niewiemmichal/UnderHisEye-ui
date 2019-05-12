@@ -24,6 +24,7 @@ import { AllUsersComponent } from './all-users/all-users.component';
 import { NewUserComponent } from './all-users/new-user/new-user.component';
 import { NewUserDialog } from './all-users/new-user/new-user-dialog';
 import { ApiModule } from './api/api.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
     declarations: [
@@ -73,7 +74,10 @@ import { ApiModule } from './api/api.module';
         Mat.MatTabsModule,
         Mat.MatExpansionModule,
     ],
-    providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } }],
+    providers: [
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+        CookieService,
+    ],
     bootstrap: [AppComponent],
     entryComponents: [NewPatientDialog, NewUserDialog],
 })

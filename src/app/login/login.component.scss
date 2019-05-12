@@ -1,10 +1,10 @@
 .mat-card {
     position: absolute;
-    width: 350px;
-    height: 250px;
-    left: calc(50% - 175px);
+    box-sizing: border-box;
+    width: 450px;
+    left: calc(50% - 225px);
     top: calc(50% - 225px);
-    padding: 25px 45px;
+    padding: 35px 45px;
 
     .mat-card-title {
         margin-bottom: 16px;
