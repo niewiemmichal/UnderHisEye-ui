@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { LoginService } from '../shared/services/login/login.service';
 
 @Component({
     selector: 'app-sidenav',
@@ -15,5 +16,12 @@ export class SidenavComponent {
         .observe(Breakpoints.Handset)
         .pipe(map(result => result.matches));
 
-    constructor(private breakpointObserver: BreakpointObserver) {}
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private loginService: LoginService
+    ) {}
+
+    isAdmin(): boolean {
+        return this.loginService.isAdmin();
+    }
 }
