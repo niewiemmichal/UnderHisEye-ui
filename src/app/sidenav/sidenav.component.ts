@@ -21,7 +21,7 @@ export class SidenavComponent {
         private loginService: LoginService
     ) {}
 
-    isAdmin(): boolean {
+    isAdmin(): Observable<boolean> {
         return this.loginService.isAdmin();
     }
 }

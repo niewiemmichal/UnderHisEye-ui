@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class LoginService {
     private readonly authCookie: string = 'Authorization';
     private readonly usernameCookie: string = 'username';
-    private currentUser: User = null;
+    private currentUser: Observable<User> = null;
 
     constructor(private usersService: UsersService, private cookieService: CookieService) {
         this.mapCurrentUserOrDeleteCookies(this.cookieService.get(this.usernameCookie));
@@ -26,18 +26,14 @@ export class LoginService {
     }
 
     private mapCurrentUserOrDeleteCookies(username: string): Observable<User> {
-        return this.usersService.getUserDetailsUsingGET(username).pipe(
+        return (this.currentUser = this.usersService.getUserDetailsUsingGET(username).pipe(
             tap(
                 (x: User) => x,
                 err => {
                     this.deleteCookies();
                 }
-            ),
-            map((user: User) => {
-                this.currentUser = user;
-                return user;
-            })
-        );
+            )
+        ));
     }
 
     private deleteCookies(): void {
@@ -54,7 +50,11 @@ export class LoginService {
         }
     }
 
-    isAdmin(): boolean {
-        return this.currentUser.role.toLowerCase().startsWith('admin');
+    isAdmin(): Observable<boolean> {
+        return this.currentUser.pipe(
+            map((user: User) => {
+                return user.role.toLowerCase().startsWith('admin');
+            })
+        );
     }
 }
