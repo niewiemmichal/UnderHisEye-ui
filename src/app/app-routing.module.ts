@@ -13,14 +13,20 @@ import { AdminComponent } from './sidenav/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
-    { path: '', component: SidenavComponent, canActivate: [AppGuard] },
+    {
+        path: '',
+        component: SidenavComponent,
+        canActivate: [AppGuard],
+        children: [
+            { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+            { path: 'visits-by-doctor', component: VisitsByDoctorComponent },
+            { path: 'new-visit', component: NewVisitComponent },
+            { path: 'doctors-visits', component: DoctorsVisitsComponent },
+            { path: 'current-visit', component: VisitPageComponent },
+            { path: 'all-users', component: AllUsersComponent },
+        ],
+    },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-    { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
-    { path: 'visits-by-doctor', outlet: 'sidenav-content', component: VisitsByDoctorComponent },
-    { path: 'new-visit', outlet: 'sidenav-content', component: NewVisitComponent },
-    { path: 'doctors-visits', outlet: 'sidenav-content', component: DoctorsVisitsComponent },
-    { path: 'current-visit', outlet: 'sidenav-content', component: VisitPageComponent },
-    { path: 'all-users', outlet: 'sidenav-content', component: AllUsersComponent },
 ];
 
 @NgModule({
