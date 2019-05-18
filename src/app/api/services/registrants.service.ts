@@ -19,7 +19,8 @@ import { NewUserDto } from '../models/new-user-dto';
 class RegistrantsService extends __BaseService {
   static readonly getAllPatientRegistrationSpecialistsUsingGETPath = '/registrants';
   static readonly addPatientRegistrationSpecialistUsingPOSTPath = '/registrants';
-  static readonly getPatientRegistrationSpecialistUsingGETPath = '/registrants/{id}';
+  static readonly getPatientRegistrationSpecialistUsingGETPath = '/registrants/u/{username}';
+  static readonly getPatientRegistrationSpecialistUsingGET1Path = '/registrants/{id}';
 
   constructor(
     config: __Configuration,
@@ -98,10 +99,46 @@ class RegistrantsService extends __BaseService {
   }
 
   /**
+   * @param username Registrant's username
+   * @return OK
+   */
+  getPatientRegistrationSpecialistUsingGETResponse(username: string): __Observable<__StrictHttpResponse<Registrant>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/registrants/u/${username}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Registrant>;
+      })
+    );
+  }
+  /**
+   * @param username Registrant's username
+   * @return OK
+   */
+  getPatientRegistrationSpecialistUsingGET(username: string): __Observable<Registrant> {
+    return this.getPatientRegistrationSpecialistUsingGETResponse(username).pipe(
+      __map(_r => _r.body as Registrant)
+    );
+  }
+
+  /**
    * @param id Registrant's id
    * @return OK
    */
-  getPatientRegistrationSpecialistUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Registrant>> {
+  getPatientRegistrationSpecialistUsingGET1Response(id: number): __Observable<__StrictHttpResponse<Registrant>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -127,8 +164,8 @@ class RegistrantsService extends __BaseService {
    * @param id Registrant's id
    * @return OK
    */
-  getPatientRegistrationSpecialistUsingGET(id: number): __Observable<Registrant> {
-    return this.getPatientRegistrationSpecialistUsingGETResponse(id).pipe(
+  getPatientRegistrationSpecialistUsingGET1(id: number): __Observable<Registrant> {
+    return this.getPatientRegistrationSpecialistUsingGET1Response(id).pipe(
       __map(_r => _r.body as Registrant)
     );
   }

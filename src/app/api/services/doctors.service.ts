@@ -19,7 +19,8 @@ import { NewUserDto } from '../models/new-user-dto';
 class DoctorsService extends __BaseService {
   static readonly getAllDoctorsUsingGETPath = '/doctors';
   static readonly addDoctorUsingPOSTPath = '/doctors';
-  static readonly getDoctorUsingGETPath = '/doctors/{id}';
+  static readonly getDoctorUsingGETPath = '/doctors/u/{username}';
+  static readonly getDoctorUsingGET1Path = '/doctors/{id}';
 
   constructor(
     config: __Configuration,
@@ -98,10 +99,46 @@ class DoctorsService extends __BaseService {
   }
 
   /**
+   * @param username Doctor's username
+   * @return OK
+   */
+  getDoctorUsingGETResponse(username: string): __Observable<__StrictHttpResponse<Doctor>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/doctors/u/${username}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Doctor>;
+      })
+    );
+  }
+  /**
+   * @param username Doctor's username
+   * @return OK
+   */
+  getDoctorUsingGET(username: string): __Observable<Doctor> {
+    return this.getDoctorUsingGETResponse(username).pipe(
+      __map(_r => _r.body as Doctor)
+    );
+  }
+
+  /**
    * @param id Doctor's id
    * @return OK
    */
-  getDoctorUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Doctor>> {
+  getDoctorUsingGET1Response(id: number): __Observable<__StrictHttpResponse<Doctor>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -127,8 +164,8 @@ class DoctorsService extends __BaseService {
    * @param id Doctor's id
    * @return OK
    */
-  getDoctorUsingGET(id: number): __Observable<Doctor> {
-    return this.getDoctorUsingGETResponse(id).pipe(
+  getDoctorUsingGET1(id: number): __Observable<Doctor> {
+    return this.getDoctorUsingGET1Response(id).pipe(
       __map(_r => _r.body as Doctor)
     );
   }

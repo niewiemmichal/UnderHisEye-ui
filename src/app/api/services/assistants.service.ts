@@ -19,7 +19,8 @@ import { NewUserDto } from '../models/new-user-dto';
 class AssistantsService extends __BaseService {
   static readonly getAllLaboratoryAssistantsUsingGETPath = '/assistants';
   static readonly addLaboratoryAssistantUsingPOSTPath = '/assistants';
-  static readonly getLaboratoryAssistantUsingGETPath = '/assistants/{id}';
+  static readonly getLaboratoryAssistantUsingGETPath = '/assistants/u/{username}';
+  static readonly getLaboratoryAssistantUsingGET1Path = '/assistants/{id}';
 
   constructor(
     config: __Configuration,
@@ -98,10 +99,46 @@ class AssistantsService extends __BaseService {
   }
 
   /**
+   * @param username Laboratory assistant's username
+   * @return OK
+   */
+  getLaboratoryAssistantUsingGETResponse(username: string): __Observable<__StrictHttpResponse<LaboratoryAssistant>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/assistants/u/${username}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<LaboratoryAssistant>;
+      })
+    );
+  }
+  /**
+   * @param username Laboratory assistant's username
+   * @return OK
+   */
+  getLaboratoryAssistantUsingGET(username: string): __Observable<LaboratoryAssistant> {
+    return this.getLaboratoryAssistantUsingGETResponse(username).pipe(
+      __map(_r => _r.body as LaboratoryAssistant)
+    );
+  }
+
+  /**
    * @param id Laboratory assistant's id
    * @return OK
    */
-  getLaboratoryAssistantUsingGETResponse(id: number): __Observable<__StrictHttpResponse<LaboratoryAssistant>> {
+  getLaboratoryAssistantUsingGET1Response(id: number): __Observable<__StrictHttpResponse<LaboratoryAssistant>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -127,8 +164,8 @@ class AssistantsService extends __BaseService {
    * @param id Laboratory assistant's id
    * @return OK
    */
-  getLaboratoryAssistantUsingGET(id: number): __Observable<LaboratoryAssistant> {
-    return this.getLaboratoryAssistantUsingGETResponse(id).pipe(
+  getLaboratoryAssistantUsingGET1(id: number): __Observable<LaboratoryAssistant> {
+    return this.getLaboratoryAssistantUsingGET1Response(id).pipe(
       __map(_r => _r.body as LaboratoryAssistant)
     );
   }

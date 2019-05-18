@@ -17,7 +17,6 @@ import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
-import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
     imports: [
@@ -42,7 +41,6 @@ import { AdminComponent } from './admin/admin.component';
         NewUserDialog,
         NewPatientDialog,
         SidenavComponent,
-        AdminComponent,
     ],
     entryComponents: [NewUserDialog, NewPatientDialog],
 })

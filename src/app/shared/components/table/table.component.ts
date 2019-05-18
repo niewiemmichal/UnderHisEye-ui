@@ -1,13 +1,13 @@
 import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort, PageEvent, Sort, MatRow } from '@angular/material';
 
-export interface ColumnInfoItem {
+export class ColumnInfoItem {
     columnDef: string;
     header: string;
     cell: (element: any) => string;
 }
 
-export interface SelectedOption {
+export class SelectedOption {
     optionName: string;
     row: Object;
 }

@@ -9,7 +9,6 @@ import { NewVisitComponent } from './sidenav/new-visit/new-visit.component';
 import { VisitsByDoctorComponent } from './sidenav/visits-by-doctor/visits-by-doctor.component';
 import { DoctorsVisitsComponent } from './sidenav/doctors-visits/doctors-visits.component';
 import { AllUsersComponent } from './sidenav/all-users/all-users.component';
-import { AdminComponent } from './sidenav/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
@@ -18,7 +17,7 @@ const routes: Routes = [
         component: SidenavComponent,
         canActivate: [AppGuard],
         children: [
-            { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+            { path: 'users', component: AllUsersComponent, canActivate: [AdminGuard] },
             { path: 'visits-by-doctor', component: VisitsByDoctorComponent },
             { path: 'new-visit', component: NewVisitComponent },
             { path: 'doctors-visits', component: DoctorsVisitsComponent },
