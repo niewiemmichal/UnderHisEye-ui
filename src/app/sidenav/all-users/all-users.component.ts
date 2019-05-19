@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewUserDialog } from './new-user/new-user-dialog';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import {
-    BetterUserService,
-    BetterUser,
-} from 'src/app/shared/services/better-user/better-user.service';
+import { BetterUserService } from 'src/app/shared/services/better-user/better-user.service';
+import { BetterUser } from 'src/app/shared/services/better-user/better-user';
 
 @Component({
     selector: 'app-all-users',
@@ -17,48 +15,49 @@ export class AllUsersComponent {
         {
             columnDef: 'id',
             header: 'Id',
-            cell: (element: BetterUser) => `${element.id === undefined ? '' : element.id}`,
+            cell: (element: BetterUser) => `${element.id == null ? '' : element.id}`,
         },
         {
             columnDef: 'username',
             header: 'Username',
-            cell: (element: BetterUser) =>
-                `${element.username === undefined ? '' : element.username}`,
+            cell: (element: BetterUser) => `${element.username == null ? '' : element.username}`,
         },
         {
             columnDef: 'name',
             header: 'Name',
-            cell: (element: BetterUser) => `${element.name === undefined ? '' : element.name}`,
+            cell: (element: BetterUser) => `${element.name == null ? '' : element.name}`,
         },
         {
             columnDef: 'surname',
             header: 'Surname',
-            cell: (element: BetterUser) =>
-                `${element.surname === undefined ? '' : element.surname}`,
+            cell: (element: BetterUser) => `${element.surname == null ? '' : element.surname}`,
         },
         {
             columnDef: 'role',
             header: 'Role',
             cell: (element: BetterUser) =>
-                `${element.role === undefined ? '' : element.role.toLowerCase()}`,
+                `${element.role == null ? '' : element.role.toLowerCase()}`,
         },
         {
             columnDef: 'gmc',
             header: 'GMC Number',
-            cell: (element: BetterUser) =>
-                `${element.gmcNumber === undefined ? '' : element.gmcNumber}`,
+            cell: (element: BetterUser) => `${element.gmcNumber == null ? '' : element.gmcNumber}`,
         },
     ];
 
     rowOptions: string[] = ['Change'];
 
-    allUsers: BetterUser[] = [];
+    private _allUsers: BetterUser[] = [];
+
+    get allUsers(): BetterUser[] {
+        return this._allUsers.sort((n1: BetterUser, n2: BetterUser) => n1.id - n2.id);
+    }
 
     constructor(private userService: BetterUserService, public dialog: MatDialog) {}
 
     ngOnInit() {
         this.userService.getAllUsers().subscribe((users: BetterUser[]) => {
-            this.allUsers = users;
+            this._allUsers = this._allUsers.concat(users);
         });
     }
 

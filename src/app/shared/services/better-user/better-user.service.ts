@@ -8,22 +8,15 @@ import {
 } from 'src/app/api/services';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/api/models';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
+import { BetterUser } from './better-user';
 
-export class BetterUser {
-    id: number;
-    name: string;
-    surname: string;
-    role?: 'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR';
-    username?: string;
-    gmcNumber: string;
-}
-
-interface AdditionalInfo {
+export interface IncomingUser {
     id: number;
     name: string;
     surname: string;
     gmcNumber: string;
+    user: User;
 }
 
 @Injectable({
@@ -39,50 +32,24 @@ export class BetterUserService {
     ) {}
 
     getAllUsers(): Observable<BetterUser[]> {
-        return this.usersService.getAllUsersUsingGET().pipe(
-            map((users: User[]) => {
-                return users as BetterUser[];
-            }),
-            map((users: BetterUser[]) => {
-                users.forEach((user: BetterUser) => {
-                    user = this.retriveAddtionalUserInfo(user);
-                });
-                return users;
+        return merge(
+            this.assistantsService.getAllLaboratoryAssistantsUsingGET(),
+            this.doctorsService.getAllDoctorsUsingGET(),
+            this.registrantsService.getAllPatientRegistrationSpecialistsUsingGET(),
+            this.supervisorsService.getAllLaboratorySupervisorsUsingGET()
+        ).pipe(
+            map((incomingUsers: IncomingUser[]) => {
+                return this.mapIncomingUsersToBetterUsers(incomingUsers);
             })
         );
     }
 
-    private retriveAddtionalUserInfo(user: BetterUser): BetterUser {
-        this.assistantsService
-            .getLaboratoryAssistantUsingGET(user.username)
-            .subscribe((assistant: AdditionalInfo) => {
-                this.mergeIntoBetterUser(user, assistant);
-            });
-        this.doctorsService
-            .getDoctorUsingGET(user.username)
-            .subscribe((assistant: AdditionalInfo) => {
-                this.mergeIntoBetterUser(user, assistant);
-            });
-        this.registrantsService
-            .getPatientRegistrationSpecialistUsingGET(user.username)
-            .subscribe((assistant: AdditionalInfo) => {
-                this.mergeIntoBetterUser(user, assistant);
-            });
-        this.supervisorsService
-            .getLaboratorySupervisorUsingGET(user.username)
-            .subscribe((assistant: AdditionalInfo) => {
-                this.mergeIntoBetterUser(user, assistant);
-            });
+    private mapIncomingUsersToBetterUsers(incomingUsers: IncomingUser[]): BetterUser[] {
+        let users: BetterUser[] = [];
+        incomingUsers.forEach((user: IncomingUser) => {
+            users.push(new BetterUser(user));
+        });
 
-        return user;
-    }
-
-    private mergeIntoBetterUser(betterUser: BetterUser, info: AdditionalInfo) {
-        betterUser.id = info.id || null;
-        betterUser.gmcNumber = info.gmcNumber || null;
-        betterUser.name = info.name || null;
-        betterUser.surname = info.surname || null;
-
-        return betterUser;
+        return users;
     }
 }
