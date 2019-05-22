@@ -1,25 +1,40 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { BetterUserService } from 'src/app/shared/services/better-user/better-user.service';
+import { NewUser } from 'src/app/shared/services/better-user/new-user';
 
 @Component({
     selector: 'app-new-user',
     templateUrl: './new-user.component.html',
     styleUrls: ['./new-user.component.scss'],
 })
-export class NewUserComponent {
+export class NewUserComponent implements OnInit {
     @Output() added: EventEmitter<any> = new EventEmitter<any>();
     @Output() canceled: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    addButtonClick(
-        name: string,
-        surname: string,
-        pesel: number,
-        role: string,
-        password: string
-    ): void {
-        this.added.emit({ name, surname, pesel, role, password });
+    newUserForm: FormGroup = new FormGroup({
+        username: new FormControl(),
+        password: new FormControl(),
+        firstName: new FormControl(),
+        lastName: new FormControl(),
+        gmcNumber: new FormControl(),
+        role: new FormControl(),
+    });
+
+    roles: string[] = [];
+
+    constructor(private userService: BetterUserService) {}
+
+    ngOnInit(): void {
+        this.roles = this.userService.roles;
     }
 
     cancel(): void {
         this.canceled.emit(true);
+    }
+
+    onSubmit(): void {
+        let user: NewUser = new NewUser(this.newUserForm.value);
+        this.userService.addUser(user);
     }
 }

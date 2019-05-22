@@ -1,36 +1,56 @@
-<mat-form-field floatLabel="never">
-    <input #name matInput placeholder="Name" />
-</mat-form-field>
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+    <mat-form-field floatLabel="never">
+        <input matInput formControlName="username" placeholder="Username" required />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #surname matInput placeholder="Surname" />
-</mat-form-field>
+    <mat-form-field floatLabel="never">
+        <input
+            matInput
+            formControlName="password"
+            placeholder="Password"
+            type="password"
+            required
+        />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #pesel matInput placeholder="PESEL" type="number" />
-</mat-form-field>
+    <mat-form-field floatLabel="never">
+        <input matInput formControlName="firstName" placeholder="Name" required />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #role matInput placeholder="Role" />
-</mat-form-field>
+    <mat-form-field floatLabel="never">
+        <input matInput formControlName="lastName" placeholder="Surname" required />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #password matInput placeholder="Password" type="password" />
-</mat-form-field>
+    <mat-form-field class="options-left-item">
+        <mat-label>Role</mat-label>
 
-<button
-    mat-flat-button
-    color="primary"
-    (click)="addButtonClick(name.value, surname.value, pesel.value, role.value, password.value)"
-    [disabled]="
-        name === '' ||
-        surname === '' ||
-        pesel.value === '' ||
-        role.value === '' ||
-        password.value === ''
-    "
->
-    Add
-</button>
+        <mat-select
+            #role
+            formControlName="role"
+            placeholder="Role"
+            (selectionChange)="gmc.value = ''"
+            required
+        >
+            <mat-option *ngFor="let role of roles" [value]="role">
+                {{ role | titlecase }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
-<button mat-button (click)="cancel()">Cancel</button>
+    <mat-form-field [ngClass]="{ hidden: role.value !== 'DOCTOR' }" floatLabel="never">
+        <input
+            #gmc
+            matInput
+            formControlName="gmcNumber"
+            placeholder="GMC Number"
+            type="number"
+            [required]="role.value === 'DOCTOR'"
+        />
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="!newUserForm.valid">
+        Add
+    </button>
+
+    <button mat-button (click)="cancel()">Cancel</button>
+</form>

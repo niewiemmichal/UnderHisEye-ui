@@ -7,22 +7,16 @@ import {
     SupervisorsService,
 } from 'src/app/api/services';
 import { map } from 'rxjs/operators';
-import { User } from 'src/app/api/models';
 import { Observable, merge } from 'rxjs';
-import { BetterUser } from './better-user';
-
-export interface IncomingUser {
-    id: number;
-    name: string;
-    surname: string;
-    gmcNumber: string;
-    user: User;
-}
+import { BetterUser, IncomingUser } from './better-user';
+import { NewUser } from './new-user';
 
 @Injectable({
     providedIn: 'root',
 })
 export class BetterUserService {
+    readonly roles: string[] = ['DOCTOR', 'REGISTRANT', 'ASSISTANT', 'SUPERVISOR', 'ADMINISTRATOR'];
+
     constructor(
         private usersService: UsersService,
         private assistantsService: AssistantsService,
@@ -42,6 +36,10 @@ export class BetterUserService {
                 return this.mapIncomingUsersToBetterUsers(incomingUsers);
             })
         );
+    }
+
+    addUser(user: NewUser) {
+        console.log(user);
     }
 
     private mapIncomingUsersToBetterUsers(incomingUsers: IncomingUser[]): BetterUser[] {
