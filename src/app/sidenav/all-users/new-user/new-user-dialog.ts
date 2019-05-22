@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { BetterUser } from 'src/app/shared/services/better-user/better-user';
 
 @Component({
     selector: 'new-user-dialog',
@@ -9,12 +10,10 @@ export class NewUserDialog {
     constructor(private dialogRef: MatDialogRef<Component>) {}
 
     canceled(): void {
-        console.log('canceled');
         this.dialogRef.close();
     }
 
-    added(addedPatient: any): void {
-        console.log('added');
+    added(addedPatient: BetterUser): void {
         this.dialogRef.close(addedPatient);
     }
 }

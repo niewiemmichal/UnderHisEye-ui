@@ -45,8 +45,6 @@ export class AllUsersComponent {
         },
     ];
 
-    rowOptions: string[] = ['Change'];
-
     private _allUsers: BetterUser[] = [];
 
     get allUsers(): BetterUser[] {
@@ -61,17 +59,13 @@ export class AllUsersComponent {
         });
     }
 
-    optionSelected(selectedOption: SelectedOption): void {
-        console.log(selectedOption.optionName);
-    }
-
     openDialog(): void {
         this.dialog
             .open(NewUserDialog)
             .afterClosed()
-            .subscribe((response: any) => {
-                if (response !== undefined) {
-                    console.log('dialog works', response);
+            .subscribe((newUser: BetterUser) => {
+                if (newUser != null) {
+                    this._allUsers.push(newUser);
                 }
             });
     }
