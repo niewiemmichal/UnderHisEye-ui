@@ -66,8 +66,8 @@ export class BetterUserService {
         }
 
         return response.pipe(
-            map((incomingUsers: IncomingUser[]) => {
-                return this.mapIncomingUsersToBetterUsers(incomingUsers);
+            map((incomingUser: IncomingUser) => {
+                return new BetterUser(incomingUser);
             })
         );
     }

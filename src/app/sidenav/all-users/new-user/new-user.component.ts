@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BetterUserService } from 'src/app/shared/services/better-user/better-user.service';
 import { NewUser } from 'src/app/shared/services/better-user/new-user';
 import { BetterUser } from 'src/app/shared/services/better-user/better-user';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-new-user',
@@ -24,7 +25,7 @@ export class NewUserComponent implements OnInit {
 
     roles: string[] = [];
 
-    constructor(private userService: BetterUserService) {}
+    constructor(private userService: BetterUserService, private snackBar: MatSnackBar) {}
 
     ngOnInit(): void {
         this.roles = this.userService.roles;
@@ -36,8 +37,16 @@ export class NewUserComponent implements OnInit {
 
     onSubmit(): void {
         let user: NewUser = new NewUser(this.newUserForm.value);
-        this.userService
-            .addUser(user)
-            .subscribe((addedUser: BetterUser) => this.added.emit(addedUser), _ => console.log(_));
+        this.userService.addUser(user).subscribe(
+            (addedUser: BetterUser) => {
+                this.snackBar.open('Success!', null, {
+                    duration: 1500,
+                  });
+                this.added.emit(addedUser);
+            },
+            _ => {
+                this.snackBar.open('Something went wrong..', 'Ok');
+            }
+        );
     }
 }
