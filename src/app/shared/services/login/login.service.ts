@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/api/models';
 import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +14,7 @@ export class LoginService {
     private readonly usernameCookie: string = 'username';
     private currentUser: Observable<User> = null;
 
-    constructor(private usersService: UsersService, private cookieService: CookieService) {
+    constructor(private usersService: UsersService, private cookieService: CookieService, private router: Router) {
         this.mapCurrentUserOrDeleteCookies(this.cookieService.get(this.usernameCookie));
     }
 
@@ -56,5 +57,10 @@ export class LoginService {
                 return user.role.toLowerCase().startsWith('admin');
             })
         );
+    }
+
+    logout() {
+        this.deleteCookies();
+        this.router.navigate(['login']);
     }
 }

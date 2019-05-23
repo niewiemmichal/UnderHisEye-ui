@@ -41,7 +41,7 @@ export class NewUserComponent implements OnInit {
             (addedUser: BetterUser) => {
                 this.snackBar.open('Success!', null, {
                     duration: 1500,
-                  });
+                });
                 this.added.emit(addedUser);
             },
             _ => {

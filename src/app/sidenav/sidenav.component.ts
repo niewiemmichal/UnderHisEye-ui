@@ -10,6 +10,7 @@ import { LoginService } from '../shared/services/login/login.service';
     styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent {
+    username: string = 'Username';
     title: string = 'Title';
 
     isHandset$: Observable<boolean> = this.breakpointObserver
@@ -23,5 +24,9 @@ export class SidenavComponent {
 
     isAdmin(): Observable<boolean> {
         return this.loginService.isAdmin();
+    }
+
+    logout(): void {
+        this.loginService.logout();
     }
 }

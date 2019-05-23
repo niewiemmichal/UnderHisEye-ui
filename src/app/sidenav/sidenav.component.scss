@@ -4,20 +4,20 @@
     height: 100%;
 
     .sidenav {
-        width: 250px;
 
         .mat-card {
             padding: 32px 16px 0 16px;
             border-radius: 0;
 
-            &.mat-primary {
-                position: sticky;
-                top: 0;
-                z-index: 1;
-            }
+            .mat-card-header {
 
-            .material-icons {
-                font-size: 40px;
+                .avatar {
+                    font-size: 40px;
+                }
+
+                .logout-button {
+                    margin: auto 0 16px 32px;
+                }
             }
         }
 
