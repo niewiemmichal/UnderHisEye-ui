@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
-import { NewPatient } from '../new-patient/new-patient.component';
 import { PatientService } from 'src/app/api/services';
 import { Patient } from 'src/app/api/models';
 
@@ -40,6 +39,7 @@ export class NewVisitComponent implements OnInit {
     ngOnInit(): void {
         this.patientService.getAllPatientsUsingGET().subscribe((patients: Patient[]) => {
             this.patients = patients;
+            console.log(this.patients);
         });
     }
 
@@ -55,14 +55,14 @@ export class NewVisitComponent implements OnInit {
         this.dialog
             .open(NewPatientDialog)
             .afterClosed()
-            .subscribe((response: NewPatient) => {
+            .subscribe((response: Patient) => {
                 if (response !== undefined) {
                     this.addPatient(response);
                 }
             });
     }
 
-    addPatient(response: NewPatient): void {
+    addPatient(response: Patient): void {
         this.patients.unshift(response);
     }
 }

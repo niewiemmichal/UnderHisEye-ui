@@ -1,22 +1,40 @@
-<mat-form-field floatLabel="never">
-    <input #name matInput placeholder="Name" />
-</mat-form-field>
+<form [formGroup]="newPatientForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <input matInput formControlName="name" placeholder="Name" required />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #surname matInput placeholder="Surname" />
-</mat-form-field>
+    <mat-form-field>
+        <input matInput formControlName="surname" placeholder="Surname" required />
+    </mat-form-field>
 
-<mat-form-field floatLabel="never">
-    <input #pesel matInput placeholder="PESEL" type="number" />
-</mat-form-field>
+    <mat-form-field>
+        <input
+            matInput
+            formControlName="personalIdentityNumber"
+            placeholder="PESEL"
+            type="number"
+            required
+        />
+    </mat-form-field>
 
-<button
-    mat-flat-button
-    color="primary"
-    (click)="addButtonClick(name.value, surname.value, pesel.value)"
-    [disabled]="name === '' || surname === '' || pesel.value === ''"
->
-    Add
-</button>
+    <div formGroupName="address">
+        <mat-form-field>
+            <input matInput formControlName="street" placeholder="Street" required />
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="houseNumber" placeholder="House" required/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="apartment" placeholder="Apartment" required/>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="city" placeholder="City" required/>
+        </mat-form-field>
+    </div>
 
-<button mat-button (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!newPatientForm.valid">
+        Add
+    </button>
+
+    <button mat-button (click)="cancel()" type="button">Cancel</button>
+</form>

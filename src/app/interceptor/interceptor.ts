@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap, timeout, repeatWhen } from 'rxjs/operators';
+import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { tap, timeout, catchError } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
@@ -18,9 +18,8 @@ export class ApiInterceptor implements HttpInterceptor {
         return next.handle(req).pipe(
             tap(
                 x => x,
-                err => {
-                    // Handle this err
-                    console.error(`Error performing request, status code = ${err.status}`);
+                (err: HttpErrorResponse) => {
+                    console.error(err);
                 }
             ),
             timeout(5000)
