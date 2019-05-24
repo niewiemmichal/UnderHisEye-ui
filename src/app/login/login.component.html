@@ -1,15 +1,23 @@
 <mat-card class="mat-elevation-z5">
     <mat-card-title>Login</mat-card-title>
 
-    <mat-form-field floatLabel="never">
-        <input #name matInput placeholder="Email/Name" />
-    </mat-form-field>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field floatLabel="never">
+            <input matInput formControlName="username" placeholder="Email/Name" required />
+        </mat-form-field>
 
-    <mat-form-field floatLabel="never">
-        <input #pass matInput placeholder="Password" type="password" />
-    </mat-form-field>
+        <mat-form-field floatLabel="never">
+            <input
+                matInput
+                formControlName="password"
+                placeholder="Password"
+                type="password"
+                required
+            />
+        </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="loginButtonClick(name.value, pass.value)">
-        Login
-    </button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="!loginForm.valid">
+            Login
+        </button>
+    </form>
 </mat-card>

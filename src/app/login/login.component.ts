@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../shared/services/login/login.service';
+import { MatSnackBar } from '@angular/material';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -8,12 +10,28 @@ import { LoginService } from '../shared/services/login/login.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    constructor(private loginService: LoginService, private router: Router) {}
+    loginForm: FormGroup = new FormGroup({
+        username: new FormControl(),
+        password: new FormControl(),
+    });
 
-    loginButtonClick(name: string, password: string): void {
+    constructor(
+        private loginService: LoginService,
+        private router: Router,
+        private snackBar: MatSnackBar
+    ) {}
+
+    onSubmit(): void {
         this.loginService
-            .authorize(name, password)
-            .subscribe(_ => this.navigateToApp(), _ => console.log('failed'));
+            .authorize(this.loginForm.value.username, this.loginForm.value.password)
+            .subscribe(
+                _ => this.navigateToApp(),
+                _ => {
+                    this.snackBar.open('Failed login', 'Ok', {
+                        duration: 3000,
+                    });
+                }
+            );
     }
 
     navigateToApp(): void {

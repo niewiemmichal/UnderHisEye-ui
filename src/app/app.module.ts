@@ -10,6 +10,7 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { MaterialModule } from './material.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './interceptor/interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -23,6 +24,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
         SidenavModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
         ApiModule.forRoot({ rootUrl: 'https://api.underhiseye.live' }),
         MaterialModule,
     ],
