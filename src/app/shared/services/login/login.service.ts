@@ -59,6 +59,14 @@ export class LoginService {
         );
     }
 
+    isRegistrant(): Observable<boolean> {
+        return this.currentUser.pipe(
+            map((user: User) => {
+                return user.role.toLowerCase().startsWith('registr');
+            })
+        );
+    }
+
     logout() {
         this.deleteCookies();
         this.router.navigate(['login']);
