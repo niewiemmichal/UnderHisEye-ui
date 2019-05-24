@@ -36,7 +36,14 @@
             >
                 All visits
             </a>
-            <!-- <a mat-list-item routerLink="/new-visit" routerLinkActive="active">New visit</a> -->
+            <a
+                mat-list-item
+                *ngIf="(isRegistrant$ | async)"
+                routerLink="/new-visit"
+                routerLinkActive="active"
+            >
+                New visit
+            </a>
             <!-- <a mat-list-item routerLink="/doctors-visits" routerLinkActive="active">Visits</a> -->
             <!-- <a mat-list-item routerLink="/all-users" routerLinkActive="active">All users</a> -->
         </mat-nav-list>
