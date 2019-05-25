@@ -11,9 +11,11 @@ import { Patient } from 'src/app/api/models';
     styleUrls: ['./new-visit.component.scss'],
 })
 export class NewVisitComponent implements OnInit {
-    patients: Patient[] = [];
+    private _patients: Patient[] = [];
     selectedPatient: Patient;
     showTermSelection: boolean = false;
+    filterName: string = '';
+    filterSurname: string = '';
 
     columns: ColumnInfoItem[] = [
         {
@@ -33,14 +35,20 @@ export class NewVisitComponent implements OnInit {
         },
     ];
 
-
     constructor(public dialog: MatDialog, private patientService: PatientService) {}
 
     ngOnInit(): void {
         this.patientService.getAllPatientsUsingGET().subscribe((patients: Patient[]) => {
-            this.patients = patients;
-            console.log(this.patients);
+            this._patients = patients;
         });
+    }
+
+    get patients(): Patient[] {
+        return this._patients.filter(
+            (p: Patient) =>
+                p.name.toLowerCase().includes(this.filterName.toLowerCase()) &&
+                p.name.toLowerCase().includes(this.filterSurname.toLowerCase())
+        );
     }
 
     rowSelected(row: Patient): void {
@@ -56,7 +64,7 @@ export class NewVisitComponent implements OnInit {
             .open(NewPatientDialog)
             .afterClosed()
             .subscribe((response: Patient) => {
-                if (response !== undefined) {
+                if (response != null) {
                     this.addPatient(response);
                 }
             });

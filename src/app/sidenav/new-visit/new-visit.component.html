@@ -1,10 +1,10 @@
 <div class="options" *ngIf="!showTermSelection">
     <mat-form-field class="options-left-item">
-        <input #name matInput placeholder="Patient name" />
+        <input #name matInput placeholder="Patient name" [(ngModel)]="filterName" />
     </mat-form-field>
 
     <mat-form-field class="options-left-item">
-        <input #surname matInput placeholder="Patient surname" />
+        <input #surname matInput placeholder="Patient surname" [(ngModel)]="filterSurname" />
     </mat-form-field>
 
     <span class="divider"></span>
@@ -17,7 +17,7 @@
         class="options-right-item"
         mat-flat-button
         color="primary"
-        [disabled]="selectedPatient === null"
+        [disabled]="selectedPatient == null"
         (click)="nextClick()"
     >
         Next
