@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tap, timeout, catchError } from 'rxjs/operators';
+import {
+    HttpRequest,
+    HttpInterceptor,
+    HttpHandler,
+    HttpEvent,
+    HttpErrorResponse,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap, timeout } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()

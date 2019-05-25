@@ -15,6 +15,14 @@
             type="number"
             required
         />
+        <mat-error
+            *ngIf="
+                hasError('personalIdentityNumber', 'min') ||
+                hasError('personalIdentityNumber', 'max')
+            "
+        >
+            Required 11 digits
+        </mat-error>
     </mat-form-field>
 
     <div formGroupName="address">
@@ -22,13 +30,13 @@
             <input matInput formControlName="street" placeholder="Street" required />
         </mat-form-field>
         <mat-form-field>
-            <input matInput formControlName="houseNumber" placeholder="House" required/>
+            <input matInput formControlName="houseNumber" placeholder="House" required />
         </mat-form-field>
         <mat-form-field>
-            <input matInput formControlName="apartment" placeholder="Apartment" required/>
+            <input matInput formControlName="apartment" placeholder="Apartment" required />
         </mat-form-field>
         <mat-form-field>
-            <input matInput formControlName="city" placeholder="City" required/>
+            <input matInput formControlName="city" placeholder="City" required />
         </mat-form-field>
     </div>
 
