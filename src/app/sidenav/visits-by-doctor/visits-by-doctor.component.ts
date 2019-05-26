@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 import { DoctorsService, VisitsService } from 'src/app/api/services';
-import { Doctor, Visit, Patient } from 'src/app/api/models';
+import { Doctor, Visit } from 'src/app/api/models';
 
 @Component({
     selector: 'app-visits-by-doctor',
@@ -9,13 +9,21 @@ import { Doctor, Visit, Patient } from 'src/app/api/models';
     styleUrls: ['./visits-by-doctor.component.scss'],
 })
 export class VisitsByDoctorComponent implements OnInit {
+    private _visits: Visit[] = [];
     doctors: Doctor[] = [];
-    visits: Visit[] = [];
     selectedDoctor: Doctor;
 
     columns: ColumnInfoItem[] = [
-        { columnDef: 'patient', header: 'Patient', cell: (visit: Visit) => `${visit.patient.name} ${visit.patient.surname}` },
-        { columnDef: 'doctor', header: 'Doctor', cell: (visit: Visit) => `${visit.doctor.name} ${visit.doctor.surname}` },
+        {
+            columnDef: 'patient',
+            header: 'Patient',
+            cell: (visit: Visit) => `${visit.patient.name} ${visit.patient.surname}`,
+        },
+        {
+            columnDef: 'doctor',
+            header: 'Doctor',
+            cell: (visit: Visit) => `${visit.doctor.name} ${visit.doctor.surname}`,
+        },
         { columnDef: 'date', header: 'Date', cell: (visit: Visit) => `${visit.date}` },
     ];
 
@@ -26,15 +34,15 @@ export class VisitsByDoctorComponent implements OnInit {
     ngOnInit(): void {
         this.doctorsService
             .getAllDoctorsUsingGET()
-            .subscribe((doctors: Doctor[]) => {
-                this.doctors = doctors;
-                console.log(this.doctors);
-            });
+            .subscribe((doctors: Doctor[]) => (this.doctors = doctors));
         this.selectedDoctor = this.doctors[0];
-        this.visitsService.getAllUsingGET().subscribe((visits: Visit[]) => {
-            this.visits = visits;
-            console.log(this.visits);
-        });
+        this.visitsService.getAllUsingGET().subscribe((visits: Visit[]) => (this._visits = visits));
+    }
+
+    get visits(): Visit[] {
+        return this._visits.filter(
+            (visit: Visit) => !this.selectedDoctor || visit.doctor.id === this.selectedDoctor.id
+        );
     }
 
     selectionChanged(): void {
