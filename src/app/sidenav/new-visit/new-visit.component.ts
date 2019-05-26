@@ -1,83 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
-import { NewPatient } from '../new-patient/new-patient.component';
-
-class Patient {
-    name: string;
-    surname: string;
-    pesel: number;
-}
+import { PatientService, RegistrantsService } from 'src/app/api/services';
+import { Patient, Registrant } from 'src/app/api/models';
+import {
+    VisitFinalizerDialog,
+    VisitFinalizerDialogData,
+} from './visit-finalizer-dialog/visit-finalizer-dialog';
+import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
+import { LoginService } from 'src/app/shared/services/login/login.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-new-visit',
     templateUrl: './new-visit.component.html',
     styleUrls: ['./new-visit.component.scss'],
 })
-export class NewVisitComponent {
-    patients: Patient[] = [
-        {
-            name: 'Baldwin',
-            surname: 'Moss',
-            pesel: 80797698020,
-        },
-        {
-            name: 'West',
-            surname: 'Jarvis',
-            pesel: 78421133855,
-        },
-        {
-            name: 'Kaufman',
-            surname: 'Lawrence',
-            pesel: 95467930091,
-        },
-        {
-            name: 'Huffman',
-            surname: 'Mcconnell',
-            pesel: 91809272391,
-        },
-        {
-            name: 'Hogan',
-            surname: 'Giles',
-            pesel: 73185547748,
-        },
-        {
-            name: 'Harvey',
-            surname: 'Graham',
-            pesel: 88680885130,
-        },
-        {
-            name: 'Calhoun',
-            surname: 'Tyson',
-            pesel: 97493170902,
-        },
-        {
-            name: 'Joseph',
-            surname: 'Young',
-            pesel: 97344161608,
-        },
-        {
-            name: 'Dixie',
-            surname: 'Hardin',
-            pesel: 96556166071,
-        },
-        {
-            name: 'Shannon',
-            surname: 'Barry',
-            pesel: 88135932247,
-        },
-        {
-            name: 'Gallegos',
-            surname: 'Pace',
-            pesel: 87853372488,
-        },
-        {
-            name: 'Carol',
-            surname: 'Bradshaw',
-            pesel: 83428742963,
-        },
-    ];
+export class NewVisitComponent implements OnInit {
+    private _patients: Patient[] = [];
+    showTermSelection: boolean = false;
+    filterName: string = '';
+    filterSurname: string = '';
+    selectedPatient: Patient;
+    registrantId: number;
 
     columns: ColumnInfoItem[] = [
         {
@@ -93,35 +39,60 @@ export class NewVisitComponent {
         {
             columnDef: 'pesel',
             header: 'PESEL',
-            cell: (element: any) => `${element.pesel}`,
+            cell: (element: any) => `${element.personalIdentityNumber}`,
         },
     ];
 
-    constructor(public dialog: MatDialog) {}
+    constructor(
+        public dialog: MatDialog,
+        private patientService: PatientService,
+        private loginService: LoginService
+    ) {}
 
-    selectedPatient: Patient = null;
-    showTermSelection: boolean = false;
+    ngOnInit(): void {
+        this.patientService.getAllPatientsUsingGET().subscribe((patients: Patient[]) => {
+            this._patients = patients;
+        });
+        this.loginService
+            .getUserId()
+            .subscribe((id$: Observable<number>) =>
+                id$.subscribe((id: number) => (this.registrantId = id))
+            );
+    }
+
+    get patients(): Patient[] {
+        return this._patients.filter(
+            (p: Patient) =>
+                p.name.toLowerCase().includes(this.filterName.toLowerCase()) &&
+                p.name.toLowerCase().includes(this.filterSurname.toLowerCase())
+        );
+    }
 
     rowSelected(row: Patient): void {
         this.selectedPatient = row;
     }
 
-    nextClick(): void {
-        this.showTermSelection = true;
+    openVisitDialog(): void {
+        this.dialog
+            .open(VisitFinalizerDialog, {
+                data: new VisitFinalizerDialogData(this.selectedPatient.id, this.registrantId),
+            })
+            .afterClosed()
+            .subscribe();
     }
 
-    openDialog(): void {
+    openPatientDialog(): void {
         this.dialog
             .open(NewPatientDialog)
             .afterClosed()
-            .subscribe((response: NewPatient) => {
-                if (response !== undefined) {
+            .subscribe((response: Patient) => {
+                if (response != null) {
                     this.addPatient(response);
                 }
             });
     }
 
-    addPatient(response: NewPatient): void {
+    addPatient(response: Patient): void {
         this.patients.unshift(response);
     }
 }

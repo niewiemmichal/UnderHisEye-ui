@@ -45,7 +45,9 @@ export class NewUserComponent implements OnInit {
                 this.added.emit(addedUser);
             },
             _ => {
-                this.snackBar.open('Something went wrong..', 'Ok');
+                this.snackBar.open('Something went wrong..', 'Ok', {
+                    duration: 3000,
+                });
             }
         );
     }

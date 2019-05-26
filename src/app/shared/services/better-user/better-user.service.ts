@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 import { Observable, merge } from 'rxjs';
 import { BetterUser, IncomingUser } from './better-user';
 import { NewUser } from './new-user';
-import { NewUserDto } from 'src/app/api/models';
+import { NewUserDto, User } from 'src/app/api/models';
 
 @Injectable({
     providedIn: 'root',
@@ -65,11 +65,7 @@ export class BetterUserService {
                 break;
         }
 
-        return response.pipe(
-            map((incomingUser: IncomingUser) => {
-                return new BetterUser(incomingUser);
-            })
-        );
+        return response.pipe(map((incomingUser: IncomingUser) => new BetterUser(incomingUser)));
     }
 
     createNewUserDto(user: NewUser): NewUserDto {
@@ -89,5 +85,34 @@ export class BetterUserService {
         });
 
         return users;
+    }
+
+    getCurrentUser(currentUser: User): Observable<BetterUser> {
+        let response: any;
+        switch (currentUser.role) {
+            case 'ADMINISTRATOR':
+                response = this.usersService.getUserDetailsUsingGET(currentUser.username);
+                break;
+            case 'ASSISTANT':
+                response = this.assistantsService.getLaboratoryAssistantUsingGET(
+                    currentUser.username
+                );
+                break;
+            case 'DOCTOR':
+                response = this.doctorsService.getDoctorUsingGET(currentUser.username);
+                break;
+            case 'REGISTRANT':
+                response = this.registrantsService.getPatientRegistrationSpecialistUsingGET(
+                    currentUser.username
+                );
+                break;
+            case 'SUPERVISOR':
+                response = this.supervisorsService.getLaboratorySupervisorUsingGET(
+                    currentUser.username
+                );
+                break;
+        }
+
+        return response.pipe(map((user: IncomingUser) => new BetterUser(user)));
     }
 }

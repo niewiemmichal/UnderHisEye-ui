@@ -7,6 +7,7 @@ import { AssistantsService } from './services/assistants.service';
 import { DoctorsService } from './services/doctors.service';
 import { ExaminationsService } from './services/examinations.service';
 import { IcdService } from './services/icd.service';
+import { PatientService } from './services/patient.service';
 import { RegistrantsService } from './services/registrants.service';
 import { SupervisorsService } from './services/supervisors.service';
 import { UsersService } from './services/users.service';
@@ -29,6 +30,7 @@ import { VisitsService } from './services/visits.service';
     DoctorsService,
     ExaminationsService,
     IcdService,
+    PatientService,
     RegistrantsService,
     SupervisorsService,
     UsersService,

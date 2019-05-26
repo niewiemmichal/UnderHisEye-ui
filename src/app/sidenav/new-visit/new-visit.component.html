@@ -1,15 +1,15 @@
 <div class="options" *ngIf="!showTermSelection">
     <mat-form-field class="options-left-item">
-        <input #name matInput placeholder="Patient name" />
+        <input #name matInput placeholder="Patient name" [(ngModel)]="filterName" />
     </mat-form-field>
 
     <mat-form-field class="options-left-item">
-        <input #surname matInput placeholder="Patient surname" />
+        <input #surname matInput placeholder="Patient surname" [(ngModel)]="filterSurname" />
     </mat-form-field>
 
     <span class="divider"></span>
 
-    <button mat-button color="primary" (click)="openDialog()">
+    <button mat-button color="primary" (click)="openPatientDialog()">
         Add patient
     </button>
 
@@ -17,10 +17,10 @@
         class="options-right-item"
         mat-flat-button
         color="primary"
-        [disabled]="selectedPatient === null"
-        (click)="nextClick()"
+        [disabled]="selectedPatient == null"
+        (click)="openVisitDialog()"
     >
-        Next
+        Create
     </button>
 </div>
 
@@ -31,5 +31,3 @@
     (rowSelected)="rowSelected($event)"
     clickableRows="true"
 ></app-table>
-
-<app-term-selection *ngIf="showTermSelection" [patient]="selectedPatient"></app-term-selection>

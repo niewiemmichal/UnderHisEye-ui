@@ -6,7 +6,6 @@ import { NewUserComponent } from './all-users/new-user/new-user.component';
 import { NewUserDialog } from './all-users/new-user/new-user-dialog';
 import { NewVisitComponent } from './new-visit/new-visit.component';
 import { NewPatientDialog } from './new-visit/new-patient-dialog/new-patient-dialog';
-import { TermSelectionComponent } from './term-selection/term-selection.component';
 import { ExaminationAccordionComponent } from './visit-page/examination-accordion/examination-accordion.component';
 import { PatientHistoryComponent } from './visit-page/patient-history/patient-history.component';
 import { VisitPageComponent } from './visit-page/visit-page.component';
@@ -17,6 +16,9 @@ import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
+import { VisitFinalizerComponent } from './visit-finalizer/visit-finalizer.component';
+import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
     imports: [
@@ -26,6 +28,7 @@ import { AppRoutingModule } from '../app-routing.module';
         ReactiveFormsModule,
         FormsModule,
         AppRoutingModule,
+        NgxMaterialTimepickerModule,
     ],
     declarations: [
         AllUsersComponent,
@@ -33,7 +36,6 @@ import { AppRoutingModule } from '../app-routing.module';
         DoctorsVisitsComponent,
         NewPatientComponent,
         NewVisitComponent,
-        TermSelectionComponent,
         ExaminationAccordionComponent,
         PatientHistoryComponent,
         VisitPageComponent,
@@ -41,7 +43,9 @@ import { AppRoutingModule } from '../app-routing.module';
         NewUserDialog,
         NewPatientDialog,
         SidenavComponent,
+        VisitFinalizerComponent,
+        VisitFinalizerDialog,
     ],
-    entryComponents: [NewUserDialog, NewPatientDialog],
+    entryComponents: [NewUserDialog, NewPatientDialog, VisitFinalizerDialog],
 })
 export class SidenavModule {}
