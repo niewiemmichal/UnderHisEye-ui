@@ -4,28 +4,34 @@
     height: 100%;
 
     .sidenav {
-
         .mat-card {
-            padding: 32px 16px 0 16px;
+            padding-top: 32px;
+            padding-bottom: 0;
             border-radius: 0;
 
             .mat-card-header {
+                width: 250px;
+                height: 60px;
 
                 .avatar {
                     font-size: 40px;
                 }
 
                 .logout-button {
-                    margin: auto 0 16px 32px;
+                    margin: 0 0 auto auto;
                 }
             }
         }
 
         .mat-nav-list {
-            margin-right: 10px;
+            margin-right: 16px;
 
             .mat-list-item {
                 border-radius: 0 100px 100px 0;
+
+                .link-text {
+                    margin-left: 16px;
+                }
 
                 &.active {
                     background-color: map-get($primary, 50);

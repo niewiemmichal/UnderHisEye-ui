@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { VisitFinalizerComponent } from './visit-finalizer/visit-finalizer.component';
 import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
     imports: [
@@ -28,7 +27,6 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
         ReactiveFormsModule,
         FormsModule,
         AppRoutingModule,
-        NgxMaterialTimepickerModule,
     ],
     declarations: [
         AllUsersComponent,

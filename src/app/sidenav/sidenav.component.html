@@ -10,8 +10,10 @@
         <mat-card class="mat-elevation-z0">
             <mat-card-header>
                 <i mat-card-avatar class="material-icons avatar">perm_identity</i>
-                <mat-card-title>{{ username }} </mat-card-title>
-                <mat-card-subtitle>{{ username }}@bd.com </mat-card-subtitle>
+                <mat-card-title>{{ currentUser?.name }} </mat-card-title>
+                <mat-card-subtitle>
+                    {{ currentUser?.username }}
+                </mat-card-subtitle>
                 <button mat-icon-button class="logout-button" (click)="logout()">
                     <i class="material-icons">exit_to_app</i>
                 </button>
@@ -26,7 +28,7 @@
                 routerLink="/users"
                 routerLinkActive="active"
             >
-                All Users
+                <span class="link-text">All Users</span>
             </a>
             <a
                 mat-list-item
@@ -34,7 +36,7 @@
                 routerLink="/visits-by-doctor"
                 routerLinkActive="active"
             >
-                All visits
+                <span class="link-text">All visits</span>
             </a>
             <a
                 mat-list-item
@@ -42,7 +44,7 @@
                 routerLink="/new-visit"
                 routerLinkActive="active"
             >
-                New visit
+                <span class="link-text">New visit</span>
             </a>
             <!-- <a mat-list-item routerLink="/doctors-visits" routerLinkActive="active">Visits</a> -->
             <!-- <a mat-list-item routerLink="/all-users" routerLinkActive="active">All users</a> -->
