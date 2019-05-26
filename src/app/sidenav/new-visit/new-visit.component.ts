@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
-import { PatientService } from 'src/app/api/services';
-import { Patient } from 'src/app/api/models';
+import { PatientService, RegistrantsService } from 'src/app/api/services';
+import { Patient, Registrant } from 'src/app/api/models';
+import {
+    VisitFinalizerDialog,
+    VisitFinalizerDialogData,
+} from './visit-finalizer-dialog/visit-finalizer-dialog';
+import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
+import { LoginService } from 'src/app/shared/services/login/login.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-new-visit',
@@ -12,10 +19,11 @@ import { Patient } from 'src/app/api/models';
 })
 export class NewVisitComponent implements OnInit {
     private _patients: Patient[] = [];
-    selectedPatient: Patient;
     showTermSelection: boolean = false;
     filterName: string = '';
     filterSurname: string = '';
+    selectedPatient: Patient;
+    registrantId: number;
 
     columns: ColumnInfoItem[] = [
         {
@@ -35,12 +43,21 @@ export class NewVisitComponent implements OnInit {
         },
     ];
 
-    constructor(public dialog: MatDialog, private patientService: PatientService) {}
+    constructor(
+        public dialog: MatDialog,
+        private patientService: PatientService,
+        private loginService: LoginService
+    ) {}
 
     ngOnInit(): void {
         this.patientService.getAllPatientsUsingGET().subscribe((patients: Patient[]) => {
             this._patients = patients;
         });
+        this.loginService
+            .getUserId()
+            .subscribe((id$: Observable<number>) =>
+                id$.subscribe((id: number) => (this.registrantId = id))
+            );
     }
 
     get patients(): Patient[] {
@@ -55,11 +72,16 @@ export class NewVisitComponent implements OnInit {
         this.selectedPatient = row;
     }
 
-    nextClick(): void {
-        this.showTermSelection = true;
+    openVisitDialog(): void {
+        this.dialog
+            .open(VisitFinalizerDialog, {
+                data: new VisitFinalizerDialogData(this.selectedPatient.id, this.registrantId),
+            })
+            .afterClosed()
+            .subscribe();
     }
 
-    openDialog(): void {
+    openPatientDialog(): void {
         this.dialog
             .open(NewPatientDialog)
             .afterClosed()

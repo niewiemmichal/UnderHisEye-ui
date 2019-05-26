@@ -1,0 +1,21 @@
+.full-width {
+    width: 300px;
+    display: block;
+}
+
+.time {
+    .hour {
+        width: 140px;
+        margin-right: 20px;
+    }
+
+    .minutes {
+        width: 140px;
+    }
+}
+
+.mat-flat-button,
+.mat-button {
+    margin-top: 32px;
+    float: right;
+}

@@ -9,7 +9,7 @@
 
     <span class="divider"></span>
 
-    <button mat-button color="primary" (click)="openDialog()">
+    <button mat-button color="primary" (click)="openPatientDialog()">
         Add patient
     </button>
 
@@ -18,9 +18,9 @@
         mat-flat-button
         color="primary"
         [disabled]="selectedPatient == null"
-        (click)="nextClick()"
+        (click)="openVisitDialog()"
     >
-        Next
+        Create
     </button>
 </div>
 
@@ -31,5 +31,3 @@
     (rowSelected)="rowSelected($event)"
     clickableRows="true"
 ></app-table>
-
-<app-term-selection *ngIf="showTermSelection" [patient]="selectedPatient"></app-term-selection>

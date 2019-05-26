@@ -5,6 +5,8 @@ import { User } from 'src/app/api/models';
 import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { BetterUserService } from '../better-user/better-user.service';
+import { BetterUser } from '../better-user/better-user';
 
 @Injectable({
     providedIn: 'root',
@@ -12,10 +14,36 @@ import { Router } from '@angular/router';
 export class LoginService {
     private readonly authCookie: string = 'Authorization';
     private readonly usernameCookie: string = 'username';
-    private currentUser: Observable<User> = null;
+    private currentUsername: string;
+    private currentUser: Observable<User>;
+    private currentBetterUser: Observable<Observable<BetterUser>>;
 
-    constructor(private usersService: UsersService, private cookieService: CookieService, private router: Router) {
-        this.mapCurrentUserOrDeleteCookies(this.cookieService.get(this.usernameCookie));
+    constructor(
+        private usersService: UsersService,
+        private betterUserService: BetterUserService,
+        private cookieService: CookieService,
+        private router: Router
+    ) {
+        this.currentUsername = this.cookieService.get(this.usernameCookie);
+        this.currentUser = this.getCurrentUser(this.currentUsername);
+        this.currentBetterUser = this.getCurrentBetterUser();
+    }
+
+    private getCurrentUser(username: string): Observable<User> {
+        return this.usersService
+            .getUserDetailsUsingGET(username)
+            .pipe(tap((x: User) => x, err => this.deleteCookies()));
+    }
+
+    private getCurrentBetterUser(): Observable<Observable<BetterUser>> {
+        return this.currentUser.pipe(
+            map((user: User) => this.betterUserService.getCurrentUser(user))
+        );
+    }
+
+    private deleteCookies(): void {
+        this.cookieService.delete(this.authCookie);
+        this.cookieService.delete(this.usernameCookie);
     }
 
     authorize(username: string, password: string): Observable<User> {
@@ -23,23 +51,10 @@ export class LoginService {
         this.cookieService.set(this.authCookie, `Basic ${btoa(token)}`, 0.1);
         this.cookieService.set(this.usernameCookie, username);
 
-        return this.mapCurrentUserOrDeleteCookies(username);
-    }
+        this.currentUser = this.getCurrentUser(username);
+        this.currentBetterUser = this.getCurrentBetterUser();
 
-    private mapCurrentUserOrDeleteCookies(username: string): Observable<User> {
-        return (this.currentUser = this.usersService.getUserDetailsUsingGET(username).pipe(
-            tap(
-                (x: User) => x,
-                err => {
-                    this.deleteCookies();
-                }
-            )
-        ));
-    }
-
-    private deleteCookies(): void {
-        this.cookieService.delete(this.authCookie);
-        this.cookieService.delete(this.usernameCookie);
+        return this.currentUser;
     }
 
     isLoggedIn(): boolean {
@@ -70,5 +85,13 @@ export class LoginService {
     logout() {
         this.deleteCookies();
         this.router.navigate(['login']);
+    }
+
+    getUserId(): Observable<Observable<number>> {
+        return this.currentBetterUser.pipe(
+            map((user$: Observable<BetterUser>) => {
+                return user$.pipe(map((user: BetterUser) => user.id));
+            })
+        );
     }
 }
