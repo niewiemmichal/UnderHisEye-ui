@@ -12,19 +12,38 @@
                 <i mat-card-avatar class="material-icons avatar">perm_identity</i>
                 <mat-card-title>{{ username }} </mat-card-title>
                 <mat-card-subtitle>{{ username }}@bd.com </mat-card-subtitle>
-                <button mat-icon-button class="logout-button" (click)="logout()"> 
-                        <i class="material-icons">exit_to_app</i>
+                <button mat-icon-button class="logout-button" (click)="logout()">
+                    <i class="material-icons">exit_to_app</i>
                 </button>
             </mat-card-header>
         </mat-card>
 
         <mat-divider></mat-divider>
         <mat-nav-list>
-            <a mat-list-item *ngIf="(isAdmin$ | async)" routerLink="/users" routerLinkActive="active">
+            <a
+                mat-list-item
+                *ngIf="(isAdmin$ | async)"
+                routerLink="/users"
+                routerLinkActive="active"
+            >
                 All Users
             </a>
-            <!-- <a mat-list-item routerLink="/visits-by-doctor" routerLinkActive="active">All visits</a> -->
-            <!-- <a mat-list-item routerLink="/new-visit" routerLinkActive="active">New visit</a> -->
+            <a
+                mat-list-item
+                *ngIf="(isRegistrant$ | async)"
+                routerLink="/visits-by-doctor"
+                routerLinkActive="active"
+            >
+                All visits
+            </a>
+            <a
+                mat-list-item
+                *ngIf="(isRegistrant$ | async)"
+                routerLink="/new-visit"
+                routerLinkActive="active"
+            >
+                New visit
+            </a>
             <!-- <a mat-list-item routerLink="/doctors-visits" routerLinkActive="active">Visits</a> -->
             <!-- <a mat-list-item routerLink="/all-users" routerLinkActive="active">All users</a> -->
         </mat-nav-list>

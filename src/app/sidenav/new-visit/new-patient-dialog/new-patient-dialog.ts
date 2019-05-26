@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { NewPatient } from '../../new-patient/new-patient.component';
+import { Patient } from 'src/app/api/models';
 
 @Component({
     selector: 'new-patient-dialog',
@@ -13,7 +13,7 @@ export class NewPatientDialog {
         this.dialogRef.close();
     }
 
-    added(addedPatient: NewPatient): void {
+    added(addedPatient: Patient): void {
         this.dialogRef.close(addedPatient);
     }
 }

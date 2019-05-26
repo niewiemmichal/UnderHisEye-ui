@@ -13,6 +13,7 @@ export class SidenavComponent implements OnInit {
     username: string = 'Username';
     title: string = 'Title';
     isAdmin$: Observable<boolean>;
+    isRegistrant$: Observable<boolean>;
 
     isHandset$: Observable<boolean> = this.breakpointObserver
         .observe(Breakpoints.Handset)
@@ -25,6 +26,7 @@ export class SidenavComponent implements OnInit {
 
     ngOnInit(): void {
         this.isAdmin$ = this.loginService.isAdmin();
+        this.isRegistrant$ = this.loginService.isRegistrant();
     }
 
     logout(): void {
