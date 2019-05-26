@@ -46,8 +46,14 @@
             >
                 <span class="link-text">New visit</span>
             </a>
-            <!-- <a mat-list-item routerLink="/doctors-visits" routerLinkActive="active">Visits</a> -->
-            <!-- <a mat-list-item routerLink="/all-users" routerLinkActive="active">All users</a> -->
+            <a
+                mat-list-item
+                *ngIf="(isDoctor$ | async)"
+                routerLink="/doctors-visits"
+                routerLinkActive="active"
+            >
+                <span class="link-text">Visits</span>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

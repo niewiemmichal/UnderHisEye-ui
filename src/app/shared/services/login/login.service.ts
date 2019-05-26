@@ -86,6 +86,14 @@ export class LoginService {
         );
     }
 
+    isDoctor(): Observable<boolean> {
+        return this._currentUser.pipe(
+            map((user: User) => {
+                return user.role.toLowerCase().startsWith('doctor');
+            })
+        );
+    }
+
     logout() {
         this.deleteCookies();
         this.router.navigate(['login']);
