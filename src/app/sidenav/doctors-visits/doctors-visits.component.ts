@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../visits-by-doctor/doctor';
 import { FormControl } from '@angular/forms';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 import { VisitsService } from 'src/app/api/services';
@@ -34,7 +33,6 @@ export class DoctorsVisitsComponent implements OnInit {
     ];
     dateForm: FormControl = new FormControl(new Date());
     isSelected: boolean = false;
-    selectedPatient: Patient = new Patient();
     selectedVisit: Visit;
 
     options: string[] = ['Accept', 'Cancel'];

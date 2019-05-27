@@ -1,10 +1,10 @@
 <mat-tab-group>
     <mat-tab label="Current Visit">
         <section class="patient-info">
-            <h1 class="mat-headline">Patient</h1>
-            <h3 class="mat-subheading-2">Name: Name</h3>
-            <h3 class="mat-subheading-2">Surname: Surname</h3>
-            <h3 class="mat-subheading-2">PESEL: 0192374938273</h3>
+            <h1 class="mat-headline"></h1>
+            <h3 class="mat-subheading-2">Name: {{ visit.patient.name }}</h3>
+            <h3 class="mat-subheading-2">Surname: {{ visit.patient.surname }}</h3>
+            <h3 class="mat-subheading-2">PESEL: {{ visit.patient.personalIdentityNumber }}</h3>
         </section>
         <section>
             <h1 class="mat-headline">Visit procedure</h1>

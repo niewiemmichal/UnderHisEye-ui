@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AccordionItem } from './examination-accordion/examination-accordion.component';
-import { Patient } from '../visits-by-doctor/doctor';
+import { Visit } from 'src/app/api/models';
 
 @Component({
     selector: 'app-visit-page',
@@ -9,7 +9,7 @@ import { Patient } from '../visits-by-doctor/doctor';
 })
 export class VisitPageComponent {
     @Input()
-    patient: Patient = new Patient();
+    visit: Visit;
 
     availableTests: string[] = ['Badanie TSH', 'Roentgen', 'Rezonans magnetyczny'];
     prescribedTests: AccordionItem[] = [{ SelectedValue: '', Note: '' }];
