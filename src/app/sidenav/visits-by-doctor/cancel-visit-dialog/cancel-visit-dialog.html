@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Cancel visit</h1>
+<form [formGroup]="cancelationForm" (ngSubmit)="onSubmit(cancelationForm.value)">
+    <mat-form-field appearance="outline">
+        <mat-label>Cancelation reason</mat-label>
+        <textarea matInput class="reason" formControlName="reason" type="text"></textarea>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="!cancelationForm.valid">
+        Finish
+    </button>
+
+    <button mat-button (click)="cancel()" type="button">Cancel</button>
+</form>

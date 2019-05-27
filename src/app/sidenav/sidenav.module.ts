@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from '../app-routing.module';
 import { VisitFinalizerComponent } from './visit-finalizer/visit-finalizer.component';
 import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
+import { CancelVisitDialog } from './visits-by-doctor/cancel-visit-dialog/cancel-visit-dialog';
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-f
         SidenavComponent,
         VisitFinalizerComponent,
         VisitFinalizerDialog,
+        CancelVisitDialog,
     ],
-    entryComponents: [NewUserDialog, NewPatientDialog, VisitFinalizerDialog],
+    entryComponents: [NewUserDialog, NewPatientDialog, VisitFinalizerDialog, CancelVisitDialog],
 })
 export class SidenavModule {}

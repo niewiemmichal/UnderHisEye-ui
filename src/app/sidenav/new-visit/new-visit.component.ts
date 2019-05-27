@@ -44,7 +44,7 @@ export class NewVisitComponent implements OnInit {
     ];
 
     constructor(
-        public dialog: MatDialog,
+        private dialog: MatDialog,
         private patientService: PatientService,
         private loginService: LoginService
     ) {}

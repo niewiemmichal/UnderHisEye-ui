@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 import { DoctorsService, VisitsService } from 'src/app/api/services';
 import { Doctor, Visit } from 'src/app/api/models';
+import {
+    CancelVisitDialog,
+    CancelVisitDialogData,
+} from './cancel-visit-dialog/cancel-visit-dialog';
+import { MatDialog } from '@angular/material';
 
 @Component({
     selector: 'app-visits-by-doctor',
@@ -15,9 +20,14 @@ export class VisitsByDoctorComponent implements OnInit {
 
     columns: ColumnInfoItem[] = [
         {
-            columnDef: 'patient',
-            header: 'Patient',
-            cell: (visit: Visit) => `${visit.patient.name} ${visit.patient.surname}`,
+            columnDef: 'name',
+            header: 'Name',
+            cell: (visit: Visit) => visit.patient.name,
+        },
+        {
+            columnDef: 'surname',
+            header: 'Surname',
+            cell: (visit: Visit) => visit.patient.surname,
         },
         {
             columnDef: 'doctor',
@@ -27,9 +37,13 @@ export class VisitsByDoctorComponent implements OnInit {
         { columnDef: 'date', header: 'Date', cell: (visit: Visit) => `${visit.date}` },
     ];
 
-    options: string[] = ['Accept', 'Cancel'];
+    options: string[] = ['Cancel'];
 
-    constructor(private doctorsService: DoctorsService, private visitsService: VisitsService) {}
+    constructor(
+        private dialog: MatDialog,
+        private doctorsService: DoctorsService,
+        private visitsService: VisitsService
+    ) {}
 
     ngOnInit(): void {
         this.doctorsService
@@ -41,15 +55,35 @@ export class VisitsByDoctorComponent implements OnInit {
 
     get visits(): Visit[] {
         return this._visits.filter(
-            (visit: Visit) => !this.selectedDoctor || visit.doctor.id === this.selectedDoctor.id
+            (visit: Visit) =>
+                (!this.selectedDoctor || visit.doctor.id === this.selectedDoctor.id) &&
+                visit.status.toLowerCase().startsWith('regist')
         );
     }
 
-    selectionChanged(): void {
-        //this.patientsToDisplay = this.selectedDoctor.patients;
+    optionSelected(selectedOption: SelectedOption): void {
+        switch (selectedOption.optionName) {
+            case 'cancel':
+                this.cancelVisit(selectedOption.row);
+                break;
+
+            default:
+                break;
+        }
     }
 
-    optionSelected(selectedOption: SelectedOption): void {
-        console.log(selectedOption);
+    cancelVisit(visit: Visit): void {
+        this.dialog
+            .open(CancelVisitDialog, {
+                data: new CancelVisitDialogData(visit.id),
+            })
+            .afterClosed()
+            .subscribe((canceled: boolean) => {
+                if (canceled) {
+                    this._visits.find(
+                        (changedVisit: Visit) => changedVisit.id === visit.id
+                    ).status = 'CANCELED';
+                }
+            });
     }
 }
