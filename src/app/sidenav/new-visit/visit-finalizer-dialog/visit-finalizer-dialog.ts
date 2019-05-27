@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Patient } from 'src/app/api/models';
+import { Visit } from 'src/app/api/models';
 
 export class VisitFinalizerDialogData {
     patientId: number;
@@ -26,7 +26,7 @@ export class VisitFinalizerDialog {
         this.dialogRef.close();
     }
 
-    added(addedPatient: Patient): void {
-        this.dialogRef.close(addedPatient);
+    added(visit: Visit): void {
+        this.dialogRef.close(visit);
     }
 }

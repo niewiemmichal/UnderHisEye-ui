@@ -3,6 +3,7 @@ import { Visit, Doctor, VisitRegistrationDto } from 'src/app/api/models';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DoctorsService, VisitsService } from 'src/app/api/services';
 import { VisitFinalizerDialogData } from '../new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
+import { MatSnackBar } from '@angular/material';
 
 interface Form {
     doctor: Doctor;
@@ -29,7 +30,8 @@ export class VisitFinalizerComponent implements OnInit {
     constructor(
         private doctorsService: DoctorsService,
         private fb: FormBuilder,
-        private visitsService: VisitsService
+        private visitsService: VisitsService,
+        private snackBar: MatSnackBar
     ) {}
 
     ngOnInit(): void {
@@ -56,9 +58,19 @@ export class VisitFinalizerComponent implements OnInit {
 
     onSubmit(): void {
         const newVisit: VisitRegistrationDto = this.createVisitDto(this.newVisitForm.value);
-        this.visitsService
-            .registerVisitUsingPOST(newVisit)
-            .subscribe((visit: Visit) => console.log(visit), _ => console.log(_));
+        this.visitsService.registerVisitUsingPOST(newVisit).subscribe(
+            (visit: Visit) => {
+                this.snackBar.open('Success!', null, {
+                    duration: 1500,
+                });
+                this.added.emit(visit);
+            },
+            _ => {
+                this.snackBar.open('Something went wrong..', 'Ok', {
+                    duration: 3000,
+                });
+            }
+        );
     }
 
     createVisitDto(form: Form): VisitRegistrationDto {
@@ -76,5 +88,9 @@ export class VisitFinalizerComponent implements OnInit {
             patientId: this.data.patientId,
             registrantId: this.data.registrantId,
         };
+    }
+
+    cancel(): void {
+        this.canceled.emit(true);
     }
 }
