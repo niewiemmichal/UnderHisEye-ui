@@ -1,6 +1,6 @@
 export { AssistantsService } from './services/assistants.service';
 export { DoctorsService } from './services/doctors.service';
-export { ExaminationsService } from './services/examinations.service';
+export { LaboratoryExaminationsService } from './services/laboratory-examinations.service';
 export { IcdService } from './services/icd.service';
 export { PatientService } from './services/patient.service';
 export { RegistrantsService } from './services/registrants.service';

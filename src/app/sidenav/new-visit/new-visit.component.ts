@@ -53,11 +53,7 @@ export class NewVisitComponent implements OnInit {
         this.patientService.getAllPatientsUsingGET().subscribe((patients: Patient[]) => {
             this._patients = patients;
         });
-        this.loginService
-            .getUserId()
-            .subscribe((id$: Observable<number>) =>
-                id$.subscribe((id: number) => (this.registrantId = id))
-            );
+        this.loginService.getUserId().subscribe((id: number) => (this.registrantId = id));
     }
 
     get patients(): Patient[] {

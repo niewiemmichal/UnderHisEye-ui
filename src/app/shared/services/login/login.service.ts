@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UsersService } from 'src/app/api/services';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/api/models';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { BetterUserService } from '../better-user/better-user.service';
@@ -16,7 +16,7 @@ export class LoginService {
     private readonly _usernameCookie: string = 'username';
     private _currentUsername: string;
     private _currentUser: Observable<User>;
-    private _currentBetterUser: Observable<Observable<BetterUser>>;
+    private _currentBetterUser: Observable<BetterUser>;
 
     constructor(
         private usersService: UsersService,
@@ -29,7 +29,7 @@ export class LoginService {
         this._currentBetterUser = this.getCurrentBetterUser();
     }
 
-    get currentUser(): Observable<Observable<BetterUser>> {
+    get currentUser(): Observable<BetterUser> {
         return this._currentBetterUser;
     }
 
@@ -39,9 +39,9 @@ export class LoginService {
             .pipe(tap((x: User) => x, err => this.deleteCookies()));
     }
 
-    private getCurrentBetterUser(): Observable<Observable<BetterUser>> {
+    private getCurrentBetterUser(): Observable<BetterUser> {
         return this._currentUser.pipe(
-            map((user: User) => this.betterUserService.getCurrentUser(user))
+            switchMap((user: User) => this.betterUserService.getCurrentUser(user))
         );
     }
 
@@ -99,11 +99,7 @@ export class LoginService {
         this.router.navigate(['login']);
     }
 
-    getUserId(): Observable<Observable<number>> {
-        return this._currentBetterUser.pipe(
-            map((user$: Observable<BetterUser>) => {
-                return user$.pipe(map((user: BetterUser) => user.id));
-            })
-        );
+    getUserId(): Observable<number> {
+        return this._currentBetterUser.pipe(map((user: BetterUser) => user.id));
     }
 }

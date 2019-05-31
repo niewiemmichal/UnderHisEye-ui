@@ -5,7 +5,7 @@ import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration
 
 import { AssistantsService } from './services/assistants.service';
 import { DoctorsService } from './services/doctors.service';
-import { ExaminationsService } from './services/examinations.service';
+import { LaboratoryExaminationsService } from './services/laboratory-examinations.service';
 import { IcdService } from './services/icd.service';
 import { PatientService } from './services/patient.service';
 import { RegistrantsService } from './services/registrants.service';
@@ -28,7 +28,7 @@ import { VisitsService } from './services/visits.service';
     ApiConfiguration,
     AssistantsService,
     DoctorsService,
-    ExaminationsService,
+    LaboratoryExaminationsService,
     IcdService,
     PatientService,
     RegistrantsService,

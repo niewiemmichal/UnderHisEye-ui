@@ -1,11 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AccordionItem } from './examination-accordion/examination-accordion.component';
-import { Visit } from 'src/app/api/models';
+import {
+    VisitWithExaminationsDto,
+    LaboratoryExaminationDto,
+    PhysicalExaminationDto,
+} from 'src/app/api/models';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 interface VisitForm {
     description: string;
     diagnosis: string;
+    laboratoryExaminations: LaboratoryExaminationDto[];
+    physicalExaminations: PhysicalExaminationDto;
 }
 
 @Component({
@@ -15,7 +21,7 @@ interface VisitForm {
 })
 export class VisitPageComponent implements OnInit {
     @Input()
-    visit: Visit;
+    visit: VisitWithExaminationsDto;
 
     visitForm: FormGroup;
 
@@ -25,6 +31,7 @@ export class VisitPageComponent implements OnInit {
         this.visitForm = this.fb.group({
             description: [null, Validators.required],
             diagnosis: [null, Validators.required],
+            examinations: [null],
         });
     }
 

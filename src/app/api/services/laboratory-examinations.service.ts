@@ -17,11 +17,13 @@ import { SupervisorClosureDto } from '../models/supervisor-closure-dto';
 @Injectable({
   providedIn: 'root',
 })
-class ExaminationsService extends __BaseService {
+class LaboratoryExaminationsService extends __BaseService {
+  static readonly getAllLaboratoryExaminationsUsingGETPath = '/examinations';
   static readonly approveUsingPATCHPath = '/examinations/approve/{id}';
   static readonly cancelUsingPATCHPath = '/examinations/cancel/{id}';
   static readonly finishUsingPATCHPath = '/examinations/finish/{id}';
   static readonly rejectUsingPATCHPath = '/examinations/reject/{id}';
+  static readonly getAllLaboratoryExaminationsByStatusUsingGETPath = '/examinations/{status}';
 
   constructor(
     config: __Configuration,
@@ -31,7 +33,40 @@ class ExaminationsService extends __BaseService {
   }
 
   /**
-   * @param params The `ExaminationsService.ApproveUsingPATCHParams` containing the following parameters:
+   * @return OK
+   */
+  getAllLaboratoryExaminationsUsingGETResponse(): __Observable<__StrictHttpResponse<Array<LaboratoryExamination>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/examinations`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LaboratoryExamination>>;
+      })
+    );
+  }
+  /**
+   * @return OK
+   */
+  getAllLaboratoryExaminationsUsingGET(): __Observable<Array<LaboratoryExamination>> {
+    return this.getAllLaboratoryExaminationsUsingGETResponse().pipe(
+      __map(_r => _r.body as Array<LaboratoryExamination>)
+    );
+  }
+
+  /**
+   * @param params The `LaboratoryExaminationsService.ApproveUsingPATCHParams` containing the following parameters:
    *
    * - `supervisorId`: Supervisor's id
    *
@@ -39,7 +74,7 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  approveUsingPATCHResponse(params: ExaminationsService.ApproveUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
+  approveUsingPATCHResponse(params: LaboratoryExaminationsService.ApproveUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -63,7 +98,7 @@ class ExaminationsService extends __BaseService {
     );
   }
   /**
-   * @param params The `ExaminationsService.ApproveUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.ApproveUsingPATCHParams` containing the following parameters:
    *
    * - `supervisorId`: Supervisor's id
    *
@@ -71,14 +106,14 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  approveUsingPATCH(params: ExaminationsService.ApproveUsingPATCHParams): __Observable<LaboratoryExamination> {
+  approveUsingPATCH(params: LaboratoryExaminationsService.ApproveUsingPATCHParams): __Observable<LaboratoryExamination> {
     return this.approveUsingPATCHResponse(params).pipe(
       __map(_r => _r.body as LaboratoryExamination)
     );
   }
 
   /**
-   * @param params The `ExaminationsService.CancelUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.CancelUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -86,7 +121,7 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  cancelUsingPATCHResponse(params: ExaminationsService.CancelUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
+  cancelUsingPATCHResponse(params: LaboratoryExaminationsService.CancelUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -110,7 +145,7 @@ class ExaminationsService extends __BaseService {
     );
   }
   /**
-   * @param params The `ExaminationsService.CancelUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.CancelUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -118,14 +153,14 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  cancelUsingPATCH(params: ExaminationsService.CancelUsingPATCHParams): __Observable<LaboratoryExamination> {
+  cancelUsingPATCH(params: LaboratoryExaminationsService.CancelUsingPATCHParams): __Observable<LaboratoryExamination> {
     return this.cancelUsingPATCHResponse(params).pipe(
       __map(_r => _r.body as LaboratoryExamination)
     );
   }
 
   /**
-   * @param params The `ExaminationsService.FinishUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.FinishUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -133,7 +168,7 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  finishUsingPATCHResponse(params: ExaminationsService.FinishUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
+  finishUsingPATCHResponse(params: LaboratoryExaminationsService.FinishUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -157,7 +192,7 @@ class ExaminationsService extends __BaseService {
     );
   }
   /**
-   * @param params The `ExaminationsService.FinishUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.FinishUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -165,14 +200,14 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  finishUsingPATCH(params: ExaminationsService.FinishUsingPATCHParams): __Observable<LaboratoryExamination> {
+  finishUsingPATCH(params: LaboratoryExaminationsService.FinishUsingPATCHParams): __Observable<LaboratoryExamination> {
     return this.finishUsingPATCHResponse(params).pipe(
       __map(_r => _r.body as LaboratoryExamination)
     );
   }
 
   /**
-   * @param params The `ExaminationsService.RejectUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.RejectUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -180,7 +215,7 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  rejectUsingPATCHResponse(params: ExaminationsService.RejectUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
+  rejectUsingPATCHResponse(params: LaboratoryExaminationsService.RejectUsingPATCHParams): __Observable<__StrictHttpResponse<LaboratoryExamination>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -204,7 +239,7 @@ class ExaminationsService extends __BaseService {
     );
   }
   /**
-   * @param params The `ExaminationsService.RejectUsingPATCHParams` containing the following parameters:
+   * @param params The `LaboratoryExaminationsService.RejectUsingPATCHParams` containing the following parameters:
    *
    * - `id`: Laboratory examination's id
    *
@@ -212,14 +247,50 @@ class ExaminationsService extends __BaseService {
    *
    * @return OK
    */
-  rejectUsingPATCH(params: ExaminationsService.RejectUsingPATCHParams): __Observable<LaboratoryExamination> {
+  rejectUsingPATCH(params: LaboratoryExaminationsService.RejectUsingPATCHParams): __Observable<LaboratoryExamination> {
     return this.rejectUsingPATCHResponse(params).pipe(
       __map(_r => _r.body as LaboratoryExamination)
     );
   }
+
+  /**
+   * @param status Laboratory examination's status
+   * @return OK
+   */
+  getAllLaboratoryExaminationsByStatusUsingGETResponse(status: string): __Observable<__StrictHttpResponse<Array<LaboratoryExamination>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/examinations/${status}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LaboratoryExamination>>;
+      })
+    );
+  }
+  /**
+   * @param status Laboratory examination's status
+   * @return OK
+   */
+  getAllLaboratoryExaminationsByStatusUsingGET(status: string): __Observable<Array<LaboratoryExamination>> {
+    return this.getAllLaboratoryExaminationsByStatusUsingGETResponse(status).pipe(
+      __map(_r => _r.body as Array<LaboratoryExamination>)
+    );
+  }
 }
 
-module ExaminationsService {
+module LaboratoryExaminationsService {
 
   /**
    * Parameters for approveUsingPATCH
@@ -286,4 +357,4 @@ module ExaminationsService {
   }
 }
 
-export { ExaminationsService }
+export { LaboratoryExaminationsService }

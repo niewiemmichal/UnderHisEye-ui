@@ -9,8 +9,8 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { Visit } from '../models/visit';
 import { VisitRegistrationDto } from '../models/visit-registration-dto';
-import { VisitClosureDto } from '../models/visit-closure-dto';
 import { VisitWithExaminationsDto } from '../models/visit-with-examinations-dto';
+import { VisitClosureDto } from '../models/visit-closure-dto';
 
 /**
  * Visit Endpoint
@@ -22,6 +22,8 @@ class VisitsService extends __BaseService {
   static readonly getAllUsingGETPath = '/visits';
   static readonly registerVisitUsingPOSTPath = '/visits';
   static readonly cancelVisitUsingPATCHPath = '/visits/cancel/{id}';
+  static readonly getAllFatVisitsUsingGETPath = '/visits/e/';
+  static readonly getAllFatVisitsUsingGET1Path = '/visits/e/{id}';
   static readonly endVisitUsingPATCHPath = '/visits/end/{id}';
   static readonly getUsingGETPath = '/visits/{id}';
 
@@ -141,6 +143,75 @@ class VisitsService extends __BaseService {
   cancelVisitUsingPATCH(params: VisitsService.CancelVisitUsingPATCHParams): __Observable<null> {
     return this.cancelVisitUsingPATCHResponse(params).pipe(
       __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @return OK
+   */
+  getAllFatVisitsUsingGETResponse(): __Observable<__StrictHttpResponse<Array<VisitWithExaminationsDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/visits/e/`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<VisitWithExaminationsDto>>;
+      })
+    );
+  }
+  /**
+   * @return OK
+   */
+  getAllFatVisitsUsingGET(): __Observable<Array<VisitWithExaminationsDto>> {
+    return this.getAllFatVisitsUsingGETResponse().pipe(
+      __map(_r => _r.body as Array<VisitWithExaminationsDto>)
+    );
+  }
+
+  /**
+   * @param id Doctor's id
+   * @return OK
+   */
+  getAllFatVisitsUsingGET1Response(id: number): __Observable<__StrictHttpResponse<Array<VisitWithExaminationsDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/visits/e/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<VisitWithExaminationsDto>>;
+      })
+    );
+  }
+  /**
+   * @param id Doctor's id
+   * @return OK
+   */
+  getAllFatVisitsUsingGET1(id: number): __Observable<Array<VisitWithExaminationsDto>> {
+    return this.getAllFatVisitsUsingGET1Response(id).pipe(
+      __map(_r => _r.body as Array<VisitWithExaminationsDto>)
     );
   }
 

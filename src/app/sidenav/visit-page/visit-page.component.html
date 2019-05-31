@@ -2,9 +2,11 @@
     <mat-tab label="Current Visit">
         <section class="patient-info">
             <h1 class="mat-headline">Patient</h1>
-            <h3 class="mat-subheading-2">Name: {{ visit.patient.name }}</h3>
-            <h3 class="mat-subheading-2">Surname: {{ visit.patient.surname }}</h3>
-            <h3 class="mat-subheading-2">PESEL: {{ visit.patient.personalIdentityNumber }}</h3>
+            <h3 class="mat-subheading-2">Name: {{ visit.visit.patient.name }}</h3>
+            <h3 class="mat-subheading-2">Surname: {{ visit.visit.patient.surname }}</h3>
+            <h3 class="mat-subheading-2">
+                PESEL: {{ visit.visit.patient.personalIdentityNumber }}
+            </h3>
         </section>
         <form [formGroup]="visitForm" (ngSubmit)="onSubmit(visitForm.value)">
             <section>
@@ -21,6 +23,7 @@
                 <h2 class="mat-title">Examination</h2>
                 <div class="accordion">
                     <app-examination-accordion
+                        formControlName="examinations"
                         placeholderText="Choose test"
                         [options]="availableTests"
                         [(accordionItems)]="prescribedTests"

@@ -81,9 +81,7 @@ export class VisitFinalizerComponent implements OnInit {
                 form.date.getDate(),
                 form.hour,
                 form.minutes
-            )
-                .toISOString()
-                .split('T')[0],
+            ).toISOString(),
             doctorId: form.doctor.id,
             patientId: this.data.patientId,
             registrantId: this.data.registrantId,

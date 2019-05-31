@@ -3,6 +3,5 @@ export interface Address {
   apartment?: string;
   city?: string;
   houseNumber?: string;
-  id?: number;
   street?: string;
 }

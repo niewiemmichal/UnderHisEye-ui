@@ -31,9 +31,7 @@ export class SidenavComponent implements OnInit {
         this.isAdmin$ = this.loginService.isAdmin();
         this.isRegistrant$ = this.loginService.isRegistrant();
         this.isDoctor$ = this.loginService.isDoctor();
-        this.loginService.currentUser.subscribe((user$: Observable<BetterUser>) =>
-            user$.subscribe((user: BetterUser) => (this.currentUser = user))
-        );
+        this.loginService.currentUser.subscribe((user: BetterUser) => (this.currentUser = user));
     }
 
     logout(): void {
