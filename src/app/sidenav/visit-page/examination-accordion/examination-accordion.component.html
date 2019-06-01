@@ -1,34 +1,43 @@
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let accordionItem of accordionItems">
-        <mat-expansion-panel-header>
-            {{ accordionItem.SelectedValue == '' ? placeholderText : accordionItem.SelectedValue }}
-        </mat-expansion-panel-header>
-        <mat-form-field floatLabel="never" class="examination">
-            <mat-label>Examination</mat-label>
-            <mat-select (selectionChange)="accordionItemsChanged()">
-                <mat-option *ngFor="let option of options" [value]="option">
-                    {{ option }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="note" appearance="outline">
-            <mat-label>Note</mat-label>
-            <textarea
-                #note
-                matInput
-                class="note-textarea"
-                type="text"
-                (change)="accordionItemsChanged($event)"
-            ></textarea>
-        </mat-form-field>
-    </mat-expansion-panel>
-</mat-accordion>
-<button
-    mat-flat-button
-    color="primary"
-    class="new-button"
-    (click)="addAccordionItem(); accordionItemsChanged()"
-    type="button"
->
-    Add
-</button>
+<form [formGroup]="examinationForm">
+    <mat-accordion formArrayName="examinations">
+        <mat-expansion-panel
+            *ngFor="let examination of examinations.controls; index as i"
+            [formGroupName]="i"
+        >
+            <mat-expansion-panel-header>
+                {{
+                    examination.value.examination
+                        ? examination.value.examination.name
+                        : placeholderText
+                }}
+            </mat-expansion-panel-header>
+            <mat-form-field class="examination">
+                <mat-label>Examination</mat-label>
+                <mat-select formControlName="examination" (blur)="onTouched()">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="note" appearance="outline">
+                <mat-label>Note</mat-label>
+                <textarea
+                    matInput
+                    class="note-textarea"
+                    formControlName="note"
+                    (blur)="onTouched()"
+                    type="text"
+                ></textarea>
+            </mat-form-field>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <button
+        mat-flat-button
+        color="primary"
+        class="new-button"
+        (click)="addExamination(); onTouched()"
+        type="button"
+    >
+        Add
+    </button>
+</form>

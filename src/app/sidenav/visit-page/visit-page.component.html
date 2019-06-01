@@ -20,21 +20,23 @@
                         type="text"
                     ></textarea>
                 </mat-form-field>
-                <h2 class="mat-title">Examination</h2>
+                <h2 class="mat-title">Physical examination</h2>
                 <div class="accordion">
                     <app-examination-accordion
-                        formControlName="examinations"
+                        *ngIf="examinations != null"
+                        formControlName="physicalExaminations"
                         placeholderText="Choose test"
-                        [options]="availableTests"
+                        [options]="examinations"
                     ></app-examination-accordion>
                 </div>
-                <h2 class="mat-title">Lab tests</h2>
+                <h2 class="mat-title">Lab examination</h2>
                 <div class="accordion">
-                    <!-- <app-examination-accordion
+                    <app-examination-accordion
+                        *ngIf="examinations != null"
+                        formControlName="laboratoryExaminations"
                         placeholderText="Choose examination"
-                        [options]="availableExaminations"
-                        [(accordionItems)]="examinations"
-                    ></app-examination-accordion> -->
+                        [options]="examinations"
+                    ></app-examination-accordion>
                 </div>
             </section>
             <section>
@@ -49,11 +51,6 @@
                     ></textarea>
                 </mat-form-field>
             </section>
-
-            <app-custom-form-control formControlName="test"></app-custom-form-control>
-
-            {{ visitForm.value | json }}
-
             <button mat-flat-button color="primary" type="submit" [disabled]="!visitForm.valid">
                 Finish
             </button>

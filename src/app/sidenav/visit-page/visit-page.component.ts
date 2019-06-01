@@ -1,17 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AccordionItem } from './examination-accordion/examination-accordion.component';
-import {
-    VisitWithExaminationsDto,
-    LaboratoryExaminationDto,
-    PhysicalExaminationDto,
-} from 'src/app/api/models';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { VisitWithExaminationsDto, Examination } from 'src/app/api/models';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { IcdService, VisitsService } from 'src/app/api/services';
+import { ExaminationFormItem } from './examination-accordion/examination-accordion.component';
+import { MatSnackBar } from '@angular/material';
+import { EventEmitter } from 'events';
 
 interface VisitForm {
     description: string;
     diagnosis: string;
-    test: any;
-    examinations: any[];
+    physicalExaminations: ExaminationFormItem[];
+    laboratoryExaminations: ExaminationFormItem[];
 }
 
 @Component({
@@ -22,32 +21,76 @@ interface VisitForm {
 export class VisitPageComponent implements OnInit {
     @Input()
     visit: VisitWithExaminationsDto;
+    @Output()
+    finished: EventEmitter = new EventEmitter();
 
     visitForm: FormGroup;
+    examinations: Examination[];
 
-    //testControl: FormControl = new FormControl('medium');
-
-    constructor(private fb: FormBuilder) {}
+    constructor(
+        private fb: FormBuilder,
+        private icdService: IcdService,
+        private visitsService: VisitsService,
+        private snackBar: MatSnackBar
+    ) {}
 
     ngOnInit(): void {
         this.visitForm = this.fb.group({
             description: [null, Validators.required],
             diagnosis: [null, Validators.required],
-            test: ['medium'],
-            examinations: [null],
+            physicalExaminations: [[]],
+            laboratoryExaminations: [[]],
+        });
+        this.icdService.getAllExaminationsUsingGET().subscribe((examinations: Examination[]) => {
+            this.examinations = examinations;
         });
     }
 
-    availableTests: string[] = ['Badanie TSH', 'Roentgen', 'Rezonans magnetyczny'];
-    prescribedTests: AccordionItem[] = [{ SelectedValue: '', Note: '' }];
-    availableExaminations: string[] = [
-        'Badanie temperatury',
-        'Badanie ciśnienia',
-        'Nasłuchiwanie płuc',
-    ];
-    examinations: AccordionItem[] = [{ SelectedValue: '', Note: '' }];
-
     onSubmit(form: VisitForm): void {
-        console.log(form);
+        this.visitsService
+            .endVisitUsingPATCH(this.parseToEndVisitParams(form, this.visit.visit.id))
+            .subscribe(
+                () => {
+                    this.snackBar.open('Success!', null, {
+                        duration: 3000,
+                    });
+                },
+                () => {
+                    this.snackBar.open('Something went wrong..', 'Ok', {
+                        duration: 3000,
+                    });
+                }
+            );
+    }
+
+    parseToEndVisitParams(
+        form: VisitForm,
+        visitId: number
+    ): VisitsService.EndVisitUsingPATCHParams {
+        return {
+            id: visitId,
+            details: {
+                description: form.description,
+                diagnosis: form.diagnosis,
+                physicalExaminations: form.physicalExaminations.map(
+                    (examination: ExaminationFormItem) => {
+                        return {
+                            examinationCode: examination.examination.code,
+                            result: examination.note,
+                            visitId: visitId,
+                        };
+                    }
+                ),
+                laboratoryExaminations: form.laboratoryExaminations.map(
+                    (examination: ExaminationFormItem) => {
+                        return {
+                            examinationCode: examination.examination.code,
+                            note: examination.note,
+                            visitId: visitId,
+                        };
+                    }
+                ),
+            },
+        };
     }
 }
