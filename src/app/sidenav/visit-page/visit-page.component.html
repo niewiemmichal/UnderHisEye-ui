@@ -51,6 +51,9 @@
                     ></textarea>
                 </mat-form-field>
             </section>
+            <button mat-button type="button" (click)="cancel()">
+                Cancel
+            </button>
             <button mat-flat-button color="primary" type="submit" [disabled]="!visitForm.valid">
                 Finish
             </button>

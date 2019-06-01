@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { VisitWithExaminationsDto, Examination } from 'src/app/api/models';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { IcdService, VisitsService } from 'src/app/api/services';
 import { ExaminationFormItem } from './examination-accordion/examination-accordion.component';
 import { MatSnackBar } from '@angular/material';
-import { EventEmitter } from 'events';
 
 interface VisitForm {
     description: string;
@@ -22,7 +21,7 @@ export class VisitPageComponent implements OnInit {
     @Input()
     visit: VisitWithExaminationsDto;
     @Output()
-    finished: EventEmitter = new EventEmitter();
+    ended: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     visitForm: FormGroup;
     examinations: Examination[];
@@ -54,6 +53,7 @@ export class VisitPageComponent implements OnInit {
                     this.snackBar.open('Success!', null, {
                         duration: 3000,
                     });
+                    this.ended.emit(true);
                 },
                 () => {
                     this.snackBar.open('Something went wrong..', 'Ok', {
@@ -61,6 +61,10 @@ export class VisitPageComponent implements OnInit {
                     });
                 }
             );
+    }
+
+    cancel(): void {
+        this.ended.emit(false);
     }
 
     parseToEndVisitParams(

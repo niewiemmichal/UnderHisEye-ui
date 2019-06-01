@@ -3,7 +3,7 @@
         <input
             matInput
             [matDatepicker]="picker"
-            placeholder="Data wizyty"
+            placeholder="Visit date"
             [formControl]="dateForm"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -19,4 +19,8 @@
     (optionSelected)="optionSelected($event)"
 ></app-table>
 
-<app-visit-page *ngIf="isSelected" [visit]="selectedVisit"></app-visit-page>
+<app-visit-page
+    *ngIf="isSelected"
+    [visit]="selectedVisit"
+    (ended)="endedVisit($event)"
+></app-visit-page>

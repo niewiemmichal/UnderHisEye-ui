@@ -10,7 +10,6 @@ import {
 import { MatDialog } from '@angular/material';
 import { LoginService } from 'src/app/shared/services/login/login.service';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-doctors-visits',
@@ -34,12 +33,13 @@ export class DoctorsVisitsComponent implements OnInit {
         {
             columnDef: 'date',
             header: 'Date',
-            cell: (visit: VisitWithExaminationsDto) => `${visit.visit.date}`,
+            cell: (visit: VisitWithExaminationsDto) => new Date(visit.visit.date).toDateString(),
         },
         {
-            columnDef: 'status',
-            header: 'Status',
-            cell: (visit: VisitWithExaminationsDto) => `${visit.visit.status}`,
+            columnDef: 'time',
+            header: 'Time',
+            cell: (visit: VisitWithExaminationsDto) =>
+                new Date(visit.visit.date).toLocaleTimeString(),
         },
     ];
     dateForm: FormControl = new FormControl(new Date());
@@ -64,7 +64,7 @@ export class DoctorsVisitsComponent implements OnInit {
         return this._visits.filter(
             (visit: VisitWithExaminationsDto) =>
                 new Date(visit.visit.date) >= this.dateForm.value &&
-                !visit.visit.status.toLowerCase().startsWith('cancel')
+                visit.visit.status.toLowerCase().startsWith('regi')
         );
     }
 
@@ -72,7 +72,6 @@ export class DoctorsVisitsComponent implements OnInit {
         this.visitsService
             .getAllFatVisitsUsingGET1(id)
             .subscribe((visits: VisitWithExaminationsDto[]) => {
-                console.log(visits);
                 this._visits = visits;
             });
     }
@@ -84,7 +83,7 @@ export class DoctorsVisitsComponent implements OnInit {
                 break;
 
             case 'accept':
-                this.acceptVisit(selectedOption.row);
+                this.selectVisit(selectedOption.row);
                 break;
 
             default:
@@ -108,8 +107,22 @@ export class DoctorsVisitsComponent implements OnInit {
             });
     }
 
-    acceptVisit(visit: VisitWithExaminationsDto): void {
+    selectVisit(visit: VisitWithExaminationsDto): void {
         this.selectedVisit = visit;
         this.isSelected = true;
+    }
+
+    deselectVisit(): void {
+        this.isSelected = false;
+        this.selectedVisit = null;
+    }
+
+    endedVisit(ended: boolean): void {
+        if (ended) {
+            this.deselectVisit();
+            this.doctorId.subscribe((id: number) => this.getAllVisits(id));
+        } else {
+            this.deselectVisit();
+        }
     }
 }
