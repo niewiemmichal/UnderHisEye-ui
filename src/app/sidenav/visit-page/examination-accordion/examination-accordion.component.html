@@ -5,10 +5,7 @@
         </mat-expansion-panel-header>
         <mat-form-field floatLabel="never" class="examination">
             <mat-label>Examination</mat-label>
-            <mat-select
-                [(value)]="accordionItem.SelectedValue"
-                (selectionChange)="accordionItemsChanged()"
-            >
+            <mat-select (selectionChange)="accordionItemsChanged()">
                 <mat-option *ngFor="let option of options" [value]="option">
                     {{ option }}
                 </mat-option>
@@ -21,8 +18,7 @@
                 matInput
                 class="note-textarea"
                 type="text"
-                (change)="accordionItemsChanged()"
-                [(ngModel)]="accordionItem.Note"
+                (change)="accordionItemsChanged($event)"
             ></textarea>
         </mat-form-field>
     </mat-expansion-panel>
@@ -32,6 +28,7 @@
     color="primary"
     class="new-button"
     (click)="addAccordionItem(); accordionItemsChanged()"
+    type="button"
 >
     Add
 </button>

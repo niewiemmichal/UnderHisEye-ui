@@ -5,13 +5,13 @@ import {
     LaboratoryExaminationDto,
     PhysicalExaminationDto,
 } from 'src/app/api/models';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 interface VisitForm {
     description: string;
     diagnosis: string;
-    laboratoryExaminations: LaboratoryExaminationDto[];
-    physicalExaminations: PhysicalExaminationDto;
+    test: any;
+    examinations: any[];
 }
 
 @Component({
@@ -25,12 +25,15 @@ export class VisitPageComponent implements OnInit {
 
     visitForm: FormGroup;
 
+    //testControl: FormControl = new FormControl('medium');
+
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
         this.visitForm = this.fb.group({
             description: [null, Validators.required],
             diagnosis: [null, Validators.required],
+            test: ['medium'],
             examinations: [null],
         });
     }
