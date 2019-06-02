@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "Przychodnia-Frontend"
+  "defaultProject": "Przychodnia-Frontend",
+  "cli": {
+    "packageManager": "yarn"
+  }
 }

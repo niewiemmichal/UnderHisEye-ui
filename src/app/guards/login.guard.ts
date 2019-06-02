@@ -8,14 +8,17 @@ import { RedirectionService } from '../shared/redirection/redirection.service';
     providedIn: 'root',
 })
 export class LoginGuard implements CanActivate {
-    constructor(private loginService: LoginService, private redirectService: RedirectionService) {}
+    constructor(
+        private loginService: LoginService,
+        private redirectionService: RedirectionService
+    ) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         if (this.loginService.isLoggedIn()) {
-            this.redirectService.redirectToApp();
+            this.redirectionService.redirectToApp();
             return false;
         } else {
             return true;

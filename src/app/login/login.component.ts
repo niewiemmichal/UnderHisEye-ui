@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoginService } from '../shared/services/login/login.service';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
+import { RedirectionService } from '../shared/redirection/redirection.service';
 
 @Component({
     selector: 'app-login',
@@ -17,8 +17,8 @@ export class LoginComponent {
 
     constructor(
         private loginService: LoginService,
-        private router: Router,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private redirectionService: RedirectionService
     ) {}
 
     onSubmit(): void {
@@ -35,6 +35,6 @@ export class LoginComponent {
     }
 
     navigateToApp(): void {
-        this.router.navigateByUrl('');
+        this.redirectionService.redirectToApp();
     }
 }

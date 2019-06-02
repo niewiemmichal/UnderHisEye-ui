@@ -14,7 +14,10 @@ import { RedirectionService } from '../shared/redirection/redirection.service';
     providedIn: 'root',
 })
 export class AppGuard implements CanActivateChild, CanActivate {
-    constructor(private loginService: LoginService, private redirectService: RedirectionService) {}
+    constructor(
+        private loginService: LoginService,
+        private redirectionService: RedirectionService
+    ) {}
 
     canActivateChild(
         childRoute: ActivatedRouteSnapshot,
@@ -23,7 +26,7 @@ export class AppGuard implements CanActivateChild, CanActivate {
         if (this.loginService.isLoggedIn()) {
             return true;
         } else {
-            this.redirectService.redirectToLogin();
+            this.redirectionService.redirectToLogin();
             return false;
         }
     }
@@ -34,11 +37,11 @@ export class AppGuard implements CanActivateChild, CanActivate {
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         if (this.loginService.isLoggedIn()) {
             if (childRoute.firstChild == null) {
-                this.redirectService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
+                this.redirectionService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
             }
             return true;
         } else {
-            this.redirectService.redirectToLogin();
+            this.redirectionService.redirectToLogin();
             return false;
         }
     }
