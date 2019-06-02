@@ -1,3 +1,6 @@
-<p>
-    all-lab-exams works!
-</p>
+<app-table
+    [data]="labExaminations"
+    [columnsInfo]="columns"
+    [rowOptions]="options"
+    (optionSelected)="optionSelected($event)"
+></app-table>
