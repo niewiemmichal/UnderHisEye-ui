@@ -19,6 +19,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { VisitFinalizerComponent } from './visit-finalizer/visit-finalizer.component';
 import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
 import { CancelVisitDialog } from './visits-by-doctor/cancel-visit-dialog/cancel-visit-dialog';
+import { AllLabExamsComponent } from './all-lab-exams/all-lab-exams.component';
 
 @NgModule({
     imports: [
@@ -45,6 +46,7 @@ import { CancelVisitDialog } from './visits-by-doctor/cancel-visit-dialog/cancel
         VisitFinalizerComponent,
         VisitFinalizerDialog,
         CancelVisitDialog,
+        AllLabExamsComponent,
     ],
     entryComponents: [NewUserDialog, NewPatientDialog, VisitFinalizerDialog, CancelVisitDialog],
 })

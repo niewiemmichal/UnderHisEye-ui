@@ -54,6 +54,14 @@
             >
                 <span class="link-text">Visits</span>
             </a>
+            <a
+                mat-list-item
+                *ngIf="(isAssistant$ | async)"
+                routerLink="/lab-exams"
+                routerLinkActive="active"
+            >
+                <span class="link-text">All examinations</span>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

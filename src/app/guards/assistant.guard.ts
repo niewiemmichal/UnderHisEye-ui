@@ -7,7 +7,7 @@ import { RedirectionService } from '../shared/services/redirection/redirection.s
 @Injectable({
     providedIn: 'root',
 })
-export class AdminGuard implements CanActivate {
+export class AssistantGuard implements CanActivate {
     constructor(
         private loginService: LoginService,
         private redirectionService: RedirectionService
@@ -17,13 +17,13 @@ export class AdminGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        let isAdmin$: Observable<boolean> = this.loginService.isAdmin();
-        isAdmin$.subscribe((isAdmin: boolean) => {
-            if (!isAdmin) {
+        let isAssistant$: Observable<boolean> = this.loginService.isAssistant();
+        isAssistant$.subscribe((isAssistant: boolean) => {
+            if (!isAssistant) {
                 this.redirectionService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
             }
         });
 
-        return isAdmin$;
+        return isAssistant$;
     }
 }

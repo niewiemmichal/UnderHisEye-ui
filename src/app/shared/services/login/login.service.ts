@@ -6,7 +6,7 @@ import { tap, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BetterUserService } from '../better-user/better-user.service';
 import { BetterUser } from '../better-user/better-user';
-import { RedirectionService } from '../../redirection/redirection.service';
+import { RedirectionService } from '../redirection/redirection.service';
 
 @Injectable({
     providedIn: 'root',
@@ -90,6 +90,14 @@ export class LoginService {
         return this._currentUser.pipe(
             map((user: User) => {
                 return user.role.toLowerCase().startsWith('doctor');
+            })
+        );
+    }
+
+    isAssistant(): Observable<boolean> {
+        return this._currentUser.pipe(
+            map((user: User) => {
+                return user.role.toLowerCase().startsWith('assist');
             })
         );
     }

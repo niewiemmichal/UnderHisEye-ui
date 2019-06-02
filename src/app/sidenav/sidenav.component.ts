@@ -16,6 +16,7 @@ export class SidenavComponent implements OnInit {
     isAdmin$: Observable<boolean>;
     isRegistrant$: Observable<boolean>;
     isDoctor$: Observable<boolean>;
+    isAssistant$: Observable<boolean>;
     currentUser: BetterUser;
 
     isHandset$: Observable<boolean> = this.breakpointObserver
@@ -31,6 +32,7 @@ export class SidenavComponent implements OnInit {
         this.isAdmin$ = this.loginService.isAdmin();
         this.isRegistrant$ = this.loginService.isRegistrant();
         this.isDoctor$ = this.loginService.isDoctor();
+        this.isAssistant$ = this.loginService.isAssistant();
         this.loginService.currentUser.subscribe((user: BetterUser) => (this.currentUser = user));
     }
 

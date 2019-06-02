@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from '../shared/services/login/login.service';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RedirectionService } from '../shared/redirection/redirection.service';
+import { RedirectionService } from '../shared/services/redirection/redirection.service';
 
 @Component({
     selector: 'app-login',

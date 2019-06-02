@@ -37,7 +37,7 @@ export class RedirectionService {
                 return 'visits-by-doctor';
 
             case 'ASSISTANT':
-                return;
+                return 'lab-exams';
 
             case 'SUPERVISOR':
                 return;
