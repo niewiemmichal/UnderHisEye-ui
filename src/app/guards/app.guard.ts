@@ -4,26 +4,42 @@ import {
     RouterStateSnapshot,
     UrlTree,
     CanActivate,
-    Router,
+    CanActivateChild,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../shared/services/login/login.service';
+import { RedirectionService } from '../shared/redirection/redirection.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AppGuard implements CanActivate {
-    constructor(private loginService: LoginService, private router: Router) {}
+export class AppGuard implements CanActivateChild, CanActivate {
+    constructor(private loginService: LoginService, private redirectService: RedirectionService) {}
 
-    canActivate(
-        route: ActivatedRouteSnapshot,
+    canActivateChild(
+        childRoute: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (!this.loginService.isLoggedIn()) {
-            this.router.navigate(['login']);
-            return false;
-        } else {
+        if (this.loginService.isLoggedIn()) {
             return true;
+        } else {
+            this.redirectService.redirectToLogin();
+            return false;
+        }
+    }
+
+    canActivate(
+        childRoute: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        if (this.loginService.isLoggedIn()) {
+            if (childRoute.firstChild == null) {
+                this.redirectService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
+            }
+            return true;
+        } else {
+            this.redirectService.redirectToLogin();
+            return false;
         }
     }
 }

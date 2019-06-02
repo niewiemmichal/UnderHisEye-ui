@@ -10,22 +10,41 @@ import { VisitsByDoctorComponent } from './sidenav/visits-by-doctor/visits-by-do
 import { DoctorsVisitsComponent } from './sidenav/doctors-visits/doctors-visits.component';
 import { AllUsersComponent } from './sidenav/all-users/all-users.component';
 import { AdminGuard } from './guards/admin.guard';
+import { DoctorGuard } from './guards/doctor.guard';
+import { RegistrantGuard } from './guards/registrant.guard';
 
 const routes: Routes = [
     {
         path: '',
         component: SidenavComponent,
         canActivate: [AppGuard],
+        canActivateChild: [AppGuard],
         children: [
             { path: 'users', component: AllUsersComponent, canActivate: [AdminGuard] },
-            { path: 'visits-by-doctor', component: VisitsByDoctorComponent },
-            { path: 'new-visit', component: NewVisitComponent },
-            { path: 'doctors-visits', component: DoctorsVisitsComponent },
-            { path: 'current-visit', component: VisitPageComponent },
-            { path: 'all-users', component: AllUsersComponent },
+            {
+                path: 'visits-by-doctor',
+                component: VisitsByDoctorComponent,
+                canActivate: [RegistrantGuard],
+            },
+            {
+                path: 'new-visit',
+                component: NewVisitComponent,
+                canActivate: [RegistrantGuard],
+            },
+            {
+                path: 'doctors-visits',
+                component: DoctorsVisitsComponent,
+                canActivate: [DoctorGuard],
+            },
+            {
+                path: 'current-visit',
+                component: VisitPageComponent,
+                canActivate: [DoctorGuard],
+            },
         ],
     },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+    { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

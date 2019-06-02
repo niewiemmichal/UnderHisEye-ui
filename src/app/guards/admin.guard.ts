@@ -2,17 +2,28 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../shared/services/login/login.service';
+import { RedirectionService } from '../shared/redirection/redirection.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
-    constructor(private loginService: LoginService) {}
+    constructor(
+        private loginService: LoginService,
+        private redirectionService: RedirectionService
+    ) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        return this.loginService.isAdmin();
+        let isAdmin$: Observable<boolean> = this.loginService.isAdmin();
+        isAdmin$.subscribe((isAdmin: boolean) => {
+            if (!isAdmin) {
+                this.redirectionService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
+            }
+        });
+
+        return isAdmin$;
     }
 }

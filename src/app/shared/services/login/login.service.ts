@@ -4,9 +4,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/api/models';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { BetterUserService } from '../better-user/better-user.service';
 import { BetterUser } from '../better-user/better-user';
+import { RedirectionService } from '../../redirection/redirection.service';
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +22,7 @@ export class LoginService {
         private usersService: UsersService,
         private betterUserService: BetterUserService,
         private cookieService: CookieService,
-        private router: Router
+        private redirectionService: RedirectionService
     ) {
         this._currentUsername = this.cookieService.get(this._usernameCookie);
         this._currentUser = this.getCurrentUser(this._currentUsername);
@@ -96,10 +96,20 @@ export class LoginService {
 
     logout() {
         this.deleteCookies();
-        this.router.navigate(['login']);
+        this.redirectionService.redirectToLogin();
     }
 
     getUserId(): Observable<number> {
         return this._currentBetterUser.pipe(map((user: BetterUser) => user.id));
+    }
+
+    getUserRole(): Observable<
+        'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR'
+    > {
+        return this._currentUser.pipe(
+            map((user: User) => {
+                return user.role;
+            })
+        );
     }
 }

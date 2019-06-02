@@ -7,18 +7,23 @@ import { RedirectionService } from '../shared/redirection/redirection.service';
 @Injectable({
     providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
-    constructor(private loginService: LoginService, private redirectService: RedirectionService) {}
+export class DoctorGuard implements CanActivate {
+    constructor(
+        private loginService: LoginService,
+        private redirectionService: RedirectionService
+    ) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-        if (this.loginService.isLoggedIn()) {
-            this.redirectService.redirectToApp();
-            return false;
-        } else {
-            return true;
-        }
+        let isDoctor$: Observable<boolean> = this.loginService.isDoctor();
+        isDoctor$.subscribe((isDoctor: boolean) => {
+            if (!isDoctor) {
+                this.redirectionService.redirectToDefaultUrlByRole(this.loginService.getUserRole());
+            }
+        });
+
+        return isDoctor$;
     }
 }
