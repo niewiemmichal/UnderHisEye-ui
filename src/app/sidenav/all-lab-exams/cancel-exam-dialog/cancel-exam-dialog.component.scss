@@ -1,0 +1,18 @@
+.mat-form-field {
+    display: block;
+    width: 300px;
+
+    .reason {
+        height: 100px;
+    }
+}
+
+.mat-button {
+    float: right;
+}
+
+.mat-flat-button,
+.mat-button {
+    margin-top: 32px;
+    float: right;
+}
