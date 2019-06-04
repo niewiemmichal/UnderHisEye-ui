@@ -1,0 +1,16 @@
+article {
+    padding: 30px 30px 50px 30px;
+
+    .result {
+        display: block;
+        width: 60%;
+
+        &-textarea {
+            height: 20vh;
+        }
+    }
+
+    .mat-divider {
+        margin: 30px 0 20px 0;
+    }
+}

@@ -28,8 +28,10 @@ export class AllLabExamsComponent implements OnInit {
             cell: (exam: LaboratoryExamination) => exam.examination.name,
         },
     ];
-    options: string[] = ['Cancel', 'Finish', 'Reject'];
+    options: string[] = ['Cancel', 'Accept'];
     userId: number;
+    selectedExam: LaboratoryExamination;
+    isSelected: boolean = false;
 
     constructor(
         private _labService: LaboratoryExaminationsService,
@@ -62,6 +64,10 @@ export class AllLabExamsComponent implements OnInit {
                 this.cancelExam(selectedOption.row);
                 break;
 
+            case 'accept':
+                this.selectExam(selectedOption.row);
+                break;
+
             default:
                 break;
         }
@@ -78,5 +84,22 @@ export class AllLabExamsComponent implements OnInit {
                     this.updateExaminations();
                 }
             });
+    }
+
+    selectExam(labExamination: LaboratoryExamination): void {
+        this.selectedExam = labExamination;
+        this.isSelected = true;
+    }
+
+    deselectExam(): void {
+        this.isSelected = false;
+        this.selectedExam = null;
+    }
+
+    finished(finished: boolean): void {
+        this.deselectExam();
+        if (finished) {
+            this.updateExaminations();
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { VisitWithExaminationsDto, Examination } from 'src/app/api/models';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { IcdService, VisitsService } from 'src/app/api/services';
 import { ExaminationFormItem } from './examination-accordion/examination-accordion.component';
 import { MatSnackBar } from '@angular/material';

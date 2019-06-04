@@ -21,6 +21,7 @@ import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-f
 import { CancelVisitDialog } from './visits-by-doctor/cancel-visit-dialog/cancel-visit-dialog';
 import { AllLabExamsComponent } from './all-lab-exams/all-lab-exams.component';
 import { CancelExamDialogComponent } from './all-lab-exams/cancel-exam-dialog/cancel-exam-dialog.component';
+import { ExamPageComponent } from './exam-page/exam-page.component';
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import { CancelExamDialogComponent } from './all-lab-exams/cancel-exam-dialog/ca
         CancelVisitDialog,
         AllLabExamsComponent,
         CancelExamDialogComponent,
+        ExamPageComponent,
     ],
     entryComponents: [
         NewUserDialog,

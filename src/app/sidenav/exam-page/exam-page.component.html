@@ -1,0 +1,28 @@
+<article>
+    <h1 class="mat-headline">Patient info</h1>
+    <h3 class="mat-subheading-2">Name: {{ exam.visit.patient.name }}</h3>
+    <h3 class="mat-subheading-2">Surname: {{ exam.visit.patient.surname }}</h3>
+    <h3 class="mat-subheading-2">PESEL: {{ exam.visit.patient.personalIdentityNumber }}</h3>
+    <mat-divider></mat-divider>
+    <form [formGroup]="examForm" (ngSubmit)="onSubmit(examForm.value)">
+        <h1 class="mat-title">
+            Examination: {{ exam.examination.code }} - {{ exam.examination.name }}
+        </h1>
+        <mat-form-field class="result" appearance="outline">
+            <mat-label>Result</mat-label>
+            <textarea
+                matInput
+                class="result-textarea"
+                formControlName="result"
+                type="text"
+                required
+            ></textarea>
+        </mat-form-field>
+        <button mat-button type="button" (click)="abort()">
+            Abort
+        </button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="!examForm.valid">
+            Finish
+        </button>
+    </form>
+</article>
