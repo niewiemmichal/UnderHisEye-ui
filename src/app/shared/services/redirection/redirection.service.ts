@@ -40,7 +40,7 @@ export class RedirectionService {
                 return 'lab-exams';
 
             case 'SUPERVISOR':
-                return;
+                return 'lab-exams';
 
             case 'ADMINISTRATOR':
                 return 'users';

@@ -94,10 +94,27 @@ export class LoginService {
         );
     }
 
+    isLaborant(): Observable<boolean> {
+        return this._currentUser.pipe(
+            map((user: User) => {
+                const role: string = user.role.toLowerCase()
+                return role.startsWith('assist') || role.startsWith('super');
+            })
+        );
+    }
+
     isAssistant(): Observable<boolean> {
         return this._currentUser.pipe(
             map((user: User) => {
                 return user.role.toLowerCase().startsWith('assist');
+            })
+        );
+    }
+
+    isSupervisor(): Observable<boolean> {
+        return this._currentUser.pipe(
+            map((user: User) => {
+                return user.role.toLowerCase().startsWith('super');
             })
         );
     }
