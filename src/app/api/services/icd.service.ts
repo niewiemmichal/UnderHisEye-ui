@@ -17,6 +17,7 @@ import { Examination } from '../models/examination';
 })
 class IcdService extends __BaseService {
   static readonly getAllExaminationsUsingGETPath = '/icd';
+  static readonly addExaminationUsingPOSTPath = '/icd';
   static readonly getExaminationUsingGETPath = '/icd/{code}';
 
   constructor(
@@ -56,6 +57,42 @@ class IcdService extends __BaseService {
   getAllExaminationsUsingGET(): __Observable<Array<Examination>> {
     return this.getAllExaminationsUsingGETResponse().pipe(
       __map(_r => _r.body as Array<Examination>)
+    );
+  }
+
+  /**
+   * @param examination examination
+   * @return OK
+   */
+  addExaminationUsingPOSTResponse(examination: Examination): __Observable<__StrictHttpResponse<Examination>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = examination;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/icd`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Examination>;
+      })
+    );
+  }
+  /**
+   * @param examination examination
+   * @return OK
+   */
+  addExaminationUsingPOST(examination: Examination): __Observable<Examination> {
+    return this.addExaminationUsingPOSTResponse(examination).pipe(
+      __map(_r => _r.body as Examination)
     );
   }
 
