@@ -20,6 +20,9 @@ import { VisitFinalizerComponent } from './visit-finalizer/visit-finalizer.compo
 import { VisitFinalizerDialog } from './new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
 import { CancelVisitDialog } from './visits-by-doctor/cancel-visit-dialog/cancel-visit-dialog';
 import { AllLabExamsComponent } from './all-lab-exams/all-lab-exams.component';
+import { CancelExamDialogComponent } from './all-lab-exams/cancel-exam-dialog/cancel-exam-dialog.component';
+import { ExamPageComponent } from './exam-page/exam-page.component';
+import { RejectExamDialogComponent } from './all-lab-exams/reject-exam-dialog/reject-exam-dialog.component';
 
 @NgModule({
     imports: [
@@ -47,7 +50,17 @@ import { AllLabExamsComponent } from './all-lab-exams/all-lab-exams.component';
         VisitFinalizerDialog,
         CancelVisitDialog,
         AllLabExamsComponent,
+        CancelExamDialogComponent,
+        ExamPageComponent,
+        RejectExamDialogComponent,
     ],
-    entryComponents: [NewUserDialog, NewPatientDialog, VisitFinalizerDialog, CancelVisitDialog],
+    entryComponents: [
+        NewUserDialog,
+        NewPatientDialog,
+        VisitFinalizerDialog,
+        CancelVisitDialog,
+        CancelExamDialogComponent,
+        RejectExamDialogComponent,
+    ],
 })
 export class SidenavModule {}

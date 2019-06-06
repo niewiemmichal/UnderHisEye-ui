@@ -22,5 +22,6 @@
 <app-visit-page
     *ngIf="isSelected"
     [visit]="selectedVisit"
+    [pastVisits]="selectedPastHistory"
     (ended)="endedVisit($event)"
 ></app-visit-page>

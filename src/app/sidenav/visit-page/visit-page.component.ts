@@ -1,6 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { VisitWithExaminationsDto, Examination } from 'src/app/api/models';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import {
+    VisitWithExaminationsDto,
+    Examination,
+    Visit,
+    LaboratoryExamination,
+} from 'src/app/api/models';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { IcdService, VisitsService } from 'src/app/api/services';
 import { ExaminationFormItem } from './examination-accordion/examination-accordion.component';
 import { MatSnackBar } from '@angular/material';
@@ -18,13 +23,21 @@ interface VisitForm {
     styleUrls: ['./visit-page.component.scss'],
 })
 export class VisitPageComponent implements OnInit {
+    private _pastVisits: VisitWithExaminationsDto[];
+
     @Input()
     visit: VisitWithExaminationsDto;
+    @Input()
+    set pastVisits(visits: VisitWithExaminationsDto[]) {
+        this._pastVisits = visits;
+    }
     @Output()
     ended: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    pastHistory: Visit[];
     visitForm: FormGroup;
     examinations: Examination[];
+    pastExams: LaboratoryExamination[];
 
     constructor(
         private fb: FormBuilder,
@@ -43,6 +56,12 @@ export class VisitPageComponent implements OnInit {
         this.icdService.getAllExaminationsUsingGET().subscribe((examinations: Examination[]) => {
             this.examinations = examinations;
         });
+        this.pastHistory = this._pastVisits.map((visit: VisitWithExaminationsDto) => visit.visit);
+        this.pastExams = this._pastVisits
+            .map((visit: VisitWithExaminationsDto) => visit.laboratoryExaminations)
+            .reduce((allExams: LaboratoryExamination[], nextExams: LaboratoryExamination[]) =>
+                allExams.concat(nextExams)
+            );
     }
 
     onSubmit(form: VisitForm): void {

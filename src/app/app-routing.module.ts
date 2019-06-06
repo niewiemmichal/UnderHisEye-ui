@@ -13,7 +13,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { DoctorGuard } from './guards/doctor.guard';
 import { RegistrantGuard } from './guards/registrant.guard';
 import { AllLabExamsComponent } from './sidenav/all-lab-exams/all-lab-exams.component';
-import { AssistantGuard } from './guards/assistant.guard';
+import { LabGuard } from './guards/lab.guard';
 
 const routes: Routes = [
     {
@@ -46,7 +46,7 @@ const routes: Routes = [
             {
                 path: 'lab-exams',
                 component: AllLabExamsComponent,
-                canActivate: [AssistantGuard],
+                canActivate: [LabGuard],
             },
         ],
     },

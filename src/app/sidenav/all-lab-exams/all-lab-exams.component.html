@@ -1,6 +1,14 @@
 <app-table
+    *ngIf="!isSelected"
     [data]="labExaminations"
     [columnsInfo]="columns"
     [rowOptions]="options"
     (optionSelected)="optionSelected($event)"
 ></app-table>
+
+<app-exam-page
+    *ngIf="isSelected && currentUser != null"
+    [exam]="selectedExam"
+    [assistantId]="currentUser.id"
+    (finished)="finished($event)"
+></app-exam-page>

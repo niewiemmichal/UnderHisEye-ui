@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import { VisitsService } from 'src/app/api/services';
+import { VisitsService, LaboratoryExaminationsService } from 'src/app/api/services';
 import { Visit, VisitWithExaminationsDto } from 'src/app/api/models';
 import {
     CancelVisitDialog,
@@ -45,8 +45,8 @@ export class DoctorsVisitsComponent implements OnInit {
     dateForm: FormControl = new FormControl(new Date());
     isSelected: boolean = false;
     selectedVisit: VisitWithExaminationsDto;
+    selectedPastHistory: VisitWithExaminationsDto[];
     doctorId: Observable<number>;
-
     options: string[] = ['Accept', 'Cancel'];
 
     constructor(
@@ -68,7 +68,7 @@ export class DoctorsVisitsComponent implements OnInit {
         );
     }
 
-    getAllVisits(id: number): void {
+    private getAllVisits(id: number): void {
         this.visitsService
             .getAllFatVisitsUsingGET1(id)
             .subscribe((visits: VisitWithExaminationsDto[]) => {
@@ -91,7 +91,7 @@ export class DoctorsVisitsComponent implements OnInit {
         }
     }
 
-    cancelVisit(visit: Visit): void {
+    private cancelVisit(visit: Visit): void {
         this.dialog
             .open(CancelVisitDialog, {
                 data: new CancelVisitDialogData(visit.id),
@@ -107,12 +107,17 @@ export class DoctorsVisitsComponent implements OnInit {
             });
     }
 
-    selectVisit(visit: VisitWithExaminationsDto): void {
-        this.selectedVisit = visit;
+    private selectVisit(selected: VisitWithExaminationsDto): void {
+        this.selectedVisit = selected;
+        this.selectedPastHistory = this._visits.filter(
+            (visit: VisitWithExaminationsDto) =>
+                visit.visit.patient.id === selected.visit.patient.id &&
+                visit.visit.status === 'FINISHED'
+        );
         this.isSelected = true;
     }
 
-    deselectVisit(): void {
+    private deselectVisit(): void {
         this.isSelected = false;
         this.selectedVisit = null;
     }

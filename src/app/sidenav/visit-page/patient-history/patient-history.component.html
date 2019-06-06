@@ -1,12 +1,13 @@
 <section>
     <div class="accordion">
-        <h1 class="mat-headling">Past visit</h1>
+        <h1 class="mat-headling">Visit history</h1>
         <mat-accordion>
-            <mat-expansion-panel>
+            <mat-expansion-panel *ngFor="let visit of pastHistory">
                 <mat-expansion-panel-header>
-                    Visit xyz
+                    {{ visit.date | date }}
                 </mat-expansion-panel-header>
-                Info about visit
+                <h3 class="mat-subheading-1">Description: {{ visit.description }}</h3>
+                <h3 class="mat-subheading-1">Diagnosis: {{ visit.diagnosis }}</h3>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
@@ -14,11 +15,12 @@
     <div class="accordion">
         <h1 class="mat-headling">Lab results</h1>
         <mat-accordion>
-            <mat-expansion-panel>
+            <mat-expansion-panel *ngFor="let exam of pastExams">
                 <mat-expansion-panel-header>
-                    Lab test xyz
+                    {{ exam.completionDate | date }} - {{ exam.examination.code }}
+                    {{ exam.examination.name }}
                 </mat-expansion-panel-header>
-                Info about lab test
+                <h3 class="mat-subheading-1">Result: {{ exam.result }}</h3>
             </mat-expansion-panel>
         </mat-accordion>
     </div>
