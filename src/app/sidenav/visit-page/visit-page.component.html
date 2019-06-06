@@ -60,6 +60,10 @@
         </form>
     </mat-tab>
     <mat-tab label="Patients History">
-        <app-patient-history></app-patient-history>
+        <app-patient-history
+            *ngIf="pastHistory != null && pastExams != null"
+            [pastHistory]="pastHistory"
+            [pastExams]="pastExams"
+        ></app-patient-history>
     </mat-tab>
 </mat-tab-group>
