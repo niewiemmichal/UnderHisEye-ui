@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { LaboratoryExaminationsService } from 'src/app/api/services';
 
-export class CancelExamDialogData {
+export class RejectExamDialogData {
     examId: number;
     userId: number;
 
@@ -13,20 +13,20 @@ export class CancelExamDialogData {
     }
 }
 
-interface CancelationFormValue {
-    reason: string;
+interface RejectionFormValue {
+    note: string;
 }
 
 @Component({
-    selector: 'app-cancel-exam-dialog',
-    templateUrl: './cancel-exam-dialog.component.html',
-    styleUrls: ['./cancel-exam-dialog.component.scss'],
+    selector: 'app-reject-exam-dialog',
+    templateUrl: './reject-exam-dialog.component.html',
+    styleUrls: ['./reject-exam-dialog.component.scss'],
 })
-export class CancelExamDialogComponent implements OnInit {
-    cancelationForm: FormGroup;
+export class RejectExamDialogComponent implements OnInit {
+    rejectForm: FormGroup;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) private _data: CancelExamDialogData,
+        @Inject(MAT_DIALOG_DATA) private _data: RejectExamDialogData,
         private _dialogRef: MatDialogRef<Component>,
         private _formBuilder: FormBuilder,
         private _labExaminationservice: LaboratoryExaminationsService,
@@ -34,8 +34,8 @@ export class CancelExamDialogComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.cancelationForm = this._formBuilder.group({
-            reason: [null, Validators.required],
+        this.rejectForm = this._formBuilder.group({
+            note: [null, Validators.required],
         });
     }
 
@@ -43,11 +43,11 @@ export class CancelExamDialogComponent implements OnInit {
         this._dialogRef.close(canceled);
     }
 
-    onSubmit(formValue: CancelationFormValue): void {
+    onSubmit(formValue: RejectionFormValue): void {
         this._labExaminationservice
-            .cancelUsingPATCH({
+            .rejectUsingPATCH({
                 id: this._data.examId,
-                details: { assistantId: this._data.userId, result: formValue.reason },
+                details: { id: this._data.userId, note: formValue.note },
             })
             .subscribe(
                 () => {

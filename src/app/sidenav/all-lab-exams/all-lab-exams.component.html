@@ -7,8 +7,8 @@
 ></app-table>
 
 <app-exam-page
-    *ngIf="isSelected && userId != null"
+    *ngIf="isSelected && currentUser != null"
     [exam]="selectedExam"
-    [assistantId]="userId"
+    [assistantId]="currentUser.id"
     (finished)="finished($event)"
 ></app-exam-page>

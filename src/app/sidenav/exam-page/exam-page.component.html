@@ -5,9 +5,9 @@
     <h3 class="mat-subheading-2">PESEL: {{ exam.visit.patient.personalIdentityNumber }}</h3>
     <mat-divider></mat-divider>
     <form [formGroup]="examForm" (ngSubmit)="onSubmit(examForm.value)">
-        <h1 class="mat-title">
-            Examination: {{ exam.examination.code }} - {{ exam.examination.name }}
-        </h1>
+        <h1 class="mat-title">Examination</h1>
+        <h3 class="mat-subheading-2">{{ exam.examination.code }} {{ exam.examination.name }}</h3>
+        <h3 class="mat-subheading-2">Doctors note: {{ exam.note }}</h3>
         <mat-form-field class="result" appearance="outline">
             <mat-label>Result</mat-label>
             <textarea

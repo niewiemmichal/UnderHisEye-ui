@@ -2,14 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { LaboratoryExaminationsService } from 'src/app/api/services';
 import { LaboratoryExamination } from 'src/app/api/models';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import {
     CancelExamDialogComponent,
     CancelExamDialogData,
 } from './cancel-exam-dialog/cancel-exam-dialog.component';
 import { LoginService } from 'src/app/shared/services/login/login.service';
 import { BetterUser } from 'src/app/shared/services/better-user/better-user';
-import { filter } from 'rxjs/operators';
+import {
+    RejectExamDialogComponent,
+    RejectExamDialogData,
+} from './reject-exam-dialog/reject-exam-dialog.component';
 
 @Component({
     selector: 'app-all-lab-exams',
@@ -20,7 +23,6 @@ export class AllLabExamsComponent implements OnInit {
     private _labExaminations: LaboratoryExamination[] = [];
     columns: ColumnInfoItem[] = [];
     options: string[] = [];
-    userId: number;
     selectedExam: LaboratoryExamination;
     isSelected: boolean = false;
     currentUser: BetterUser;
@@ -29,12 +31,12 @@ export class AllLabExamsComponent implements OnInit {
     constructor(
         private _labService: LaboratoryExaminationsService,
         private _dialog: MatDialog,
-        private _loginService: LoginService
+        private _loginService: LoginService,
+        private _snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
         this.updateExaminations();
-        this._loginService.getUserId().subscribe((id: number) => (this.userId = id));
         this._loginService.currentUser.subscribe((user: BetterUser) => {
             this.currentUser = user;
             this.setOptions(user.role);
@@ -167,15 +169,57 @@ export class AllLabExamsComponent implements OnInit {
                 this.selectExam(selectedOption.row);
                 break;
 
+            case 'reject':
+                this.rejectExam(selectedOption.row);
+                break;
+
+            case 'approve':
+                this.approveExam(selectedOption.row);
+                break;
+
             default:
                 break;
         }
     }
 
-    cancelExam(labExamination: LaboratoryExamination): void {
+    private approveExam(labExamination: LaboratoryExamination): void {
+        this._labService
+            .approveUsingPATCH({
+                id: labExamination.id,
+                supervisorId: this.currentUser.id,
+            })
+            .subscribe(
+                () => {
+                    this._snackBar.open('Success!', null, {
+                        duration: 1500,
+                    });
+                    this.updateExaminations();
+                },
+                () => {
+                    this._snackBar.open('Something went wrong..', 'Ok', {
+                        duration: 3000,
+                    });
+                }
+            );
+    }
+
+    private rejectExam(labExamination: LaboratoryExamination): void {
+        this._dialog
+            .open(RejectExamDialogComponent, {
+                data: new RejectExamDialogData(labExamination.id, this.currentUser.id),
+            })
+            .afterClosed()
+            .subscribe((rejected: boolean) => {
+                if (rejected) {
+                    this.updateExaminations();
+                }
+            });
+    }
+
+    private cancelExam(labExamination: LaboratoryExamination): void {
         this._dialog
             .open(CancelExamDialogComponent, {
-                data: new CancelExamDialogData(labExamination.id, this.userId),
+                data: new CancelExamDialogData(labExamination.id, this.currentUser.id),
             })
             .afterClosed()
             .subscribe((canceled: boolean) => {
@@ -185,12 +229,12 @@ export class AllLabExamsComponent implements OnInit {
             });
     }
 
-    selectExam(labExamination: LaboratoryExamination): void {
+    private selectExam(labExamination: LaboratoryExamination): void {
         this.selectedExam = labExamination;
         this.isSelected = true;
     }
 
-    deselectExam(): void {
+    private deselectExam(): void {
         this.isSelected = false;
         this.selectedExam = null;
     }
