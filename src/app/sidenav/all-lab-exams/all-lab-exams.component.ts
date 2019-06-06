@@ -8,6 +8,8 @@ import {
     CancelExamDialogData,
 } from './cancel-exam-dialog/cancel-exam-dialog.component';
 import { LoginService } from 'src/app/shared/services/login/login.service';
+import { BetterUser } from 'src/app/shared/services/better-user/better-user';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-all-lab-exams',
@@ -16,22 +18,13 @@ import { LoginService } from 'src/app/shared/services/login/login.service';
 })
 export class AllLabExamsComponent implements OnInit {
     private _labExaminations: LaboratoryExamination[] = [];
-    columns: ColumnInfoItem[] = [
-        {
-            columnDef: 'code',
-            header: 'Code',
-            cell: (exam: LaboratoryExamination) => exam.examination.code,
-        },
-        {
-            columnDef: 'note',
-            header: 'Note',
-            cell: (exam: LaboratoryExamination) => exam.examination.name,
-        },
-    ];
-    options: string[] = ['Cancel', 'Accept'];
+    columns: ColumnInfoItem[] = [];
+    options: string[] = [];
     userId: number;
     selectedExam: LaboratoryExamination;
     isSelected: boolean = false;
+    currentUser: BetterUser;
+    examFilters: ((exam: LaboratoryExamination) => boolean)[] = [];
 
     constructor(
         private _labService: LaboratoryExaminationsService,
@@ -42,15 +35,121 @@ export class AllLabExamsComponent implements OnInit {
     ngOnInit() {
         this.updateExaminations();
         this._loginService.getUserId().subscribe((id: number) => (this.userId = id));
+        this._loginService.currentUser.subscribe((user: BetterUser) => {
+            this.currentUser = user;
+            this.setOptions(user.role);
+            this.setColumns(user.role);
+            this.setFilterOptions(user.role);
+        });
+    }
+
+    private setOptions(
+        role: 'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR'
+    ): void {
+        switch (role) {
+            case 'ASSISTANT':
+                this.options.push('Cancel', 'Accept');
+                break;
+
+            case 'SUPERVISOR':
+                this.options.push('Reject', 'Approve');
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private setColumns(
+        role: 'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR'
+    ): void {
+        switch (role) {
+            case 'ASSISTANT':
+                this.columns.push(
+                    {
+                        columnDef: 'patient',
+                        header: 'Patient',
+                        cell: (exam: LaboratoryExamination) =>
+                            `${exam.visit.patient.name} ${exam.visit.patient.surname}`,
+                    },
+                    {
+                        columnDef: 'code',
+                        header: 'Code',
+                        cell: (exam: LaboratoryExamination) => exam.examination.code,
+                    },
+                    {
+                        columnDef: 'exam',
+                        header: 'Exam',
+                        cell: (exam: LaboratoryExamination) => exam.examination.name,
+                    },
+                    {
+                        columnDef: 'orderDate',
+                        header: 'Order Date',
+                        cell: (exam: LaboratoryExamination) => exam.orderDate,
+                    }
+                );
+                break;
+
+            case 'SUPERVISOR':
+                this.columns.push(
+                    {
+                        columnDef: 'exam',
+                        header: 'Examination',
+                        cell: (exam: LaboratoryExamination) =>
+                            `${exam.examination.code}: ${exam.examination.name}`,
+                    },
+                    {
+                        columnDef: 'assistant',
+                        header: 'Assistant',
+                        cell: (exam: LaboratoryExamination) =>
+                            `${exam.assistant.name} ${exam.assistant.surname}`,
+                    },
+                    {
+                        columnDef: 'result',
+                        header: 'Result',
+                        cell: (exam: LaboratoryExamination) => exam.result,
+                    },
+                    {
+                        columnDef: 'completionDate',
+                        header: 'Completion Date',
+                        cell: (exam: LaboratoryExamination) => exam.completionDate,
+                    }
+                );
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private setFilterOptions(
+        role: 'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR'
+    ): void {
+        switch (role) {
+            case 'ASSISTANT':
+                this.examFilters.push((exam: LaboratoryExamination) => exam.status === 'ORDERED');
+                break;
+
+            case 'SUPERVISOR':
+                this.examFilters.push((exam: LaboratoryExamination) => exam.status === 'FINISHED');
+                break;
+
+            default:
+                break;
+        }
     }
 
     get labExaminations(): LaboratoryExamination[] {
-        return this._labExaminations.filter(
-            (labExamination: LaboratoryExamination) => labExamination.status == 'ORDERED'
-        );
+        return this._labExaminations.filter((labExamination: LaboratoryExamination) => {
+            return this.examFilters
+                .map((examFitler: (exam: LaboratoryExamination) => boolean) => {
+                    return examFitler(labExamination);
+                })
+                .every((value: boolean) => value === true);
+        });
     }
 
-    updateExaminations(): void {
+    private updateExaminations(): void {
         this._labService
             .getAllLaboratoryExaminationsUsingGET()
             .subscribe((labExaminations: LaboratoryExamination[]) => {
