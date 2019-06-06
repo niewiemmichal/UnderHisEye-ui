@@ -4,6 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { LoginService } from '../shared/services/login/login.service';
 import { BetterUser } from '../shared/services/better-user/better-user';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-sidenav',
@@ -12,7 +13,6 @@ import { BetterUser } from '../shared/services/better-user/better-user';
 })
 export class SidenavComponent implements OnInit {
     username: string = 'Username';
-    title: string = 'Title';
     isAdmin$: Observable<boolean>;
     isRegistrant$: Observable<boolean>;
     isDoctor$: Observable<boolean>;
@@ -25,8 +25,27 @@ export class SidenavComponent implements OnInit {
 
     constructor(
         private breakpointObserver: BreakpointObserver,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private router: Router
     ) {}
+
+    get title(): string {
+        switch (this.router.url) {
+            case '/users':
+                return 'All users';
+            case '/visits-by-doctor':
+                return 'All visits';
+            case '/new-visit':
+                return 'New visit';
+            case '/doctors-visits':
+                return 'Visits';
+            case '/lab-exams':
+                return 'All examinations';
+
+            default:
+                return 'Title';
+        }
+    }
 
     ngOnInit(): void {
         this.isAdmin$ = this.loginService.isAdmin();
