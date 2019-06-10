@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import { VisitsService, LaboratoryExaminationsService } from 'src/app/api/services';
+import { VisitsService } from 'src/app/api/services';
 import { Visit, VisitWithExaminationsDto } from 'src/app/api/models';
 import {
     CancelVisitDialog,
@@ -33,7 +33,8 @@ export class DoctorsVisitsComponent implements OnInit {
         {
             columnDef: 'date',
             header: 'Date',
-            cell: (visit: VisitWithExaminationsDto) => new Date(visit.visit.date).toDateString(),
+            cell: (visit: VisitWithExaminationsDto) =>
+                new Date(visit.visit.date).toISOString().split('T')[0],
         },
         {
             columnDef: 'time',
