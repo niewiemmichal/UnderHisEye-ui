@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import { VisitsService, LaboratoryExaminationsService } from 'src/app/api/services';
+import { VisitsService } from 'src/app/api/services';
 import { Visit, VisitWithExaminationsDto } from 'src/app/api/models';
 import {
     CancelVisitDialog,
@@ -33,7 +33,8 @@ export class DoctorsVisitsComponent implements OnInit {
         {
             columnDef: 'date',
             header: 'Date',
-            cell: (visit: VisitWithExaminationsDto) => new Date(visit.visit.date).toDateString(),
+            cell: (visit: VisitWithExaminationsDto) =>
+                new Date(visit.visit.date).toISOString().split('T')[0],
         },
         {
             columnDef: 'time',
@@ -91,17 +92,17 @@ export class DoctorsVisitsComponent implements OnInit {
         }
     }
 
-    private cancelVisit(visit: Visit): void {
+    private cancelVisit(visit: VisitWithExaminationsDto): void {
         this.dialog
             .open(CancelVisitDialog, {
-                data: new CancelVisitDialogData(visit.id),
+                data: new CancelVisitDialogData(visit.visit.id),
             })
             .afterClosed()
             .subscribe((canceled: boolean) => {
                 if (canceled) {
                     this._visits.find(
                         (changedVisit: VisitWithExaminationsDto) =>
-                            changedVisit.visit.id === visit.id
+                            changedVisit.visit.id === visit.visit.id
                     ).visit.status = 'CANCELED';
                 }
             });

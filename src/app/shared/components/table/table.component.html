@@ -14,7 +14,7 @@
         class="full-width-table"
         [dataSource]="displayData"
         matSort
-        (matSortChange)="sortData($event)"
+        (matSortChange)="setSortType($event)"
         aria-label="Elements"
     >
         <ng-container *ngFor="let column of columnsInfo" [matColumnDef]="column.columnDef">

@@ -34,7 +34,16 @@ export class VisitsByDoctorComponent implements OnInit {
             header: 'Doctor',
             cell: (visit: Visit) => `${visit.doctor.name} ${visit.doctor.surname}`,
         },
-        { columnDef: 'date', header: 'Date', cell: (visit: Visit) => `${visit.date}` },
+        {
+            columnDef: 'date',
+            header: 'Date',
+            cell: (visit: Visit) => new Date(visit.date).toISOString().split('T')[0],
+        },
+        {
+            columnDef: 'time',
+            header: 'Time',
+            cell: (visit: Visit) => new Date(visit.date).toLocaleTimeString(),
+        },
     ];
 
     options: string[] = ['Cancel'];
