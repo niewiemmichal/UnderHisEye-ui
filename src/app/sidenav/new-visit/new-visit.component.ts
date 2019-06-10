@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
-import { PatientService, RegistrantsService } from 'src/app/api/services';
-import { Patient, Registrant } from 'src/app/api/models';
+import { PatientService } from 'src/app/api/services';
+import { Patient } from 'src/app/api/models';
 import {
     VisitFinalizerDialog,
     VisitFinalizerDialogData,
 } from './visit-finalizer-dialog/visit-finalizer-dialog';
 import { NewPatientDialog } from './new-patient-dialog/new-patient-dialog';
 import { LoginService } from 'src/app/shared/services/login/login.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-new-visit',
@@ -60,7 +58,7 @@ export class NewVisitComponent implements OnInit {
         return this._patients.filter(
             (p: Patient) =>
                 p.name.toLowerCase().includes(this.filterName.toLowerCase()) &&
-                p.name.toLowerCase().includes(this.filterSurname.toLowerCase())
+                p.surname.toLowerCase().includes(this.filterSurname.toLowerCase())
         );
     }
 
