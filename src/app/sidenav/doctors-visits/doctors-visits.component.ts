@@ -92,17 +92,17 @@ export class DoctorsVisitsComponent implements OnInit {
         }
     }
 
-    private cancelVisit(visit: Visit): void {
+    private cancelVisit(visit: VisitWithExaminationsDto): void {
         this.dialog
             .open(CancelVisitDialog, {
-                data: new CancelVisitDialogData(visit.id),
+                data: new CancelVisitDialogData(visit.visit.id),
             })
             .afterClosed()
             .subscribe((canceled: boolean) => {
                 if (canceled) {
                     this._visits.find(
                         (changedVisit: VisitWithExaminationsDto) =>
-                            changedVisit.visit.id === visit.id
+                            changedVisit.visit.id === visit.visit.id
                     ).visit.status = 'CANCELED';
                 }
             });
