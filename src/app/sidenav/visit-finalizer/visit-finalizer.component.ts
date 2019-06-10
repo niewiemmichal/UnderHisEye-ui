@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DoctorsService, VisitsService } from 'src/app/api/services';
 import { VisitFinalizerDialogData } from '../new-visit/visit-finalizer-dialog/visit-finalizer-dialog';
 import { MatSnackBar } from '@angular/material';
+import * as moment from 'moment';
 
 interface Form {
     doctor: Doctor;
@@ -74,14 +75,17 @@ export class VisitFinalizerComponent implements OnInit {
     }
 
     createVisitDto(form: Form): VisitRegistrationDto {
+        const date: Date = new Date(
+            form.date.getFullYear(),
+            form.date.getMonth(),
+            form.date.getDate(),
+            form.hour,
+            form.minutes
+        );
         return {
-            date: new Date(
-                form.date.getFullYear(),
-                form.date.getMonth(),
-                form.date.getDate(),
-                form.hour,
-                form.minutes
-            ).toISOString(),
+            date: moment(date)
+                .toISOString(true)
+                .split('+')[0],
             doctorId: form.doctor.id,
             patientId: this.data.patientId,
             registrantId: this.data.registrantId,
