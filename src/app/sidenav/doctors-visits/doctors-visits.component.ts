@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
 import { VisitsService } from 'src/app/api/services';
-import { Visit, VisitWithExaminationsDto } from 'src/app/api/models';
+import { VisitWithExaminationsDto } from 'src/app/api/models';
 import {
     CancelVisitDialog,
     CancelVisitDialogData,
