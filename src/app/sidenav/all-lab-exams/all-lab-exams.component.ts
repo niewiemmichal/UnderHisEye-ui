@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LaboratoryExaminationsService } from 'src/app/api/services';
 import { LaboratoryExamination } from 'src/app/api/models';
 import { ColumnInfoItem, SelectedOption } from 'src/app/shared/components/table/table.component';
-import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import {
     CancelExamDialogComponent,
     CancelExamDialogData,
@@ -27,6 +27,8 @@ export class AllLabExamsComponent implements OnInit {
     isSelected: boolean = false;
     currentUser: BetterUser;
     examFilters: ((exam: LaboratoryExamination) => boolean)[] = [];
+    filterName: string = '';
+    filterSurname: string = '';
 
     constructor(
         private _labService: LaboratoryExaminationsService,
@@ -127,6 +129,11 @@ export class AllLabExamsComponent implements OnInit {
     private setFilterOptions(
         role: 'DOCTOR' | 'REGISTRANT' | 'ASSISTANT' | 'SUPERVISOR' | 'ADMINISTRATOR'
     ): void {
+        this.examFilters.push(
+            (labExamination: LaboratoryExamination) =>
+                labExamination.visit.patient.name.toLowerCase().includes(this.filterName) &&
+                labExamination.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+        );
         switch (role) {
             case 'ASSISTANT':
                 this.examFilters.push((exam: LaboratoryExamination) => exam.status === 'ORDERED');
