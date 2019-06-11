@@ -10,7 +10,9 @@
         <mat-card class="mat-elevation-z0">
             <mat-card-header>
                 <i mat-card-avatar class="material-icons avatar">perm_identity</i>
-                <mat-card-title>{{ currentUser?.name }} </mat-card-title>
+                <mat-card-title>
+                    {{ currentUser?.role === 'ADMINISTRATOR' ? 'ADMIN' : currentUser?.name }}
+                </mat-card-title>
                 <mat-card-subtitle>
                     {{ currentUser?.username }}
                 </mat-card-subtitle>
