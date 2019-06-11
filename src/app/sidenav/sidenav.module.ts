@@ -27,6 +27,7 @@ import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component
 import { ExamDetailsDialogComponent } from './past-lab-exams/exam-details-dialog/exam-details-dialog.component';
 import { PastDoctorsVisitsComponent } from './past-doctors-visits/past-doctors-visits.component';
 import { VisitDetailsDialogComponent } from './past-doctors-visits/visit-details-dialog/visit-details-dialog.component';
+import { NewIcdComponent } from './new-icd/new-icd.component';
 
 @NgModule({
     imports: [
@@ -61,6 +62,7 @@ import { VisitDetailsDialogComponent } from './past-doctors-visits/visit-details
         ExamDetailsDialogComponent,
         PastDoctorsVisitsComponent,
         VisitDetailsDialogComponent,
+        NewIcdComponent,
     ],
     entryComponents: [
         NewUserDialog,

@@ -15,6 +15,7 @@ import { AllLabExamsComponent } from './sidenav/all-lab-exams/all-lab-exams.comp
 import { LabGuard } from './guards/lab.guard';
 import { PastLabExamsComponent } from './sidenav/past-lab-exams/past-lab-exams.component';
 import { PastDoctorsVisitsComponent } from './sidenav/past-doctors-visits/past-doctors-visits.component';
+import { NewIcdComponent } from './sidenav/new-icd/new-icd.component';
 
 const routes: Routes = [
     {
@@ -23,7 +24,16 @@ const routes: Routes = [
         canActivate: [AppGuard],
         canActivateChild: [AppGuard],
         children: [
-            { path: 'users', component: AllUsersComponent, canActivate: [AdminGuard] },
+            {
+                path: 'users',
+                component: AllUsersComponent,
+                canActivate: [AdminGuard],
+            },
+            {
+                path: 'new-icd',
+                component: NewIcdComponent,
+                canActivate: [AdminGuard],
+            },
             {
                 path: 'visits-by-doctor',
                 component: VisitsByDoctorComponent,

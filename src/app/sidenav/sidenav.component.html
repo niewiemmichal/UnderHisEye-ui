@@ -32,6 +32,14 @@
             </a>
             <a
                 mat-list-item
+                *ngIf="(isAdmin$ | async)"
+                routerLink="/new-icd"
+                routerLinkActive="active"
+            >
+                <span class="link-text">New ICD</span>
+            </a>
+            <a
+                mat-list-item
                 *ngIf="(isRegistrant$ | async)"
                 routerLink="/visits-by-doctor"
                 routerLinkActive="active"
