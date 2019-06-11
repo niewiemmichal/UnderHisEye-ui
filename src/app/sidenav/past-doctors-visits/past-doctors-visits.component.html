@@ -1,3 +1,23 @@
+<div class="options">
+    <mat-form-field class="options-left-item">
+        <input matInput placeholder="Patient name" [(ngModel)]="filterName" />
+    </mat-form-field>
+
+    <mat-form-field class="options-left-item">
+        <input matInput placeholder="Patient surname" [(ngModel)]="filterSurname" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Status</mat-label>
+
+        <mat-select [(ngModel)]="filterStatus">
+            <mat-option *ngFor="let filterStatus of filterStatusOptions" [value]="filterStatus">
+                {{ filterStatus | titlecase }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
 <app-table
     [data]="visits"
     [columnsInfo]="columns"

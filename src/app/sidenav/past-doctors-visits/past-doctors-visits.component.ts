@@ -41,6 +41,11 @@ export class PastDoctorsVisitsComponent implements OnInit {
         },
     ];
 
+    filterStatusOptions: string[] = ['ALL', 'FINISHED', 'CANCELED'];
+    filterStatus: 'ALL' | 'FINISHED' | 'CANCELED' = 'ALL';
+    filterName: string = '';
+    filterSurname: string = '';
+
     constructor(
         private _visitsService: VisitsService,
         private _loginService: LoginService,
@@ -66,7 +71,12 @@ export class PastDoctorsVisitsComponent implements OnInit {
     }
 
     get visits(): VisitWithExaminationsDto[] {
-        return this._visits;
+        return this._visits.filter(
+            (visit: VisitWithExaminationsDto) =>
+                (this.filterStatus === 'ALL' || visit.visit.status === this.filterStatus) &&
+                visit.visit.patient.name.toLowerCase().includes(this.filterName) &&
+                visit.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+        );
     }
 
     selectedRow(visit: VisitWithExaminationsDto): void {
