@@ -24,6 +24,7 @@ import { CancelExamDialogComponent } from './all-lab-exams/cancel-exam-dialog/ca
 import { ExamPageComponent } from './exam-page/exam-page.component';
 import { RejectExamDialogComponent } from './all-lab-exams/reject-exam-dialog/reject-exam-dialog.component';
 import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component';
+import { ExamDetailsDialogComponent } from './past-lab-exams/exam-details-dialog/exam-details-dialog.component';
 
 @NgModule({
     imports: [
@@ -55,6 +56,7 @@ import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component
         ExamPageComponent,
         RejectExamDialogComponent,
         PastLabExamsComponent,
+        ExamDetailsDialogComponent,
     ],
     entryComponents: [
         NewUserDialog,
@@ -63,6 +65,7 @@ import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component
         CancelVisitDialog,
         CancelExamDialogComponent,
         RejectExamDialogComponent,
+        ExamDetailsDialogComponent
     ],
 })
 export class SidenavModule {}

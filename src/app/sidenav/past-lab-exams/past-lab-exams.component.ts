@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LaboratoryExamination } from 'src/app/api/models';
 import { LaboratoryExaminationsService } from 'src/app/api/services';
 import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
+import { MatDialog } from '@angular/material';
+import { ExamDetailsDialogComponent } from './exam-details-dialog/exam-details-dialog.component';
 
 @Component({
     selector: 'app-past-lab-exams',
@@ -47,7 +49,7 @@ export class PastLabExamsComponent implements OnInit {
         },
     ];
 
-    constructor(private _labService: LaboratoryExaminationsService) {}
+    constructor(private _labService: LaboratoryExaminationsService, private _dialog: MatDialog) {}
 
     ngOnInit() {
         this._labService
@@ -65,5 +67,9 @@ export class PastLabExamsComponent implements OnInit {
                 })
                 .every((value: boolean) => value === true);
         });
+    }
+
+    selectedRow(selectedExam: LaboratoryExamination): void {
+        this._dialog.open(ExamDetailsDialogComponent);
     }
 }
