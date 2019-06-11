@@ -56,12 +56,29 @@ export class VisitPageComponent implements OnInit {
         this.icdService.getAllExaminationsUsingGET().subscribe((examinations: Examination[]) => {
             this.examinations = examinations;
         });
-        this.pastHistory = this._pastVisits.map((visit: VisitWithExaminationsDto) => visit.visit);
+        this.pastHistory = this._pastVisits
+            .map((visit: VisitWithExaminationsDto) => visit.visit)
+            .sort((a: Visit, b: Visit) => (a.date < b.date ? 1 : -1));
         this.pastExams = this._pastVisits
             .map((visit: VisitWithExaminationsDto) => visit.laboratoryExaminations)
             .reduce((allExams: LaboratoryExamination[], nextExams: LaboratoryExamination[]) =>
                 allExams.concat(nextExams)
-            );
+            )
+            .sort((a: LaboratoryExamination, b: LaboratoryExamination) => {
+                if (a.status === 'ORDERED') {
+                    return -1;
+                }
+                if (a.status === 'CANCELED' && b.status !== 'ORDERED') {
+                    return -1;
+                }
+                if (a.status === 'FINISHED' && b.status !== 'ORDERED' && b.status !== 'CANCELED') {
+                    return -1;
+                }
+                if (a.status === 'REJECTED' && b.status === 'APPROVED') {
+                    return -1;
+                }
+                return a.orderDate < b.orderDate ? 1 : -1;
+            });
     }
 
     onSubmit(form: VisitForm): void {
