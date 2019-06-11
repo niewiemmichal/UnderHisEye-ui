@@ -5,6 +5,8 @@ import { ColumnInfoItem } from 'src/app/shared/components/table/table.component'
 import { LoginService } from 'src/app/shared/services/login/login.service';
 import { BetterUser } from 'src/app/shared/services/better-user/better-user';
 import { switchMap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { VisitDetailsDialogComponent } from './visit-details-dialog/visit-details-dialog.component';
 
 @Component({
     selector: 'app-past-doctors-visits',
@@ -39,7 +41,11 @@ export class PastDoctorsVisitsComponent implements OnInit {
         },
     ];
 
-    constructor(private _visitsService: VisitsService, private _loginService: LoginService) {}
+    constructor(
+        private _visitsService: VisitsService,
+        private _loginService: LoginService,
+        private _dialog: MatDialog
+    ) {}
 
     ngOnInit() {
         this._loginService.currentUser
@@ -64,6 +70,8 @@ export class PastDoctorsVisitsComponent implements OnInit {
     }
 
     selectedRow(visit: VisitWithExaminationsDto): void {
-        console.log(visit);
+        if (visit != null) {
+            this._dialog.open(VisitDetailsDialogComponent, { data: visit });
+        }
     }
 }

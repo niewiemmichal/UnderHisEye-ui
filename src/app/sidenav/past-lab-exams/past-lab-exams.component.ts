@@ -74,6 +74,8 @@ export class PastLabExamsComponent implements OnInit {
     }
 
     selectedRow(selectedExam: LaboratoryExamination): void {
-        this._dialog.open(ExamDetailsDialogComponent, { data: selectedExam });
+        if (selectedExam != null) {
+            this._dialog.open(ExamDetailsDialogComponent, { data: selectedExam });
+        }
     }
 }
