@@ -49,10 +49,18 @@
             <a
                 mat-list-item
                 *ngIf="(isDoctor$ | async)"
-                routerLink="/doctors-visits"
+                routerLink="/expected-visits"
                 routerLinkActive="active"
             >
-                <span class="link-text">Visits</span>
+                <span class="link-text">Expected visits</span>
+            </a>
+            <a
+                mat-list-item
+                *ngIf="(isDoctor$ | async)"
+                routerLink="/past-visits"
+                routerLinkActive="active"
+            >
+                <span class="link-text">Past visits</span>
             </a>
             <a
                 mat-list-item

@@ -31,7 +31,7 @@ export class RedirectionService {
     ): string {
         switch (role) {
             case 'DOCTOR':
-                return 'doctors-visits';
+                return 'expected-visits';
 
             case 'REGISTRANT':
                 return 'visits-by-doctor';

@@ -25,6 +25,7 @@ import { ExamPageComponent } from './exam-page/exam-page.component';
 import { RejectExamDialogComponent } from './all-lab-exams/reject-exam-dialog/reject-exam-dialog.component';
 import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component';
 import { ExamDetailsDialogComponent } from './past-lab-exams/exam-details-dialog/exam-details-dialog.component';
+import { PastDoctorsVisitsComponent } from './past-doctors-visits/past-doctors-visits.component';
 
 @NgModule({
     imports: [
@@ -57,6 +58,7 @@ import { ExamDetailsDialogComponent } from './past-lab-exams/exam-details-dialog
         RejectExamDialogComponent,
         PastLabExamsComponent,
         ExamDetailsDialogComponent,
+        PastDoctorsVisitsComponent,
     ],
     entryComponents: [
         NewUserDialog,
