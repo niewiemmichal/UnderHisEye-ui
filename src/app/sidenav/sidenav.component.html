@@ -62,6 +62,14 @@
             >
                 <span class="link-text">Current examinations</span>
             </a>
+            <a
+                mat-list-item
+                *ngIf="(isLaborant$ | async)"
+                routerLink="/past-exams"
+                routerLinkActive="active"
+            >
+                <span class="link-text">Past examinations</span>
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -14,6 +14,7 @@ import { DoctorGuard } from './guards/doctor.guard';
 import { RegistrantGuard } from './guards/registrant.guard';
 import { AllLabExamsComponent } from './sidenav/all-lab-exams/all-lab-exams.component';
 import { LabGuard } from './guards/lab.guard';
+import { PastLabExamsComponent } from './sidenav/past-lab-exams/past-lab-exams.component';
 
 const routes: Routes = [
     {
@@ -46,6 +47,11 @@ const routes: Routes = [
             {
                 path: 'lab-exams',
                 component: AllLabExamsComponent,
+                canActivate: [LabGuard],
+            },
+            {
+                path: 'past-exams',
+                component: PastLabExamsComponent,
                 canActivate: [LabGuard],
             },
         ],

@@ -41,6 +41,8 @@ export class SidenavComponent implements OnInit {
                 return 'Visits';
             case '/lab-exams':
                 return 'Current examinations';
+            case '/past-exams':
+                return 'Past examinations';
 
             default:
                 return 'Title';

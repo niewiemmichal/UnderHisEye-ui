@@ -23,6 +23,7 @@ import { AllLabExamsComponent } from './all-lab-exams/all-lab-exams.component';
 import { CancelExamDialogComponent } from './all-lab-exams/cancel-exam-dialog/cancel-exam-dialog.component';
 import { ExamPageComponent } from './exam-page/exam-page.component';
 import { RejectExamDialogComponent } from './all-lab-exams/reject-exam-dialog/reject-exam-dialog.component';
+import { PastLabExamsComponent } from './past-lab-exams/past-lab-exams.component';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import { RejectExamDialogComponent } from './all-lab-exams/reject-exam-dialog/re
         CancelExamDialogComponent,
         ExamPageComponent,
         RejectExamDialogComponent,
+        PastLabExamsComponent,
     ],
     entryComponents: [
         NewUserDialog,
