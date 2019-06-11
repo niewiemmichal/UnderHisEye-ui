@@ -43,8 +43,8 @@ export class TableComponent {
     currentActiveRow: Object = null;
 
     get displayData(): Object[] {
-        let dataToDisplay = this.paginate(this._data, this.pageIndex, this.pageSize);
-        return this.sortData(dataToDisplay, this._sortType);
+        let dataToDisplay = this.sortData(this._data, this._sortType);
+        return this.paginate(dataToDisplay, this.pageIndex, this.pageSize);
     }
 
     get columnDefs(): string[] {
@@ -80,6 +80,15 @@ export class TableComponent {
             data.sort((a: any, b: any) => {
                 const isAsc = sort.direction === 'asc';
                 const column = this.columnsInfo.find(c => c.columnDef === sort.active);
+                if (column.cell(a) == null && column.cell(b) == null) {
+                    return -1;
+                }
+                if (column.cell(a) == null) {
+                    return 1;
+                }
+                if (column.cell(b) == null) {
+                    return -1;
+                }
                 return (column.cell(a) < column.cell(b) ? -1 : 1) * (isAsc ? 1 : -1);
             });
         }
