@@ -1,3 +1,6 @@
-<p>
-    past-doctors-visits works!
-</p>
+<app-table
+    [data]="visits"
+    [columnsInfo]="columns"
+    clickableRows="true"
+    (rowSelected)="selectedRow($event)"
+></app-table>

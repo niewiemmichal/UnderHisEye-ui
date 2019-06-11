@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { VisitsService } from 'src/app/api/services';
+import { VisitWithExaminationsDto } from 'src/app/api/models';
+import { ColumnInfoItem } from 'src/app/shared/components/table/table.component';
+import { LoginService } from 'src/app/shared/services/login/login.service';
+import { BetterUser } from 'src/app/shared/services/better-user/better-user';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-past-doctors-visits',
@@ -6,7 +12,58 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./past-doctors-visits.component.scss'],
 })
 export class PastDoctorsVisitsComponent implements OnInit {
-    constructor() {}
+    private _visits: VisitWithExaminationsDto[] = [];
+    private _doctor: BetterUser;
 
-    ngOnInit() {}
+    columns: ColumnInfoItem[] = [
+        {
+            columnDef: 'patient',
+            header: 'Patient',
+            cell: (visit: VisitWithExaminationsDto) =>
+                `${visit.visit.patient.name} ${visit.visit.patient.surname}`,
+        },
+        {
+            columnDef: 'date',
+            header: 'Visit date',
+            cell: (visit: VisitWithExaminationsDto) => visit.visit.date.split('T')[0],
+        },
+        {
+            columnDef: 'time',
+            header: 'Visit time',
+            cell: (visit: VisitWithExaminationsDto) => visit.visit.date.split('T')[1],
+        },
+        {
+            columnDef: 'status',
+            header: 'Status',
+            cell: (visit: VisitWithExaminationsDto) => visit.visit.status.toLowerCase(),
+        },
+    ];
+
+    constructor(private _visitsService: VisitsService, private _loginService: LoginService) {}
+
+    ngOnInit() {
+        this._loginService.currentUser
+            .pipe(
+                switchMap((user: BetterUser) => {
+                    this._doctor = user;
+                    return this._visitsService.getAllFatVisitsUsingGET();
+                })
+            )
+            .subscribe((visits: VisitWithExaminationsDto[]) => {
+                this._visits = visits.filter(
+                    (visit: VisitWithExaminationsDto) =>
+                        visit.visit.status !== 'REGISTERED' &&
+                        visit.visit.doctor.id === this._doctor.id
+                );
+                console.log(this._visits);
+            });
+    }
+
+    get visits(): VisitWithExaminationsDto[] {
+        return this._visits;
+    }
+
+    selectedRow(visit: VisitWithExaminationsDto): void {
+        console.log(visit);
+    }
 }
