@@ -38,14 +38,14 @@ export class PastLabExamsComponent implements OnInit {
             cell: (exam: LaboratoryExamination) => exam.orderDate,
         },
         {
-            columnDef: 'approveDate',
-            header: 'Approval Date',
-            cell: (exam: LaboratoryExamination) => exam.approvalDate,
-        },
-        {
             columnDef: 'completeDate',
             header: 'Completion Date',
             cell: (exam: LaboratoryExamination) => exam.completionDate,
+        },
+        {
+            columnDef: 'approveDate',
+            header: 'Approval Date',
+            cell: (exam: LaboratoryExamination) => exam.approvalDate,
         },
     ];
 
@@ -70,6 +70,6 @@ export class PastLabExamsComponent implements OnInit {
     }
 
     selectedRow(selectedExam: LaboratoryExamination): void {
-        this._dialog.open(ExamDetailsDialogComponent);
+        this._dialog.open(ExamDetailsDialogComponent, { data: selectedExam });
     }
 }

@@ -1,3 +1,36 @@
-<p>
-    exam-details-dialog works!
-</p>
+<h1 mat-dialog-title>Examination details</h1>
+<h2 class="mat-title">Patient</h2>
+<h4 class="mat-subheading-1">
+    Name and surname: {{ data.visit.patient.name }} {{ data.visit.patient.surname }}
+</h4>
+<h4 class="mat-subheading-1">Pesel: {{ data.visit.patient.personalIdentityNumber }}</h4>
+<mat-divider></mat-divider>
+<h2 class="mat-title">Examination</h2>
+<h4 class="mat-subheading-1">
+    Code and name: {{ data.examination.code }}: {{ data.examination.name }}
+</h4>
+<h4 class="mat-subheading-1">Order date: {{ data.orderDate }}</h4>
+<h4 class="mat-subheading-1">By: {{ data.visit.doctor.name }} {{ data.visit.doctor.surname }}</h4>
+<h4 class="mat-subheading-1">Doctors note:</h4>
+<p class="mat-body">{{ data.note }}</p>
+<h4 class="mat-subheading-1">Status: {{ data.status | titlecase }}</h4>
+<section *ngIf="data.completionDate != null">
+    <mat-divider></mat-divider>
+    <h2 class="mat-title">Examination completion</h2>
+    <h4 class="mat-subheading-1">
+        Assistant: {{ data.assistant.name }} {{ data.assistant.surname }}
+    </h4>
+    <h4 class="mat-subheading-1">Completion date: {{ data.completionDate }}</h4>
+    <h4 class="mat-subheading-1">Result:</h4>
+    <p class="mat-body">{{ data.result }}</p>
+</section>
+<section *ngIf="data.approvalDate != null">
+    <mat-divider></mat-divider>
+    <h2 class="mat-title">Examination approval</h2>
+    <h4 class="mat-subheading-1">
+        Supervisor: {{ data.supervisor.name }} {{ data.supervisor.surname }}
+    </h4>
+    <h4 class="mat-subheading-1">Approval date: {{ data.approvalDate }}</h4>
+    <h4 *ngIf="data.supervisorNote != null" class="mat-subheading-1">Note:</h4>
+    <p *ngIf="data.supervisorNote != null" class="mat-body">{{ data.supervisorNote }}</p>
+</section>
