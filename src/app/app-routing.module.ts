@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { VisitPageComponent } from './sidenav/visit-page/visit-page.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -15,6 +14,8 @@ import { RegistrantGuard } from './guards/registrant.guard';
 import { AllLabExamsComponent } from './sidenav/all-lab-exams/all-lab-exams.component';
 import { LabGuard } from './guards/lab.guard';
 import { PastLabExamsComponent } from './sidenav/past-lab-exams/past-lab-exams.component';
+import { PastDoctorsVisitsComponent } from './sidenav/past-doctors-visits/past-doctors-visits.component';
+import { NewIcdComponent } from './sidenav/new-icd/new-icd.component';
 
 const routes: Routes = [
     {
@@ -23,7 +24,16 @@ const routes: Routes = [
         canActivate: [AppGuard],
         canActivateChild: [AppGuard],
         children: [
-            { path: 'users', component: AllUsersComponent, canActivate: [AdminGuard] },
+            {
+                path: 'users',
+                component: AllUsersComponent,
+                canActivate: [AdminGuard],
+            },
+            {
+                path: 'new-icd',
+                component: NewIcdComponent,
+                canActivate: [AdminGuard],
+            },
             {
                 path: 'visits-by-doctor',
                 component: VisitsByDoctorComponent,
@@ -35,13 +45,13 @@ const routes: Routes = [
                 canActivate: [RegistrantGuard],
             },
             {
-                path: 'doctors-visits',
+                path: 'expected-visits',
                 component: DoctorsVisitsComponent,
                 canActivate: [DoctorGuard],
             },
             {
-                path: 'current-visit',
-                component: VisitPageComponent,
+                path: 'past-visits',
+                component: PastDoctorsVisitsComponent,
                 canActivate: [DoctorGuard],
             },
             {

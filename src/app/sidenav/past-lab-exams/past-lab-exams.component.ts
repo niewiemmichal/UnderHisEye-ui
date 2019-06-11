@@ -12,7 +12,6 @@ import { ExamDetailsDialogComponent } from './exam-details-dialog/exam-details-d
 })
 export class PastLabExamsComponent implements OnInit {
     private _labExaminations: LaboratoryExamination[] = [];
-    private _examFilters: ((exam: LaboratoryExamination) => boolean)[] = [];
 
     columns: ColumnInfoItem[] = [
         {
@@ -38,16 +37,20 @@ export class PastLabExamsComponent implements OnInit {
             cell: (exam: LaboratoryExamination) => exam.orderDate,
         },
         {
-            columnDef: 'approveDate',
-            header: 'Approval Date',
-            cell: (exam: LaboratoryExamination) => exam.approvalDate,
-        },
-        {
             columnDef: 'completeDate',
             header: 'Completion Date',
             cell: (exam: LaboratoryExamination) => exam.completionDate,
         },
+        {
+            columnDef: 'approveDate',
+            header: 'Approval Date',
+            cell: (exam: LaboratoryExamination) => exam.approvalDate,
+        },
     ];
+    filterStatusOptions: string[] = ['ALL', 'FINISHED', 'APPROVED', 'CANCELED', 'REJECTED'];
+    filterStatus: 'ALL' | 'FINISHED' | 'APPROVED' | 'CANCELED' | 'REJECTED' = 'ALL';
+    filterName: string = '';
+    filterSurname: string = '';
 
     constructor(private _labService: LaboratoryExaminationsService, private _dialog: MatDialog) {}
 
@@ -55,21 +58,24 @@ export class PastLabExamsComponent implements OnInit {
         this._labService
             .getAllLaboratoryExaminationsUsingGET()
             .subscribe((labExaminations: LaboratoryExamination[]) => {
-                this._labExaminations = labExaminations;
+                this._labExaminations = labExaminations.filter(
+                    (labExaminations: LaboratoryExamination) => labExaminations.status !== 'ORDERED'
+                );
             });
     }
 
     get labExaminations(): LaboratoryExamination[] {
-        return this._labExaminations.filter((labExamination: LaboratoryExamination) => {
-            return this._examFilters
-                .map((examFitler: (exam: LaboratoryExamination) => boolean) => {
-                    return examFitler(labExamination);
-                })
-                .every((value: boolean) => value === true);
-        });
+        return this._labExaminations.filter(
+            (labExamination: LaboratoryExamination) =>
+                (this.filterStatus === 'ALL' || labExamination.status === this.filterStatus) &&
+                labExamination.visit.patient.name.toLowerCase().includes(this.filterName) &&
+                labExamination.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+        );
     }
 
     selectedRow(selectedExam: LaboratoryExamination): void {
-        this._dialog.open(ExamDetailsDialogComponent);
+        if (selectedExam != null) {
+            this._dialog.open(ExamDetailsDialogComponent, { data: selectedExam });
+        }
     }
 }

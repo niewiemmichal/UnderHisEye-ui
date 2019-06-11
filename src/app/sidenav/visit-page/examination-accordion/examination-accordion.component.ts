@@ -98,4 +98,8 @@ export class ExaminationAccordionComponent implements OnInit, ControlValueAccess
         this._onTouched();
         this._onValidatorChange();
     }
+
+    delete(index: number): void {
+        (this.examinationForm.get('examinations') as FormArray).removeAt(index);
+    }
 }

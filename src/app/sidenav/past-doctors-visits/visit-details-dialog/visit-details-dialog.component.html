@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Examination details</h1>
+<h2 class="mat-title">Patient</h2>
+<h4 class="mat-subheading-1">
+    Name and surname: {{ data.visit.patient.name }} {{ data.visit.patient.surname }}
+</h4>
+<h4 class="mat-subheading-1">Pesel: {{ data.visit.patient.personalIdentityNumber }}</h4>
+<mat-divider></mat-divider>
+<h2 class="mat-title">Visit</h2>
+<h4 class="mat-subheading-1">
+    Date and time: {{ data.visit.date.split('T')[0] }} {{ data.visit.date.split('T')[1] }}
+</h4>
+<h4 class="mat-subheading-1">Description:</h4>
+<p class="mat-body">{{ data.visit.description }}</p>
+<section *ngIf="data.visit.status === 'FINISHED'">
+    <h4 class="mat-subheading-1">Diagnosis:</h4>
+    <p class="mat-body">{{ data.visit.diagnosis }}</p>
+</section>

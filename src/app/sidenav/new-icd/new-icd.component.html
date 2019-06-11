@@ -1,0 +1,11 @@
+<form [formGroup]="icdForm" (ngSubmit)="onSubmit(icdForm.value)">
+    <mat-form-field class="code">
+        <input matInput placeholder="Code" formControlName="code" />
+    </mat-form-field>
+    <mat-form-field class="name">
+        <input matInput placeholder="Name" formControlName="name" />
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit">Add</button>
+</form>
+
+<app-table [data]="examinations" [columnsInfo]="columnsInfo"></app-table>

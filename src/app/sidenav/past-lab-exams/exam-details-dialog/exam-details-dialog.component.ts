@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { LaboratoryExamination } from 'src/app/api/models';
 
 @Component({
     selector: 'app-exam-details-dialog',
@@ -6,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./exam-details-dialog.component.scss'],
 })
 export class ExamDetailsDialogComponent implements OnInit {
-    constructor() {}
+    constructor(@Inject(MAT_DIALOG_DATA) public data: LaboratoryExamination) {}
 
     ngOnInit() {}
 }

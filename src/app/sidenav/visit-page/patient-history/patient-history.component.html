@@ -17,10 +17,16 @@
         <mat-accordion>
             <mat-expansion-panel *ngFor="let exam of pastExams">
                 <mat-expansion-panel-header>
-                    {{ exam.completionDate | date }} - {{ exam.examination.code }}
-                    {{ exam.examination.name }}
+                    {{ headerTitle(exam) }}
                 </mat-expansion-panel-header>
-                <h3 class="mat-subheading-1">Result: {{ exam.result }}</h3>
+                <h3 class="mat-subheading-1">Code: {{ exam.examination.code }}</h3>
+                <h3 class="mat-subheading-1">Name: {{ exam.examination.name }}</h3>
+                <h3
+                    *ngIf="exam.status !== 'ORDERED' && exam.status !== 'CANCELED'"
+                    class="mat-subheading-1"
+                >
+                    Result: {{ exam.result }}
+                </h3>
             </mat-expansion-panel>
         </mat-accordion>
     </div>

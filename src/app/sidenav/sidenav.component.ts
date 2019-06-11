@@ -33,12 +33,16 @@ export class SidenavComponent implements OnInit {
         switch (this.router.url) {
             case '/users':
                 return 'All users';
+            case '/new-icd':
+                return 'New ICD';
             case '/visits-by-doctor':
                 return 'All visits';
             case '/new-visit':
                 return 'New visit';
-            case '/doctors-visits':
-                return 'Visits';
+            case '/expected-visits':
+                return 'Expected visits';
+            case '/past-visits':
+                return 'Past visits';
             case '/lab-exams':
                 return 'Current examinations';
             case '/past-exams':

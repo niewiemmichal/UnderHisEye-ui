@@ -10,7 +10,9 @@
         <mat-card class="mat-elevation-z0">
             <mat-card-header>
                 <i mat-card-avatar class="material-icons avatar">perm_identity</i>
-                <mat-card-title>{{ currentUser?.name }} </mat-card-title>
+                <mat-card-title>
+                    {{ currentUser?.role === 'ADMINISTRATOR' ? 'ADMIN' : currentUser?.name }}
+                </mat-card-title>
                 <mat-card-subtitle>
                     {{ currentUser?.username }}
                 </mat-card-subtitle>
@@ -32,6 +34,14 @@
             </a>
             <a
                 mat-list-item
+                *ngIf="(isAdmin$ | async)"
+                routerLink="/new-icd"
+                routerLinkActive="active"
+            >
+                <span class="link-text">New ICD</span>
+            </a>
+            <a
+                mat-list-item
                 *ngIf="(isRegistrant$ | async)"
                 routerLink="/visits-by-doctor"
                 routerLinkActive="active"
@@ -49,10 +59,18 @@
             <a
                 mat-list-item
                 *ngIf="(isDoctor$ | async)"
-                routerLink="/doctors-visits"
+                routerLink="/expected-visits"
                 routerLinkActive="active"
             >
-                <span class="link-text">Visits</span>
+                <span class="link-text">Expected visits</span>
+            </a>
+            <a
+                mat-list-item
+                *ngIf="(isDoctor$ | async)"
+                routerLink="/past-visits"
+                routerLinkActive="active"
+            >
+                <span class="link-text">Past visits</span>
             </a>
             <a
                 mat-list-item
