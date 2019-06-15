@@ -68,8 +68,12 @@ export class PastLabExamsComponent implements OnInit {
         return this._labExaminations.filter(
             (labExamination: LaboratoryExamination) =>
                 (this.filterStatus === 'ALL' || labExamination.status === this.filterStatus) &&
-                labExamination.visit.patient.name.toLowerCase().includes(this.filterName) &&
-                labExamination.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+                labExamination.visit.patient.name
+                    .toLowerCase()
+                    .includes(this.filterName.toLowerCase()) &&
+                labExamination.visit.patient.surname
+                    .toLowerCase()
+                    .includes(this.filterSurname.toLowerCase())
         );
     }
 

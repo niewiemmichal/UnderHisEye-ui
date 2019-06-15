@@ -97,6 +97,12 @@ export class AllLabExamsComponent implements OnInit {
             case 'SUPERVISOR':
                 this.columns.push(
                     {
+                        columnDef: 'patient',
+                        header: 'Patient',
+                        cell: (exam: LaboratoryExamination) =>
+                            `${exam.visit.patient.name} ${exam.visit.patient.surname}`,
+                    },
+                    {
                         columnDef: 'exam',
                         header: 'Examination',
                         cell: (exam: LaboratoryExamination) =>
@@ -131,8 +137,12 @@ export class AllLabExamsComponent implements OnInit {
     ): void {
         this.examFilters.push(
             (labExamination: LaboratoryExamination) =>
-                labExamination.visit.patient.name.toLowerCase().includes(this.filterName) &&
-                labExamination.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+                labExamination.visit.patient.name
+                    .toLowerCase()
+                    .includes(this.filterName.toLowerCase()) &&
+                labExamination.visit.patient.surname
+                    .toLowerCase()
+                    .includes(this.filterSurname.toLowerCase())
         );
         switch (role) {
             case 'ASSISTANT':
