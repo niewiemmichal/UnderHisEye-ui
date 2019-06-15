@@ -74,8 +74,8 @@ export class PastDoctorsVisitsComponent implements OnInit {
         return this._visits.filter(
             (visit: VisitWithExaminationsDto) =>
                 (this.filterStatus === 'ALL' || visit.visit.status === this.filterStatus) &&
-                visit.visit.patient.name.toLowerCase().includes(this.filterName) &&
-                visit.visit.patient.surname.toLowerCase().includes(this.filterSurname)
+                visit.visit.patient.name.toLowerCase().includes(this.filterName.toLowerCase()) &&
+                visit.visit.patient.surname.toLowerCase().includes(this.filterSurname.toLowerCase())
         );
     }
 
