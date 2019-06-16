@@ -3,7 +3,7 @@ import { UsersService } from 'src/app/api/services';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/api/models';
 import { tap, map, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { BetterUserService } from '../better-user/better-user.service';
 import { BetterUser } from '../better-user/better-user';
 import { RedirectionService } from '../redirection/redirection.service';
@@ -16,7 +16,9 @@ export class LoginService {
     private readonly _usernameCookie: string = 'username';
     private _currentUsername: string;
     private _currentUser: Observable<User>;
+    private _currentUserSubject: ReplaySubject<User>;
     private _currentBetterUser: Observable<BetterUser>;
+    private _currentBetterUserSubject: ReplaySubject<BetterUser>;
 
     constructor(
         private usersService: UsersService,
@@ -25,8 +27,10 @@ export class LoginService {
         private redirectionService: RedirectionService
     ) {
         this._currentUsername = this.cookieService.get(this._usernameCookie);
-        this._currentUser = this.getCurrentUser(this._currentUsername);
-        this._currentBetterUser = this.getCurrentBetterUser();
+        if(this._currentUsername.length > 0) {
+            this._currentUser = this.getCurrentUser(this._currentUsername);
+            this._currentBetterUser = this.getCurrentBetterUser();
+        }
     }
 
     get currentUser(): Observable<BetterUser> {
@@ -34,15 +38,24 @@ export class LoginService {
     }
 
     private getCurrentUser(username: string): Observable<User> {
-        return this.usersService
+        this._currentUserSubject = new ReplaySubject<BetterUser>(1); 
+        this.usersService
             .getUserDetailsUsingGET(username)
-            .pipe(tap((x: User) => x, err => this.deleteCookies()));
+            .pipe(tap((x: User) => x, err => this.deleteCookies()))
+            .subscribe(u => this._currentUserSubject.next(u), 
+                e => this._currentUserSubject.error(e), 
+                () => this._currentUserSubject.complete());
+        return this._currentUserSubject.asObservable();
     }
 
     private getCurrentBetterUser(): Observable<BetterUser> {
-        return this._currentUser.pipe(
+        this._currentBetterUserSubject = new ReplaySubject<BetterUser>(1); 
+        this._currentUser.pipe(
             switchMap((user: User) => this.betterUserService.getCurrentUser(user))
-        );
+        ).subscribe(bu => this._currentBetterUserSubject.next(bu),
+            e => this._currentBetterUserSubject.error(e),
+            () => this._currentBetterUserSubject.complete());
+        return this._currentBetterUserSubject.asObservable();
     }
 
     private deleteCookies(): void {
