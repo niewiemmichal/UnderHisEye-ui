@@ -33,7 +33,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
         { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
         CookieService,
         ApiInterceptor,
-        API_INTERCEPTOR_PROVIDER,
+        API_INTERCEPTOR_PROVIDER
     ],
     bootstrap: [AppComponent],
 })
